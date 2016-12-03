@@ -6,59 +6,44 @@
 
     {% block stylesheets %}
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
-        <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
-
     {% endblock %}
-
 </head>
+
 <body>
+    <div class="container">
+        <header>
+           {% block navigation %}
+               <ul class="nav nav-pills">
+                        <li role="presentation" class="active"><a href="{{ path('home') }}">Home</a></li>
+                        <li role="presentation"><a href="{{ path('about') }}">About</a></li>
+                        <li role="presentation"><a href="{{ path('contact') }}">Contact</a></li>
+               </ul>
 
-<div class="container">
-<header>
+           {% endblock %}
 
-               {% block navigation %}
+           <div class="panel panel-info">
+               <div class="panel-heading"><h2>{% block blog_title %}<a href="{{ path('home') }}">My some Blog</a>{% endblock %}</h2></div>
+               <div class="panel-body"><h4>{% block blog_tagline %}Hometask for GeekHub by Kobilianskiy A.</a>{% endblock %}</h4></div>
+            </div>
+        </header>
 
+        <div class="row">
+            <div class="col-lg-9">
+                {% block body %}{% endblock %}
+            </div>
 
-                    <ul class="nav nav-pills">
-                        <li role="presentation" class="active"><a href="#">Home</a></li>
-                        <li role="presentation"><a href="#">About</a></li>
-                        <li role="presentation"><a href="#">Contact</a></li>
-                    </ul>
-
-            {% endblock %}
-
-
-       <div class="panel panel-info">
-            <div class="panel-heading"><h2>{% block blog_title %}<a href="#">My some Blog</a>{% endblock %}</h2></div>
-
-            <div class="panel-body"><h3>{% block blog_tagline %}<a href="#">Hometask for GeekHub by Kobilianskiy A.</a>{% endblock %}</h3></div>
+            <div class="col-lg-3">
+               {% block sidebar %}{% endblock %}
+            </div>
         </div>
-</header>
-
-
-
-
-<div class="row">
-    <div class="col-lg-10">
-        {% block body %}{% endblock %}
     </div>
 
-    <div class="col-lg-2">
-       {% block sidebar %}{% endblock %}
-    </div>
-</div>
-    </div>
-
-
-
-    <div class="panel-default">
-        <div class="panel-footer">
+    <div class="panel-footer">
         {% block footer %}
             created by Alex Kobilianskiy
         {% endblock %}
-            </div>
     </div>
-    </div>
+
 
 
 {% block javascripts %}{% endblock %}
