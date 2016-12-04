@@ -22,12 +22,11 @@ class PostController extends Controller
     {
         $entity = new PostEntity();
         $posts = $entity->getPosts();
-        $entityCategories = new CategoryEntity();
-        $categories = $entityCategories->getCategories();
         return array(
             'title' => 'My am4zing bl0g',
             'posts' => $posts,
-            'categories' => $categories,
+            'categories' => CategoryEntity::getCategories(),
+            'page' => 'home',
         );
     }
 
@@ -42,34 +41,32 @@ class PostController extends Controller
     {
         $object = new PostEntity();
         $post = $object->getPost($request->get('id'));
-        $entityCategories = new CategoryEntity();
-        $categories = $entityCategories->getCategories();
         if(!$post) {
             throw $this->createNotFoundException('Post #' . $request->get('id') . ' not found');
         }
         return array(
             'post' => $post,
-            'categories' => $categories,
+            'categories' => CategoryEntity::getCategories(),
+            'status' => $request->get('status'),
         );
     }
 
     /**
      * Matches /post/*
      * @Template()
-     * @Route("/post/create", name="post_create")
-     * @Method({"GET", "POST"})
+     * @Route("/post/create", name="post_create", requirements={"id": "\d+"})
+     * @Method({"GET", "PUT"})
      */
     public function createAction (Request $request)
     {
-        $entityCategories = new CategoryEntity();
-        $categories = $entityCategories->getCategories();
         if ($request->get('title') && $request->get('text')) {
-            return $this->render('@Blog/Post/success.html.twig',
-                array('categories' => $categories,
-                    'status' => 'create'));
+            return new Response($this->redirectToRoute('post_show', array(
+                'status' => 'created',
+                'id' => rand(1, 5),
+            ), 301));
         }
         return array(
-            'categories' => $categories,
+            'categories' => CategoryEntity::getCategories(),
             'status' => 'create',
         );
     }
@@ -78,38 +75,42 @@ class PostController extends Controller
      * Matches /post/*
      *
      * @Route("/post/{id}/edit", name="post_edit", requirements={"id": "\d+"})
-     * @Method({"GET", "POST"})
+     * @Method({"GET", "PATCH"})
      */
     public function editAction (Request $request)
     {
-        $entityCategories = new CategoryEntity();
-        $categories = $entityCategories->getCategories();
-        $id = $request->get('id');
         if ($request->get('title') && $request->get('text')) {
-            return new Response($this->render('@Blog/Post/success.html.twig', array(
-                'categories' => $categories,
+            return new Response($this->redirectToRoute('post_show' ,array(
                 'status' => 'edited',
-        )));
+                'id' => $request->get('id'),
+        ), 301));
         }
         return new Response($this->render('@Blog/Post/create.html.twig', array(
-            'categories' => $categories,
+            'categories' => CategoryEntity::getCategories(),
             'status' => 'edit',
-            'id' => $randomId,
+            'id' => rand(1, 5),
         )));
     }
 
     /**
      * Matches /post/*
      *
-     * @Route("/post/{id}/remove", name="post_delete", requirements={"id": "\d+"})
+     * @Route("/post/{id}/delete", name="post_delete", requirements={"id": "\d+"})
+     * @Method({"GET","DELETE"})
+     * @Template()
      */
     public function removeAction (Request $request)
     {
-        if ($request->getMethod() == 'DELETE') {
-            return new JsonResponse(array(
-                'msg' => 'Deleted post #' . $request->get('id'),
-            ));
+        if ($request->get('id') && $request->get('idpost')) {
+            return array(
+                'status' => 'deleted',
+                'categories' => CategoryEntity::getCategories()
+            );
         }
-        return new JsonResponse();
+        return array(
+            'status' => 'delete',
+            'categories' => CategoryEntity::getCategories(),
+            'idpost' => $request->get('id'),
+        );
     }
 }
