@@ -15,7 +15,7 @@ class PostController extends Controller
      *
      * @return string Display page with posts list
      *
-     * @Route("/", name="postList")
+     * @Route("/", name="postsList")
      * @Method({"GET"})
      */
     public function listAction()

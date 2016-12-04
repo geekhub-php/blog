@@ -1,0 +1,21 @@
+#header {
+    height: 100px;
+    background-color: #222222;
+    color: #E0E0E0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    padding: 10px 30px;
+}
+
+#footer {
+    height: 50px;
+    background-color: #222222;
+    color: #E0E0E0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 15px 30px;
+}
+
+#copyright {
+    text-align: center;
+}

@@ -1,5 +1,16 @@
 {% block header %}
     <div class="row">
-        <div class="col-xs-12 col-md-12">Live Blog</div>
+        <div class="col-xs-12 col-md-12">
+            <h1>Code Box</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="{{ path('postsList') }}">Главная</a></li>
+                <li><a href="{{ path('postsList') }}">Статьи</a></li>
+                <li><a href="{{ path('postsList') }}">Примеры</a></li>
+            </ul>
+        </div>
     </div>
 {% endblock header %}
