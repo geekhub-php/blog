@@ -98,7 +98,6 @@ class MethodModel
             if ($record['id'] == $id){
                 foreach ($input as $key => $value) {
                     $record[$key] = $input[$key];
-                    var_dump($record);
                 }
             $records[$i] = $record;
             $records = json_encode($records);
