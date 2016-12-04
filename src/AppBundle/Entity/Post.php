@@ -102,7 +102,7 @@ class Post
      *
      * @return \DateTime
      */
-    public function getpostedOnDate()
+    public function getPostedOnDate()
     {
         return $this->postedOnDate;
     }
