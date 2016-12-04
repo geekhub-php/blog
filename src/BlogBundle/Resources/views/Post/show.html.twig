@@ -1,0 +1,81 @@
+{% extends 'BlogBundle::base.html.twig' %}
+
+{% block title %}{{ post.title }} {% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid mainWrapper">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 myClass">
+                <h1>Ugly Blog</h1>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a></li>
+                                <li><a href="#">Test</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="/post/create">Add post</a></li>
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">CategoryName</a></li>
+                    <li class="active">{{ post.title }}</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                                <div class="row">
+                                    {% if status == 'edited' %}
+                                    <div class="alert alert-success alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>Success!</strong> Your post was edited!
+                                    </div>
+                                    {% elseif status == 'created' %}
+                                    <div class="alert alert-success alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>Success!</strong> Your post was created!
+                                    </div>
+                                    {% endif %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panelHeading">
+                                            <h3 class="panel-title">{{  post.title }}</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            {{ post.text }}
+                                        </div>
+                                        <div class="panel-footer">
+                                         Posted: {{ post.datetime }}
+                                            <span style="float: right">
+                                                <a href="/post/{{ post.id }}/edit">Edit</a> |
+                                                <a href="/post/{{ post.id }}/delete"  >Delete</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        {{ include('BlogBundle::sidebar.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
