@@ -29,7 +29,7 @@ class Blog
         return $this->id;
     }
 
-    public function Settitle($title)
+    public function SetTitle($title)
     {
         $this->title = $title;
 
@@ -39,6 +39,18 @@ class Blog
     public function getTitle()
     {
         return $this->title;
+    }
+
+    public function SetBlog($blog)
+    {
+        $this->blog = $blog;
+
+        return $this;
+    }
+
+    public function getblog()
+    {
+
     }
 
 

@@ -18,7 +18,25 @@ class PageController extends Controller
 
     public function indexAction()
     {
-        return $this->render('BlogBundle:Page:index.html.twig');
+        $path = $this->get('kernel')->getRootDir();
+        $blogs = json_decode(file_get_contents($path . '/Resources/posts.json'));
+
+foreach ($blogs as $oneblog) {
+
+    $oneblog = (array) $oneblog;
+    $overview = substr($oneblog['blog'], 0, 200);
+    $oneblog['overview'] = $overview;
+    $oneblog = (object)$oneblog;
+    $ready_blogs[]=$oneblog;
+
+    }
+
+
+
+
+        return $this->render('BlogBundle:Page:index.html.twig', array(
+            'blogs' => $ready_blogs,
+        ));
     }
 
     /**

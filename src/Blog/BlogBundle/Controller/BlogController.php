@@ -17,14 +17,17 @@ Class BlogController extends Controller
     {
         $path = $this->get('kernel')->getRootDir();
         $blog = json_decode(file_get_contents($path . '/Resources/posts.json'));
-//var_dump($blog[$id]); die("sorry");
-        if (!$blog[$id]) {
-            throw $this->createNotFoundException('Unable to find Blog post');
+
+        if (isset($blog[$id])) {
+            return $this->render('BlogBundle:Blog:show.html.twig', array(
+                'blog' => $blog[$id],
+            ));
         }
 
-        return $this->render('BlogBundle:Blog:show.html.twig', array(
-            'blog' => $blog[$id],
-        ));
+        throw $this->createNotFoundException('Unable to find Blog post');
+
+
+
     }
 
 }
