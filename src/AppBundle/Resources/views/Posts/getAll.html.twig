@@ -1,0 +1,22 @@
+{% extends 'body.html.twig' %}
+
+{% block leftside %}
+    <div class="col-md-8">
+        {% for post in posts %}
+            <h2>
+                <a href="{{ path('post_detail', {'id': post.id}) }}">{{ post.title }}</a>
+            </h2>
+            <p class="lead">
+                by {{ post.author }}
+            </p>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.postedOnDate|date("F jS Y") }}</p>
+
+            <p>{{ post.text }}</p>
+            <a class="btn btn-primary" href="{{ path('post_detail', {'id': post.id}) }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+            <hr>
+        {% endfor %}
+    </div>
+
+
+{% endblock leftside %}
