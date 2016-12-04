@@ -1,0 +1,72 @@
+body{
+background-color: gainsboro;
+}
+#idMenuLu{
+    margin:0px 90px 10px 30px;
+    font-size: 100%;
+//    border: 1px solid green;
+
+}
+.MenuLi{
+    font-size: 130%;
+
+}
+
+
+.searchMenu{
+ padding-left: 520px;
+
+}
+
+#idMainDiv{
+margin-top: 60px;
+}
+.categories-and-top-block{
+    //height:150px;
+
+}
+
+.spanMenyLeft{
+ margin-left:45px;
+ font-size:100% ;
+}
+.spanMeny{
+    margin-left:0px;
+    font-size:100% ;
+}
+#idCategories{
+ margin:0px 10px 10px 45px;
+ padding: 5px;
+ border-radius: 5px;
+    background-color: white;
+}
+
+#idTopPost{
+
+    margin:0px 10px 10px 45px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.last-post-block{
+    //height:500px;
+
+    border-radius: 5px;
+}
+
+.lastPost-mini-block{
+    //border: 1px solid green;
+    margin-right: 100px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+.footer{
+margin:10px 85px 0px 45px;
+color: white;
+padding: 10px 10px 10px 330px;
+background-color: grey;
+font-size: 90%;
+}

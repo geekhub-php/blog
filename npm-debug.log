@@ -1,0 +1,65 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', '–global', 'less' ]
+2 info using npm@3.5.2
+3 info using node@v4.2.6
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData –global
+8 silly fetchPackageMetaData less
+9 silly fetchOtherPackageData –global
+10 silly cache add args [ '–global', null ]
+11 verbose cache add spec –global
+12 silly fetchNamedPackageData less
+13 silly mapToRegistry name less
+14 silly mapToRegistry using default registry
+15 silly mapToRegistry registry https://registry.npmjs.org/
+16 silly mapToRegistry uri https://registry.npmjs.org/less
+17 silly cache add parsed spec Result {
+17 silly cache add   raw: '–global',
+17 silly cache add   scope: null,
+17 silly cache add   name: null,
+17 silly cache add   rawSpec: '–global',
+17 silly cache add   spec: '/var/www/less8-fork/blog/–global',
+17 silly cache add   type: 'local' }
+18 error addLocal Could not install /var/www/less8-fork/blog/–global
+19 silly fetchPackageMetaData Error: ENOENT: no such file or directory, open '/var/www/less8-fork/blog/–global'
+19 silly fetchPackageMetaData     at Error (native)
+19 silly fetchPackageMetaData  error for –global { [Error: ENOENT: no such file or directory, open '/var/www/less8-fork/blog/–global']
+19 silly fetchPackageMetaData   errno: -2,
+19 silly fetchPackageMetaData   code: 'ENOENT',
+19 silly fetchPackageMetaData   syscall: 'open',
+19 silly fetchPackageMetaData   path: '/var/www/less8-fork/blog/–global' }
+20 verbose request uri https://registry.npmjs.org/less
+21 verbose request no auth needed
+22 info attempt registry request try #1 at 21:50:21
+23 verbose request id fc2c1da3dc6dae73
+24 verbose etag W/"58408a04-1da8e"
+25 verbose lastModified Thu, 01 Dec 2016 20:37:24 GMT
+26 http request GET https://registry.npmjs.org/less
+27 http 400 https://registry.npmjs.org/less
+28 verbose headers {}
+29 silly get cb [ 304, undefined ]
+30 verbose etag https://registry.npmjs.org/less from cache
+31 verbose get saving less to /home/nima/.npm/registry.npmjs.org/less/.cache.json
+32 silly rollbackFailedOptional Starting
+33 silly rollbackFailedOptional Finishing
+34 silly runTopLevelLifecycles Starting
+35 silly runTopLevelLifecycles Finishing
+36 silly install printInstalled
+37 verbose stack Error: ENOENT: no such file or directory, open '/var/www/less8-fork/blog/–global'
+37 verbose stack     at Error (native)
+38 verbose cwd /var/www/less8-fork/blog
+39 error Linux 4.4.0-51-generic
+40 error argv "/usr/bin/nodejs" "/usr/bin/npm" "install" "–global" "less"
+41 error node v4.2.6
+42 error npm  v3.5.2
+43 error path /var/www/less8-fork/blog/–global
+44 error code ENOENT
+45 error errno -2
+46 error syscall open
+47 error enoent ENOENT: no such file or directory, open '/var/www/less8-fork/blog/–global'
+48 error enoent ENOENT: no such file or directory, open '/var/www/less8-fork/blog/–global'
+48 error enoent This is most likely not a problem with npm itself
+48 error enoent and is related to npm not being able to find a file.
+49 verbose exit [ -2, true ]

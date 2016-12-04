@@ -1,1 +1,30 @@
-Hello friends!
+{% block header %}
+{% include 'NimaBlogBundle:Default:head.html.twig'%}
+{% endblock%}
+{% block startMainDiv %}
+<div class="row"  id="idMainDiv">
+    <div class="row"  >
+{% endblock%}
+{% block left %}
+        {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
+{% endblock%}
+
+{% block right %}
+    <div class="col-md-9 last-post-block" >
+        <span class="label label-default spanMeny">last posts:</span>
+        {% for key in data %}
+            <div class="lastPost-mini-block">
+                {{ key["title"] }}
+                <br>
+                {{ key["annotations"] }}
+               <br>
+                <a href="{{ path('postPage')}}">show this post detals</a>
+          </div>
+        {% endfor %}
+
+    </div>
+    </div>
+    {% endblock %}
+{% block footer %}
+    {% include 'NimaBlogBundle:Default:footer.html.twig'%}
+{% endblock%}

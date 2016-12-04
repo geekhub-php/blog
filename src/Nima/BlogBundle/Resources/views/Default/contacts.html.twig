@@ -1,0 +1,15 @@
+{% extends 'NimaBlogBundle:Default:mostRead.html.twig' %}
+{% block startMainDiv %}
+    {% use 'NimaBlogBundle:Default:baseOneMainDiv.html.twig' %}
+    {{ parent() }}
+
+{% endblock%}
+{% block left %}
+{% endblock%}
+
+{% block right %}
+{% endblock %}
+
+    {% block footer %}
+    {% include 'NimaBlogBundle:Default:footer.html.twig'%}
+{% endblock%}
