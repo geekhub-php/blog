@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Blog:create{% endblock %}
+
+{% block body %}
+<h1>Create new Post</h1>
+<form action="{{ path('storePost') }}" method="POST">
+    <label>Post ID:</label>
+    <input type="text" name="id" value=""><br>
+    <label>Post Title:</label>
+    <input type="text" name="title" value=""><br>
+    <label>Post Text:</label>
+    <input type="text" name="content" value=""><br>
+    <input type="submit" name="save_post" value="Save">
+    <a href="{{ path('postList') }}">Cancel</a>
+</form>
+{% endblock %}
