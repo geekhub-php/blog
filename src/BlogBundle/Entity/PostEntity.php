@@ -9,13 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class PostEntity {
-
-
-    public function __construct()
-    {
-    }
-
+class PostEntity
+{
     public function getPosts()
     {
         $faker = \Faker\Factory::create();
@@ -33,11 +28,11 @@ class PostEntity {
         if ($id > 10 || $id < 1) {
             return false;
         }
-            $faker = \Faker\Factory::create();
-            $post['id'] = $id;
-            $post['title'] = $faker->text(6);
-            $post['text'] = $faker->text(200);
-            $post['datetime'] = $faker->date() . ' ' . $faker->time();
-            return $post;
+        $faker = \Faker\Factory::create();
+        $post['id'] = $id;
+        $post['title'] = $faker->text(6);
+        $post['text'] = $faker->text(200);
+        $post['datetime'] = $faker->date() . ' ' . $faker->time();
+        return $post;
     }
 }

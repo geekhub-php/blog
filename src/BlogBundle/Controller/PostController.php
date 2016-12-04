@@ -41,7 +41,7 @@ class PostController extends Controller
     {
         $object = new PostEntity();
         $post = $object->getPost($request->get('id'));
-        if(!$post) {
+        if (!$post) {
             throw $this->createNotFoundException('Post #' . $request->get('id') . ' not found');
         }
         return array(
@@ -57,7 +57,7 @@ class PostController extends Controller
      * @Route("/post/create", name="post_create", requirements={"id": "\d+"})
      * @Method({"GET", "PUT"})
      */
-    public function createAction (Request $request)
+    public function createAction(Request $request)
     {
         if ($request->get('title') && $request->get('text')) {
             return new Response($this->redirectToRoute('post_show', array(
@@ -77,10 +77,10 @@ class PostController extends Controller
      * @Route("/post/{id}/edit", name="post_edit", requirements={"id": "\d+"})
      * @Method({"GET", "PATCH"})
      */
-    public function editAction (Request $request)
+    public function editAction(Request $request)
     {
         if ($request->get('title') && $request->get('text')) {
-            return new Response($this->redirectToRoute('post_show' ,array(
+            return new Response($this->redirectToRoute('post_show', array(
                 'status' => 'edited',
                 'id' => $request->get('id'),
         ), 301));
@@ -99,7 +99,7 @@ class PostController extends Controller
      * @Method({"GET","DELETE"})
      * @Template()
      */
-    public function removeAction (Request $request)
+    public function removeAction(Request $request)
     {
         if ($request->get('id') && $request->get('idpost')) {
             return array(

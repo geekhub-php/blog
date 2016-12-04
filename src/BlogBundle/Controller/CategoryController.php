@@ -31,6 +31,4 @@ class CategoryController extends Controller
             'page' => 'category',
         ));
     }
-
-
 }

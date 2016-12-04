@@ -4,7 +4,7 @@ namespace BlogBundle\Entity;
 
 class CategoryEntity
 {
-    static public function getCategories()
+    public static function getCategories()
     {
         $faker = \Faker\Factory::create();
 
