@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Blog:edit{% endblock %}
+
+{% block body %}
+    <h1>Edit Post</h1>
+    <form action="{{ path('postUpdate') }}" method="POST">
+        <label>Post ID:</label>
+        <input type="text" name="id" value="{{ post.id }}"><br>
+        <label>Post Title:</label>
+        <input type="text" name="title" value="{{ post.title }}"><br>
+        <label>Post Text:</label>
+        <input type="text" name="content" value="{{ post.content }}"><br>
+        <input type="submit" name="save_post" value="Update">
+        <a href="{{ path('postList') }}">Cancel</a>
+    </form>
+{% endblock %}

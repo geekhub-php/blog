@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Blog:edit{% endblock %}
+
+{% block body %}
+    <h1>Delete Post</h1>
+    <form action="{{ path('postRemove') }}" method="POST">
+        <label>Delete post?</label>
+        <input type="hidden" name="id" value="{{ id }}"><br>
+        <input type="submit" name="delete_post" value="Yes">
+        <a href="{{ path('postList') }}">Cancel</a>
+    </form>
+{% endblock %}
