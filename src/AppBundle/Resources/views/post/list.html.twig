@@ -1,0 +1,5 @@
+{% for post in posts %}
+    {% if loop.index > 1 %}
+        <li><a href="{{ path('post_show', {'id': post.id}) }}">{{ post.title }}</a></li>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,6 @@
+/* Main styles */
+
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+}
