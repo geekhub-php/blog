@@ -1,0 +1,27 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block main %}
+    <section class="all-posts">
+        <div class="container">
+            <h2>Posts</h2>
+            <a href="{{ path('post_new') }}">Add new post</a>
+            <div class="posts row">
+                {% for post in posts %}
+                    {% if loop.index > 1 %}
+                        <div class="col-sm-4">
+                            <article class="post">
+                                <h3>{{ post.title }}</h3>
+                                <div class="post__content-excerpt">{{ post.content }}</div>
+                                <nav class="post__nav">
+                                    <a class="btn btn-primary" href="{{ path('post_show', {'id': post.id}) }}">Read more</a>
+                                    <a class="btn btn-default" href="{{ path('post_edit', {'id': post.id}) }}">Edit</a>
+                                    <a class="btn btn-danger" href="{{ path('post_delete', {'id': post.id}) }}">Delete</a>
+                                </nav>
+                            </article>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
