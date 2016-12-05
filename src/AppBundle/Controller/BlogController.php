@@ -15,7 +15,7 @@ class BlogController extends Controller
      * @Route("/article", name="article")
      * @Template()
      */
-    public function articleAction()
+    public function indexAction()
     {
         $faker = Faker\Factory::create('ru_RU');
         $Article = [];
