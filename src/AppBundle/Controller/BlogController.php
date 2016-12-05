@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Model\MethodModel;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -10,15 +11,16 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class MethodController extends Controller
+class BlogController extends Controller
 {
 
     /**
      * @Route("/", name="homepage")
      */
+
     public function indexAction()
     {
-        return $this->render('default/index.html.twig', [
+        return $this->render('blog/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
         ]);
     }
@@ -26,6 +28,7 @@ class MethodController extends Controller
     /**
      * @Route("/post/add", name="post")
      * @Method({"POST"})
+     * @Template()
      */
     public function postAction()
     {
@@ -34,7 +37,7 @@ class MethodController extends Controller
             $data = $model->createRecord($_POST);
         }
 
-        return new JsonResponse($data);
+        return array('data' => $data);
     }
 
 
