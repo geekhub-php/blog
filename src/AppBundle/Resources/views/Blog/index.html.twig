@@ -1,0 +1,25 @@
+{% extends 'AppBundle:Blog:layout.html.twig' %}
+
+{% block main %}
+
+    {% for post in Article %}
+        <div class="col-lg-6">
+
+            <h2>
+                {{ loop.index }}.
+                {{ post.title }}
+            </h2>
+            <h3>
+                {{ post.article }}
+            </h3>
+            <div class="col-lg-6">
+                <img src="{{ post.img }}" style="width: 150%;">
+                <h3>
+                    {{ post.date }} {{ post.time }}
+                </h3>
+            </div>
+
+        </div>
+    {% endfor %}
+
+{% endblock %}
