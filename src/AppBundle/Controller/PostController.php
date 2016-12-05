@@ -28,6 +28,33 @@ class PostController extends Controller
     }
 
     /**
+     * Display single post by ID
+     *
+     * @param int $id Post ID
+     * @return string|Exception Page code
+     *
+     * @Route("/post/view/{id}", name="postView",
+     *     requirements = {
+     *         "id": "\d+"
+     *     }
+     * )
+     * @Method({"GET"})
+     */
+    public function viewAction($id)
+    {
+        $posts = DataRepository::readData();
+
+        foreach ($posts as $post) {
+            if ($post->id == $id) {
+                return $this->render('AppBundle:Post:view.html.twig', array(
+                    'post' => $post
+                ));
+            }
+        }
+        throw $this->createNotFoundException('The post does not exist!');
+    }
+
+    /**
      * Display form for new post creation
      *
      * @return string Generate page for new post creation

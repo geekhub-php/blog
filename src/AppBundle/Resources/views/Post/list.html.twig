@@ -4,24 +4,20 @@
 
 {% block content %}
     <h3>Posts</h3>
-    <a href="{{ path('createPost') }}">Add new post</a>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Text</th>
-        </tr>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.title }}</td>
-                <td>{{ post.content }}</td>
-                <td><a href="{{ path('postEdit', {'id': post.id}) }}">Edit</a></td>
-                <td><a href="{{ path('postDelete', {'id': post.id}) }}">Delete</a></td>
-            </tr>
-        {% endfor %}
-    </table>
+    <hr>
+    {% for post in posts %}
+        <div><h4><a href="{{ path('postView', {'id': post.id}) }}">{{ post.title }}</a></h4></div>
+        <div>{{ post.content }}</div>
+        <div class="post-controls-container">
+            <a href="{{ path('postEdit', {'id': post.id}) }}">Edit</a>&nbsp;
+            <a href="{{ path('postDelete', {'id': post.id}) }}">Delete</a>
+        </div>
+    {% endfor %}
 {% endblock content %}
+
 {% block sideContent %}
-    <h5>Hi!</h5>
+    <h3>Popular</h3>
+    <hr>
+    Cras eu ullamcorper eros, eget bibendum arcu.<br><br>
+    Fusce semper eros libero, sit amet placerat risus maximus mattis.<br><br>
 {% endblock sideContent %}

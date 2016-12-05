@@ -1,17 +1,17 @@
-{% extends "::base.html.twig" %}
+{% extends "AppBundle:layouts:column-one.html.twig" %}
 
 {% block title %}AppBundle:Blog:create{% endblock %}
 
-{% block body %}
-<h1>Create new Post</h1>
-<form action="{{ path('storePost') }}" method="POST">
-    <label>Post ID:</label>
-    <input type="text" name="id" value=""><br>
-    <label>Post Title:</label>
-    <input type="text" name="title" value=""><br>
-    <label>Post Text:</label>
-    <input type="text" name="content" value=""><br>
-    <input type="submit" name="save_post" value="Save">
-    <a href="{{ path('postsList') }}">Cancel</a>
-</form>
-{% endblock %}
+{% block content %}
+    <h3>Create new Post</h3>
+    <form action="{{ path('storePost') }}" method="POST">
+        <label>Post ID:</label>
+        <input type="text" name="id" value=""><br>
+        <label>Post Title:</label>
+        <input type="text" name="title" value=""><br>
+        <label>Post Text:</label><br>
+        <textarea cols="28" rows="7" name="content"></textarea><br>
+        <input type="submit" name="save_post" value="Save">
+        <a href="{{ path('postsList') }}">Cancel</a>
+    </form>
+{% endblock content %}

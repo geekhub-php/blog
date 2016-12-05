@@ -22,13 +22,16 @@
 <body>
     <div class="container">
         <header id="header">
-            {% include "::header.html.twig" %}
+            {{ include("::header.html.twig") }}
         </header>
+        <nav>
+            {{ include("::menu.html.twig") }}
+        </nav>
         <section>
-            {% block body %}{% endblock %}
+            {% block body %}{% endblock body %}
         </section>
         <footer id="footer">
-            {% include "::footer.html.twig" %}
+            {{ include("::footer.html.twig") }}
         </footer>
     </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
