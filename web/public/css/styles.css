@@ -7,6 +7,14 @@
     padding: 10px 30px;
 }
 
+#content-block {
+    background-color: #e5e5e5;
+}
+
+#side-block {
+    background-color: #c3e3b5;
+}
+
 #footer {
     height: 50px;
     background-color: #222222;
