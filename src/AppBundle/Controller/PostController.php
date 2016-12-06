@@ -195,7 +195,7 @@ class PostController extends Controller
             }
 
             DataRepository::writeData($posts);
-            return $this->redirectToRoute('postList');
+            return $this->redirectToRoute('postsList');
         }
         throw $this->createNotFoundException('Post does not found!');
     }
