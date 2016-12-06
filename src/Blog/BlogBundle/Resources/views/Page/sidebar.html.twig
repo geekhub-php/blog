@@ -1,0 +1,11 @@
+<section class="section">
+    <header>
+        <h4>Articles list</h4>
+    </header>
+
+    {% for blog in blogs %}
+        <a href="{{ path('showblog', { 'id': blog.id }) }}">{{ blog.title }}</a><br />
+    {% else %}
+        <p>There are no articles</p>
+    {% endfor %}
+</section>

@@ -6,9 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-Class BlogController extends Controller
+class BlogController extends Controller
 {
     /**
+     *
+     * Display single blog article by id
+     *
+     * @param int $id Blog article id
+     * @return string|Exception Page code
+     *
      * @Route ("/{id}", name="showblog", requirements={"id":"\d+"})
      * @Method ({"GET"})
      */
@@ -25,9 +31,5 @@ Class BlogController extends Controller
         }
 
         throw $this->createNotFoundException('Unable to find Blog post');
-
-
-
     }
-
 }

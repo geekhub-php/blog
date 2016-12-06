@@ -21,18 +21,13 @@ class PageController extends Controller
         $path = $this->get('kernel')->getRootDir();
         $blogs = json_decode(file_get_contents($path . '/Resources/posts.json'));
 
-foreach ($blogs as $oneblog) {
-
-    $oneblog = (array) $oneblog;
-    $overview = substr($oneblog['blog'], 0, 200);
-    $oneblog['overview'] = $overview;
-    $oneblog = (object)$oneblog;
-    $ready_blogs[]=$oneblog;
-
-    }
-
-
-
+        foreach ($blogs as $oneblog) {
+            $oneblog = (array) $oneblog;
+            $overview = substr($oneblog['blog'], 0, 200);
+            $oneblog['overview'] = $overview;
+            $oneblog = (object)$oneblog;
+            $ready_blogs[]=$oneblog;
+        }
 
         return $this->render('BlogBundle:Page:index.html.twig', array(
             'blogs' => $ready_blogs,
@@ -57,5 +52,15 @@ foreach ($blogs as $oneblog) {
     public function contactAction()
     {
         return $this->render('BlogBundle:Page:contact.html.twig');
+    }
+
+    public function sidebarAction()
+    {
+        $path = $this->get('kernel')->getRootDir();
+        $blogs = json_decode(file_get_contents($path . '/Resources/posts.json'));
+
+        return $this->render('BlogBundle:Page:sidebar.html.twig', array(
+            'blogs' => $blogs,
+        ));
     }
 }

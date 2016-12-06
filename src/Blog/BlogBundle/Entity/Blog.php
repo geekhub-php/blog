@@ -50,8 +50,5 @@ class Blog
 
     public function getblog()
     {
-
     }
-
-
 }
