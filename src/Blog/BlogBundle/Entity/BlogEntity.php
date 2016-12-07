@@ -2,7 +2,7 @@
 
 namespace Blog\BlogBundle\Entity;
 
-class Blog
+class BlogEntity
 {
     protected $id;
 
@@ -17,7 +17,7 @@ class Blog
     protected $created;
 
 
-    public function SetID($id)
+    public function setID($id)
     {
         $this->id = $id;
 
@@ -29,7 +29,7 @@ class Blog
         return $this->id;
     }
 
-    public function SetTitle($title)
+    public function setTitle($title)
     {
         $this->title = $title;
 
@@ -41,7 +41,7 @@ class Blog
         return $this->title;
     }
 
-    public function SetBlog($blog)
+    public function setBlog($blog)
     {
         $this->blog = $blog;
 

@@ -16,4 +16,5 @@
 /web/bundles/
 .idea/
 .php_cs.cache
+parameters.yml
 
