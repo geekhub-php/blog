@@ -40,8 +40,7 @@ class ModelNima
                 'annotations' => "Crowdsourcing, fundraising campaign education; The Elders achieve solution informal economies health. Inspiration, Bloomberg Millennium Development Goals, affiliate cornerstone social good. Natural resources combat malaria community health workers human-centered design democratizing the global financial system employment compassion women's rights raise awareness. Meaningful work dialogue economic security medical supplies implementation empower.",
                 'date_post' => '1.12.2016', ), );
 
-
-       return $resultPostsrevue;
+        return $resultPostsrevue;
     }
 
     /**
@@ -54,29 +53,27 @@ class ModelNima
         $resultCategories = array(
             array(
                 'name' => 'society',
-                'countPosts' => '10',),
+                'countPosts' => '10', ),
             array(
                 'name' => 'psychology',
-                'countPosts' => '12',),
+                'countPosts' => '12', ),
             array(
                 'name' => 'culture',
-                'countPosts' => '5',),
+                'countPosts' => '5', ),
             array(
                 'name' => 'sport',
-                'countPosts' => '20',),
+                'countPosts' => '20', ),
             array(
                 'name' => 'politics',
-                'countPosts' => '16',),
+                'countPosts' => '16', ),
             array(
                 'name' => 'economics',
-                'countPosts' => '7',),
+                'countPosts' => '7', ),
             array(
                 'name' => 'study',
-                'countPosts' => '25',),);
+                'countPosts' => '25', ), );
 
-
-     return $resultCategories;
-
+        return $resultCategories;
     }
     /**
      * @param string $paramJson
@@ -90,6 +87,7 @@ class ModelNima
             'annotations' => 'Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor safeguards. Sustainability medicine, significant; protect, invest visionary Global South human rights. Improving quality, approach cross-cultural Medecins du Monde emergent reduce child mortality. International Gandhi affordable health care, liberal; developing, Action Against Hunger women and children humanitarian. Enable accelerate, inspire social change, gender equality momentum medical. ',
             'text_post' => "Peaceful plumpy'nut strengthen democracy, Aga Khan breakthrough insights. Innovation Medecins du Monde, micro-finance collaborative consumption think tank. Effectiveness resourceful public institutions solutions inspire breakthroughs; Ford Foundation democratizing the global financial system approach meaningful work. Economic development; lifting people up crisis management community diversity economic security. NGO raise awareness change movements; social, developing nations humanitarian relief challenges initiative courageous. Mobilize dignity, billionaire philanthropy nonviolent resistance Angelina Jolie accelerate progress. Combat malaria best practices cornerstone effect working families experience in the field legitimize dedicated. Liberal; overcome injustice safeguards hack, civil society celebrate. Deep engagement future humanitarian transform gun control theory of social change Jane Addams amplify nonprofit. Enable, results safety proper resources positive social change education human potential assessment expert. Jane Jacobs fighting poverty vaccines affiliate progressive. Improving quality fellows aid; gender equality social innovation maximize shifting landscape. Tackling human rights, beneficiaries equity board of directors. Assistance developing medical supplies worldwide, thinkers who make change happen tackle open source. Respond non-partisan disruptor momentum involvement pathway to a better life. Natural resources contribution local; research health. Frontline; insurmountable challenges; technology political, Rosa Parks Bloomberg underprivileged conflict resolution. United Nations pride social impact shift socio-economic divide. Kickstarter, action catalyst equal opportunity donate international development disruption minority. Eradicate, collaborative; cross-cultural medical organization; necessities working alongside human-centered design Cesar Chavez. Social good altruism evolution change lives youth educate. Impact; free expression; efficient, new approaches, partner, agriculture making progress affordable health care treatment. Medicine, global leaders, world problem solving gender freedom foster stakeholders. Advancement opportunity, advocate refugee; honor, public sector, human experience cooperation. Rural development social responsibility process smart cities, expanding community ownership accessibility informal economies prevention. Globalization, implementation poverty, citizenry provide solve, combat HIV/AIDS social analysis. Replicable Millennium Development Goals policy dialogue, volunteer public service truth development carbon emissions reductions. Sanitation Global South Bill and Melinda Gates sustainable transform the world free-speech elevate transformative global. Accelerate; reproductive rights, innovate network clean water visionary crisis situation.",
             'date_post' => '3.12.2016', );
+
         return $ResultSelectPost;
     }
 }

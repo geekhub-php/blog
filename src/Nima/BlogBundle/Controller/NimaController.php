@@ -5,7 +5,6 @@ namespace Nima\BlogBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
 use Nima\BlogBundle\ModelNima;
 
 class NimaController extends Controller
@@ -17,11 +16,12 @@ class NimaController extends Controller
     {
 
         //$data= array('text1' => 'first', 'text2' => 'second');
-         $dataOptions=new ModelNima();
+         $dataOptions = new ModelNima();
         //$dataOptions->getRevuePosts();
-        $nameCategories="all";
+        $nameCategories = 'all';
+
         return $this->render('NimaBlogBundle:Default:index.html.twig', array('data' => $dataOptions->getRevuePosts($nameCategories),
-            'categories' =>$dataOptions->getCategories(),'nameCategories'=>"last posts"));
+            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'last posts', ));
     }
 
     /**
@@ -34,11 +34,11 @@ class NimaController extends Controller
      */
     public function showPostAction($id)
     {
-        $dataOptions=new ModelNima();
-      $id="1";
+        $dataOptions = new ModelNima();
+        $id = '1';
 
         return $this->render('NimaBlogBundle:Default:showPost.html.twig', array('data' => $dataOptions->getSelectedPost($id),
-            'categories' =>$dataOptions->getCategories()));
+            'categories' => $dataOptions->getCategories(), ));
     }
 
     /**
@@ -51,10 +51,10 @@ class NimaController extends Controller
      */
     public function showMostReadAction()
     {
+        $dataOptions = new ModelNima();
 
-        $dataOptions=new ModelNima();
-        return $this->render('NimaBlogBundle:Default:mostRead.html.twig', array('data' => $dataOptions->getRevuePosts("most_read"),
-            'categories' =>$dataOptions->getCategories(),'nameCategories'=>"most read categories"));
+        return $this->render('NimaBlogBundle:Default:mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_read'),
+            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most read categories', ));
     }
     /**
      *@Route("/most_commented", name="most_commented")
@@ -66,10 +66,10 @@ class NimaController extends Controller
      */
     public function showMostCommentedAction()
     {
+        $dataOptions = new ModelNima();
 
-        $dataOptions=new ModelNima();
-        return $this->render('NimaBlogBundle:Default:mostRead.html.twig', array('data' => $dataOptions->getRevuePosts("most_commented"),
-            'categories' =>$dataOptions->getCategories(),'nameCategories'=>"most commented caegories"));
+        return $this->render('NimaBlogBundle:Default:mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
+            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most commented caegories', ));
     }
     /**
      *@Route("/categories/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="categories")
@@ -83,11 +83,12 @@ class NimaController extends Controller
     {
 
         //$data= array('text1' => 'first', 'text2' => 'second');
-        $dataOptions=new ModelNima();
+        $dataOptions = new ModelNima();
         //$dataOptions->getRevuePosts();
-        $nameCategories="all";
+        $nameCategories = 'all';
+
         return $this->render('NimaBlogBundle:Default:index.html.twig', array('data' => $dataOptions->getRevuePosts($nameCategories),
-            'categories' =>$dataOptions->getCategories(),'nameCategories'=>"name cat. to dataBase"));
+            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'name cat. to dataBase', ));
     }
 
     /**

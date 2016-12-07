@@ -2,7 +2,3 @@ nima_blog:
     resource: "@NimaBlogBundle/Controller/"
     type:     annotation
     prefix:   /
-
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
