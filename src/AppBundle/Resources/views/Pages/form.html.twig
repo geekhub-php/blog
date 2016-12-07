@@ -1,0 +1,30 @@
+{% extends 'AppBundle::main.html.twig' %}
+
+{% block title %}New Post{% endblock%}
+
+{% block body %}
+    <div class="welcome">
+        <div class="container">
+            <div class="welcome-top heading">
+                <h3>New post</h3>
+
+                <div class="welcome-bottom" style="padding-left: 25%">
+
+                    <div class="col-md-8 contact-right">
+                        <p>Want to add new post?</p>
+                   <p > {{ form_start(form, { 'action': path('post_form'), 'method': 'POST', 'attr': {'class': 'postform'} }) }} <br/>
+                    {{ form_errors(form) }} <br/>
+
+                    {{ form_row(form.title) }} <br/>
+                    {{ form_row(form.author) }} <br/>
+                    {{ form_row(form.blog) }} <br/>
+                    {{ form_row(form.save) }} <br/>
+
+                    {{ form_rest(form) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

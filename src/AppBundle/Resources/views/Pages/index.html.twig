@@ -1,0 +1,67 @@
+{% extends 'AppBundle::main.html.twig' %}
+
+
+    {% block body %}
+        <!--about-starts-->
+        <div class="about">
+            <div class="container">
+                <div class="about-main">
+                    <div class="about-btn">
+                        <a href="{{ path('post_form') }}">Add new post</a>
+                    </div>
+                    <div class="col-md-8 about-left">
+                        {% if blogs == false %}
+                        <p style="margin-top: 20px">No posts in the storage. Add new one</p>
+                        {% else %}
+                        {% set lastblog=blogs|last %}
+                        <div class="about-one">
+                            <p>Find The Most</p>
+                            <h3>{{ lastblog.title }}</h3>
+                        </div>
+                        <div class="about-two">
+                            <a href="#"><img src="{{ asset(['images/', lastblog.image]|join) }}" alt="" /></a>
+                            <p>Posted by <a href="#">{{lastblog.author}}</a> {{ lastblog.created|date('h:iA') }} <a href="#">comments(2)</a></p>
+                            <p>{{ lastblog.blog(500) }}</p>
+                            <p><time datetime="{{ lastblog.created|date('c') }}">{{ lastblog.created|date('l, F j, Y') }}</time></p>
+                            <div class="about-btn">
+                                <a href="#">Read More</a>
+                            </div>
+                            <ul>
+                                <li><p>Share : </p></li>
+                                <li><a href="#"><span class="fb"> </span></a></li>
+                                <li><a href="#"><span class="twit"> </span></a></li>
+                                <li><a href="#"><span class="pin"> </span></a></li>
+                                <li><a href="#"><span class="rss"> </span></a></li>
+                                <li><a href="#"><span class="drbl"> </span></a></li>
+                            </ul>
+                        </div>
+                        <div class="about-tre">
+                                {% set length=(blogs|length)-1 %}
+                                {% for row in blogs|reverse|slice(1,length)|batch(2) %}
+                                <div class="a-1">
+                                    {% for blog in row %}
+                                    <div class="col-md-6 abt-left">
+                                        <a href="#"><img src="{{ asset(['images/', blog.image]|join) }}" alt="" /></a>
+                                        <h6>Find The Most</h6>
+                                        <h3><a href="#">{{ blog.title }}</a></h3>
+                                        <p>{{ blog.blog(500) }}/p>
+                                        <label><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></label>
+                                    </div>
+                                    {% endfor %}
+                                    <div class="clearfix"></div>
+                                </div>
+                                {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {{ render(controller('AppBundle:Pages:sidebar')) }}
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <!--about-end-->
+
+{% endblock %}
+{% block slider %}
+    {{ include('AppBundle:Pages:slider.html.twig', { 'images': images }) }}
+{% endblock %}

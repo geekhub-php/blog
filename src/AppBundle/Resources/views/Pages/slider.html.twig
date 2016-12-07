@@ -1,0 +1,20 @@
+    <!--slide-starts-->
+    <div class="slide">
+        <div class="container">
+            <div class="fle-xsel">
+                <ul id="flexiselDemo3">
+                    {% for image in images %}
+                        <li>
+                            <a href="#">
+                                <div class="banner-1">
+                                    <img src="{{ asset(['images/', image]|join) }}" class="img-responsive" alt="">
+                                </div>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+    </div>
+    <!--slide-end-->
