@@ -1,10 +1,16 @@
 body{
 background-color: gainsboro;
 }
+#headImg{
+    height: 250px;
+    background-image: url("../img/gorod62.jpg");
+    margin-left: 45px;
+    margin-right:100px;
+}
 #idMenuLu{
     margin:0px 90px 10px 30px;
     font-size: 100%;
-//    border: 1px solid green;
+    //border: 1px solid green;
 
 }
 .MenuLi{
@@ -63,10 +69,20 @@ margin-top: 60px;
     padding: 5px;
     background-color: white;
 }
+.contentOneMenu{
+    margin-right: 100px;
+    margin-left:45px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    //padding: 5px;
+    background-color: white;
+}
+
+
 .footer{
-margin:10px 85px 0px 45px;
+margin:10px 100px 0px 45px;
 color: white;
-padding: 10px 10px 10px 330px;
+padding: 10px 10px 10px 10px;
 background-color: grey;
 font-size: 90%;
 }
