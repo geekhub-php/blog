@@ -1,18 +1,15 @@
     <div class="col-md-3 categories-and-top-block">
         <span class="label label-default spanMenyLeft">categories:</span>
         <div  id="idCategories">
-            society...10 <br>
-            psychology...5<br>
-            culture...12<br>
-            sport...20<br>
-            politics...3<br>
-            economics...15<br>
-            study...9
-
+            {% for key in categories %}
+                <a href="{{ path('categories')}}">{{ key["name"] }}.....{{ key["countPosts"] }}</a>
+                <br>
+            {% endfor %}
         </div>
         <span class="label label-default spanMenyLeft">top posts:</span>
         <div class="" id="idTopPost">
-            most commented<br>
-            most read<br>
+            <a href="{{ path('mostRead')}}">most read</a>
+            <br>
+            <a href="{{ path('most_commented')}}">most commented</a>
         </div>
     </div>

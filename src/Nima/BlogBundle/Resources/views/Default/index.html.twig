@@ -6,12 +6,12 @@
     <div class="row"  >
 {% endblock%}
 {% block left %}
-        {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
+    {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
 {% endblock%}
 
 {% block right %}
     <div class="col-md-9 last-post-block" >
-        <span class="label label-default spanMeny">last posts:</span>
+        <span class="label label-default spanMeny"> {{ nameCategories }}:</span>
         {% for key in data %}
             <div class="lastPost-mini-block">
                 {{ key["title"] }}
