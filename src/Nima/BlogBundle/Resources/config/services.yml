@@ -1,0 +1,4 @@
+services:
+#    nima_blog.example:
+#        class: Nima\BlogBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

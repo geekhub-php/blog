@@ -1,3 +1,4 @@
-app:
-    resource: "@AppBundle/Controller/"
+nima_blog:
+    resource: "@NimaBlogBundle/Controller/"
     type:     annotation
+    prefix:   /
