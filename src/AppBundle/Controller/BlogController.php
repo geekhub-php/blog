@@ -17,12 +17,9 @@ class BlogController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-
     public function indexAction()
     {
-        return $this->render('blog/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..').DIRECTORY_SEPARATOR,
-        ]);
+        return $this->render('@App/base.html.twig');
     }
 
     /**
