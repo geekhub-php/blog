@@ -16,4 +16,4 @@
 /web/bundles/
 .idea/
 .php_cs.cache
-
+app/DoctrineMigrations/
