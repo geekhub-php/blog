@@ -57,6 +57,14 @@ class Author
      * @ORM\OneToMany(targetEntity="Post", mappedBy="post")
      */
     private $posts;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="comment")
+     */
+    private $comments;
+
     /**
      * Get id.
      *
@@ -144,6 +152,7 @@ class Author
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -187,7 +196,7 @@ class Author
      *
      * @return Author
      */
-    public function setUserName(\AppBundle\Entity\User $userName = null)
+    public function setUserName(User $userName = null)
     {
         $this->userName = $userName;
 
@@ -202,5 +211,39 @@ class Author
     public function getUserName()
     {
         return $this->userName;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Author
+     */
+    public function addComment(Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
