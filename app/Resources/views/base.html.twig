@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -39,4 +40,17 @@
         <script src="{{ asset('/public/js/functions.js') }}"></script>
     {% endblock %}
 </body>
+=======
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+>>>>>>> df1a5587f496da928168eb4432c3885882e526b1
 </html>
