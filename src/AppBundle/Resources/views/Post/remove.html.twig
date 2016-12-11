@@ -1,0 +1,45 @@
+{% extends 'BlogBundle::base.html.twig' %}
+
+{% block title %}Deleting post {% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid mainWrapper">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 myClass">
+                <h1>Ugly Blog</h1>
+                {{ include('BlogBundle::navbar.html.twig') }}
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li class="active">Deleting post</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                {% if status == 'deleted' %}
+                                    <div class="alert alert-success alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>Success!</strong> Your post was deleted!
+                                    </div>
+                                {% else %}
+                                <form method="POST">
+                                    Do u want to delete this post?
+                                    <input type="hidden" name="idpost" value="{{ idpost }}">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn btn-danger">Ok</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {{ include('BlogBundle::sidebar.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
