@@ -66,6 +66,7 @@ class Post
 
     /**
      * One Post has Many Comments.
+     *
      * @OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comments;
