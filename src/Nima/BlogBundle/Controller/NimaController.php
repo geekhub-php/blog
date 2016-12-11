@@ -131,14 +131,42 @@ class NimaController extends Controller
      */
     public function showSelectedCategoriesAction($id)
     {
+        $category = $this->getDoctrine()
+            ->getRepository('NimaBlogBundle:Categories')
+            ->find($id);
 
-        //$data= array('text1' => 'first', 'text2' => 'second');
-        $dataOptions = new ModelNima();
-        //$dataOptions->getRevuePosts();
-        $nameCategories = 'all';
+        if (!$category) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
 
-        return $this->render('NimaBlogBundle:Default:index.html.twig', array('data' => $dataOptions->getRevuePosts($nameCategories),
-            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'name cat. to dataBase', ));
+        $categories = $this->getDoctrine()
+            ->getRepository('NimaBlogBundle:Categories')
+            ->findAll();
+
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
+
+        $posts = $this->getDoctrine()
+            ->getRepository('NimaBlogBundle:Posts')
+            ->findBy(array('category' =>$id));
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'No posts'
+            );
+        }
+
+        //dump($categories);
+        //return new Response('Saved new product with id ' . $categories);
+        return $this->render('NimaBlogBundle:Default:index.html.twig', array('data' =>$posts,
+            'categories' => $categories, 'nameCategories' => $category, ));
+
+
     }
 
     /**
