@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,23 +25,50 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=200)
+     * @ORM\Column(name="title", type="string", length=200, nullable=true)
      */
     private $title;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="text")
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content;
 
     /**
      * @var Author
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author");
+     * @ORM\ManyToOne(targetEntity="Author", inversedBy="posts")
+     *
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
+
+    /**
+     * Many Posts have Many Tags.
+     *
+     * @ManyToMany(targetEntity="Tag")
+     * @JoinTable(name="posts_tags",
+     *      joinColumns={@JoinColumn(name="post_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="tag_id", referencedColumnName="id")}
+     *      )
+     */
+    private $tags;
+
+    /**
+     * Many Posts have One Category.
+     *
+     * @ManyToOne(targetEntity="Category")
+     * @JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * One Post has Many Comments.
+     * @OneToMany(targetEntity="Comment", mappedBy="post")
+     */
+    private $comments;
 
     /**
      * Get id.
@@ -122,5 +150,10 @@ class Post
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
     }
 }

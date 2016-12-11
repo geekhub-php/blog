@@ -26,7 +26,14 @@ class User
      *
      * @ORM\Column(name="username", type="string", length=100, unique=true)
      */
-    private $username;
+    private $userName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=100, nullable=true)
+     */
+    private $password;
 
     /**
      * Get id.
@@ -41,13 +48,13 @@ class User
     /**
      * Set username.
      *
-     * @param string $username
+     * @param string $userName
      *
      * @return User
      */
-    public function setUsername($username)
+    public function setUserName($userName)
     {
-        $this->username = $username;
+        $this->userName = $userName;
 
         return $this;
     }
@@ -57,8 +64,32 @@ class User
      *
      * @return string
      */
-    public function getUsername()
+    public function getUserName()
     {
-        return $this->username;
+        return $this->userName;
+    }
+
+    /**
+     * Set password.
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password.
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

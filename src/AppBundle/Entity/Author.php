@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +25,15 @@ class Author
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=100)
+     * @ORM\OneToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $userName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="firstname", type="string", length=100, nullable=true)
      */
     private $firstName;
 
@@ -38,10 +47,16 @@ class Author
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthday", type="date")
+     * @ORM\Column(name="birthday", type="date", nullable=true)
      */
     private $birthday;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="post")
+     */
+    private $posts;
     /**
      * Get id.
      *
@@ -53,9 +68,9 @@ class Author
     }
 
     /**
-     * Set firstname.
+     * Set firstName.
      *
-     * @param string $firstname
+     * @param string $firstName
      *
      * @return Author
      */
@@ -67,7 +82,7 @@ class Author
     }
 
     /**
-     * Get firstname.
+     * Get firstName.
      *
      * @return string
      */
@@ -77,7 +92,7 @@ class Author
     }
 
     /**
-     * Set lastname.
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -91,7 +106,7 @@ class Author
     }
 
     /**
-     * Get lastname.
+     * Get lastName.
      *
      * @return string
      */
@@ -122,5 +137,70 @@ class Author
     public function getBirthday()
     {
         return $this->birthday;
+    }
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
+    /**
+     * Add post.
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Author
+     */
+    public function addPost(Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post.
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+
+    /**
+     * Get posts.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Set userName.
+     *
+     * @param \AppBundle\Entity\User $userName
+     *
+     * @return Author
+     */
+    public function setUserName(\AppBundle\Entity\User $userName = null)
+    {
+        $this->userName = $userName;
+
+        return $this;
+    }
+
+    /**
+     * Get userName.
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUserName()
+    {
+        return $this->userName;
     }
 }
