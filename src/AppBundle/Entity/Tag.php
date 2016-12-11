@@ -28,6 +28,13 @@ class Tag
      */
     private $name;
 
+    /**
+     * Many Tags have Many Articles
+     * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
+     * @ORM\JoinTable("tags_articles")
+     */
+    private $tags;
+
 
     /**
      * Get id

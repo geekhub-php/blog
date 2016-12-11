@@ -52,10 +52,22 @@ class author
     /**
      * @var string
      *
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $address;
 
+    /**
+     * One Author has One User
+     * @ORM\OneToOne(targetEntity="User", inversedBy="author")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * Many Authors have Many Articles
+     * @ORM\ManyToMany(targetEntity="Article", mappedBy="authors")
+     */
+    private $articles;
 
     /**
      * Get id

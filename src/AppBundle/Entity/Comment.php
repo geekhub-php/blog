@@ -28,6 +28,20 @@ class Comment
      */
     private $content;
 
+    /**
+     * Many Comments have One Author
+     * @ORM\ManyToOne(targetEntity="author")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+    /**
+     * Many Comments have one Article
+     * @ORM\ManyToOne(targetEntity="Article", inversedBy="comments")
+     * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
+     */
+    private $article;
+
 
     /**
      * Get id

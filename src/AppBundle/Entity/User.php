@@ -35,6 +35,11 @@ class user
      */
     private $password;
 
+    /**
+     * One user has One Author.
+     * @ORM\OneToOne(targetEntity="Author", mappedBy="user")
+     */
+    private $author;
 
     /**
      * Get id
