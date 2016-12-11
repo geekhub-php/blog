@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Post.
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
@@ -43,7 +43,7 @@ class Post
     private $author;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -53,7 +53,7 @@ class Post
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -67,7 +67,7 @@ class Post
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -77,7 +77,7 @@ class Post
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -91,7 +91,7 @@ class Post
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -100,9 +100,8 @@ class Post
         return $this->content;
     }
 
-
     /**
-     * Set author
+     * Set author.
      *
      * @param \AppBundle\Entity\Author $author
      *
@@ -116,7 +115,7 @@ class Post
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return Author
      */

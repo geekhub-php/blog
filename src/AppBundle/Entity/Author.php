@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Author
+ * Author.
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
@@ -41,21 +41,19 @@ class Author
      * @ORM\Column(name="birthday", type="date")
      */
     private $birthday;
-    
+
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
-    
-    
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * Set firstname
+     * Set firstname.
      *
      * @param string $firstname
      *
@@ -69,7 +67,7 @@ class Author
     }
 
     /**
-     * Get firstname
+     * Get firstname.
      *
      * @return string
      */
@@ -79,7 +77,7 @@ class Author
     }
 
     /**
-     * Set lastname
+     * Set lastname.
      *
      * @param string $lastName
      *
@@ -93,7 +91,7 @@ class Author
     }
 
     /**
-     * Get lastname
+     * Get lastname.
      *
      * @return string
      */
@@ -103,7 +101,7 @@ class Author
     }
 
     /**
-     * Set birthday
+     * Set birthday.
      *
      * @param \DateTime $birthday
      *
@@ -117,7 +115,7 @@ class Author
     }
 
     /**
-     * Get birthday
+     * Get birthday.
      *
      * @return \DateTime
      */
@@ -126,4 +124,3 @@ class Author
         return $this->birthday;
     }
 }
-
