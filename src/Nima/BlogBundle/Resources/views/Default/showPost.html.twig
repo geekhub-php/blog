@@ -5,12 +5,12 @@
         {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
 
         <div class="col-md-9 last-post-block" >
-            <span class="label label-default spanMeny">post name: {{ data['title'] }}</span>
+            <span class="label label-default spanMeny">post name: {{ data.name }}</span>
             <div class="lastPost-mini-block">
 
                 <br>
-                {{ data['text_post'] }}
-                {{ data['date_post'] }}
+                {{ data.body }}<br>
+                data: {{ data.dataCreate }}
 
 
             </div>

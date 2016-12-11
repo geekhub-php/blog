@@ -2,8 +2,11 @@
         <span class="label label-default spanMenyLeft">categories:</span>
         <div  id="idCategories">
             {% for key in categories %}
-                <a href="{{ path('categories')}}">{{ key["name"] }}.....{{ key["countPosts"] }}</a>
+
+
+                <a href="{{ path('categories')}}">{{ key.name }}.....20{# {{ key["countPosts"] }}#}</a>
                 <br>
+
             {% endfor %}
         </div>
         <span class="label label-default spanMenyLeft">top posts:</span>

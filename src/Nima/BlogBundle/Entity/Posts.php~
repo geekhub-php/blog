@@ -73,9 +73,9 @@ class Posts
     private $rating;
 
     /**
-     * @var \DateTime
+     * @var \string
      *
-     * @ORM\Column(name="dataCreate", type="datetime")
+     * @ORM\Column(name="dataCreate", type="string", length=10)
      */
     private $dataCreate;
 
@@ -315,5 +315,38 @@ class Posts
     {
         return $this->enabled;
     }
-}
 
+    /**
+     * Add author
+     *
+     * @param \Nima\BlogBundle\Entity\Users $author
+     *
+     * @return Posts
+     */
+    public function addAuthor(\Nima\BlogBundle\Entity\Users $author)
+    {
+        $this->authors[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \Nima\BlogBundle\Entity\Users $author
+     */
+    public function removeAuthor(\Nima\BlogBundle\Entity\Users $author)
+    {
+        $this->authors->removeElement($author);
+    }
+
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+}

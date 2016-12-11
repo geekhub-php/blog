@@ -14,11 +14,11 @@
         <span class="label label-default spanMeny"> {{ nameCategories }}:</span>
         {% for key in data %}
             <div class="lastPost-mini-block">
-                {{ key["title"] }}
+                {{ key.name }}
                 <br>
-                {{ key["annotations"] }}
+                {{ key.description }}
                <br>
-                <a href="{{ path('postPage')}}">show this post detals</a>
+                <a href="{{ path('postPage', {'id': key.id})}}">show this post detals</a>
           </div>
         {% endfor %}
 

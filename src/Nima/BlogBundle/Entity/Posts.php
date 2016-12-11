@@ -73,9 +73,9 @@ class Posts
     private $rating;
 
     /**
-     * @var \DateTime
+     * @var \string
      *
-     * @ORM\Column(name="dataCreate", type="datetime")
+     * @ORM\Column(name="dataCreate", type="string", length=10)
      */
     private $dataCreate;
 
