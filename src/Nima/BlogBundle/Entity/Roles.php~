@@ -5,12 +5,12 @@ namespace Nima\BlogBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Categories
+ * Roles
  *
- * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="Nima\BlogBundle\Repository\CategoriesRepository")
+ * @ORM\Table(name="roles")
+ * @ORM\Entity(repositoryClass="Nima\BlogBundle\Repository\RolesRepository")
  */
-class Categories
+class Roles
 {
     /**
      * @var int
@@ -24,7 +24,7 @@ class Categories
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
 
@@ -44,7 +44,7 @@ class Categories
      *
      * @param string $name
      *
-     * @return Categories
+     * @return Roles
      */
     public function setName($name)
     {
@@ -63,3 +63,4 @@ class Categories
         return $this->name;
     }
 }
+

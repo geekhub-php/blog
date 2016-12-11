@@ -187,3 +187,4 @@ class Comments
         return $this->enabled;
     }
 }
+

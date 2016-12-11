@@ -342,3 +342,4 @@ class Users
         return $this->dataCreate;
     }
 }
+

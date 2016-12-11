@@ -63,4 +63,3 @@ class Roles
         return $this->name;
     }
 }
-

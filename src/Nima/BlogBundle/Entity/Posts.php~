@@ -315,38 +315,5 @@ class Posts
     {
         return $this->enabled;
     }
-
-    /**
-     * Add author
-     *
-     * @param \Nima\BlogBundle\Entity\Users $author
-     *
-     * @return Posts
-     */
-    public function addAuthor(\Nima\BlogBundle\Entity\Users $author)
-    {
-        $this->authors[] = $author;
-
-        return $this;
-    }
-
-    /**
-     * Remove author
-     *
-     * @param \Nima\BlogBundle\Entity\Users $author
-     */
-    public function removeAuthor(\Nima\BlogBundle\Entity\Users $author)
-    {
-        $this->authors->removeElement($author);
-    }
-
-    /**
-     * Get authors
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAuthors()
-    {
-        return $this->authors;
-    }
 }
+
