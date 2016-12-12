@@ -24,8 +24,12 @@ class ArticleController extends Controller
             throw $this->createNotFoundException('Unable to find Article');
         }
 
+        $comments = $em->getRepository('AppBundle:Comment')
+                       ->getCommentForArticle($article->getId());
+
         return $this->render('Article/show.html.twig', array(
             'article' => $article,
+            'comments'=> $comments
         ));
     }
 }
