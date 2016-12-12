@@ -17,6 +17,19 @@ class PostController extends Controller
      */
     public function listAction()
     {
-        return $this->render('::base.html.twig');
+        $posts = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->findAll();
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'No products found'
+            );
+        }
+
+        return $this->render('AppBundle:Post:list.html.twig', array(
+                'posts' => $posts
+            )
+        );
     }
 }
