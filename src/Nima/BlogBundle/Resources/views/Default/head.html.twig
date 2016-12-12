@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{{asset('css/bootstrap-theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/nima_blog.css')}}">
+</head>
+<body>
+<div class="row" >
+    <div id="headImg" ></div>
+    <div class="col-md-12">
+        <ul class="nav nav-pills navbar-fixed-top" id="idMenuLu">
+            <li role="presentation" class="active MenuLi"><a href="{{ path('welcome')}}">Home</a></li>
+            <li role="presentation" class="MenuLi"><a href="{{ path('mostRead')}}">most read</a></li>
+            <li role="presentation" class="MenuLi" ><a href="{{ path('most_commented')}}">most commented</a></li>
+            <li role="presentation" class="MenuLi" ><a href="{{ path('contacts')}}">contacts</a></li>
+            <li role="presentation" class="MenuLi"><a href="{{ path('addCategory')}}">addCategory(test)</a></li>
+        </ul>
+
+    </div>
+
+</div>

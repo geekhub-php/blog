@@ -1,0 +1,21 @@
+{% include 'NimaBlogBundle:Default:head.html.twig'%}
+
+<div class="row"  id="idMainDiv">
+    <div class="row"  >
+        {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
+
+        <div class="col-md-9 last-post-block" >
+            <span class="label label-default spanMeny">post name: {{ data.name }}</span>
+            <div class="lastPost-mini-block">
+
+                <br>
+                {{ data.body }}<br>
+                data: {{ data.dataCreate }}
+
+
+            </div>
+
+        </div>
+    </div>
+
+{% include 'NimaBlogBundle:Default:footer.html.twig'%}
