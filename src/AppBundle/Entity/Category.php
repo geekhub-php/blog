@@ -39,7 +39,7 @@ class Category
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="Category")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="Category", cascade={"persist", "remove"})
      */
     private $posts;
 
@@ -48,7 +48,7 @@ class Category
      */
     public function __construct()
     {
-        $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     /**

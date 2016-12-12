@@ -19,10 +19,7 @@ class PostController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $category = $em->find('AppBundle:Category', 2);
-
-
+        echo 'hello';
+            return new Response();
     }
 }
