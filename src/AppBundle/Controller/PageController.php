@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,7 +18,11 @@ class PageController extends Controller
 
     public function indexAction()
     {
-       return $this->render('Page/index.html.twig');
+       $em = $this->getDoctrine()->getManager();
+
+       $articles = $em->getRepository('AppBundle:Article')->getLatestArticles();
+
+       return $this->render('Page/index.html.twig', array('articles' => $articles) );
 
     }
 
