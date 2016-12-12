@@ -57,9 +57,7 @@ class Post
     private $tags;
 
     /**
-     * Many Posts have One Category.
-     *
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
@@ -159,7 +157,7 @@ class Post
     }
 
     /**
-     * Add tag
+     * Add tag.
      *
      * @param Tag $tag
      *
@@ -173,7 +171,7 @@ class Post
     }
 
     /**
-     * Remove tag
+     * Remove tag.
      *
      * @param Tag $tag
      */
@@ -183,7 +181,7 @@ class Post
     }
 
     /**
-     * Get tags
+     * Get tags.
      *
      * @return ArrayCollection
      */
@@ -193,7 +191,7 @@ class Post
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param Category $category
      *
@@ -207,7 +205,7 @@ class Post
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return Category
      */
@@ -217,7 +215,7 @@ class Post
     }
 
     /**
-     * Add comment
+     * Add comment.
      *
      * @param Comment $comment
      *
@@ -231,7 +229,7 @@ class Post
     }
 
     /**
-     * Remove comment
+     * Remove comment.
      *
      * @param Comment $comment
      */
@@ -241,7 +239,7 @@ class Post
     }
 
     /**
-     * Get comments
+     * Get comments.
      *
      * @return ArrayCollection
      */

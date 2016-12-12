@@ -2,6 +2,9 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Category;
+use Faker;
+
 /**
  * CategoryRepository.
  *
@@ -10,4 +13,27 @@ namespace AppBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * Get random category.
+     *
+     * @return Category
+     */
+    public function getRandomCategory()
+    {
+        $count = $this->createQueryBuilder('c')
+            ->select('count(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+        $faker = Faker\Factory::create();
+        $random = $faker->numberBetween($min = 1, $max = $count);
+
+        $query = $this->createQueryBuilder('c')
+            ->where('c.id = :id')
+            ->setParameter('id', $random)
+            ->getQuery();
+
+        $category = $query->setMaxResults(1)->getOneOrNullResult();
+
+        return $category;
+    }
 }

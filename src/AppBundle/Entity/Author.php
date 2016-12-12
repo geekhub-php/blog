@@ -214,7 +214,7 @@ class Author
     }
 
     /**
-     * Add comment
+     * Add comment.
      *
      * @param \AppBundle\Entity\Comment $comment
      *
@@ -228,7 +228,7 @@ class Author
     }
 
     /**
-     * Remove comment
+     * Remove comment.
      *
      * @param \AppBundle\Entity\Comment $comment
      */
@@ -238,7 +238,7 @@ class Author
     }
 
     /**
-     * Get comments
+     * Get comments.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

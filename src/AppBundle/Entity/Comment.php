@@ -30,6 +30,7 @@ class Comment
 
     /**
      * Many Comments have One Post.
+     *
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
@@ -43,7 +44,7 @@ class Comment
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
-    
+
     /**
      * Get id.
      *
@@ -79,7 +80,7 @@ class Comment
     }
 
     /**
-     * Set post
+     * Set post.
      *
      * @param \AppBundle\Entity\Post $post
      *
@@ -93,7 +94,7 @@ class Comment
     }
 
     /**
-     * Get post
+     * Get post.
      *
      * @return \AppBundle\Entity\Post
      */
@@ -103,7 +104,7 @@ class Comment
     }
 
     /**
-     * Set author
+     * Set author.
      *
      * @param \AppBundle\Entity\Author $author
      *
@@ -117,7 +118,7 @@ class Comment
     }
 
     /**
-     * Get author
+     * Get author.
      *
      * @return \AppBundle\Entity\Author
      */
