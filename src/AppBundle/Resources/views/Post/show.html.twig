@@ -1,0 +1,58 @@
+{% extends 'BlogBundle::base.html.twig' %}
+
+{% block title %}{{ post.title }} {% endblock %}
+
+
+{% block body %}
+    <div class="container-fluid mainWrapper">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 myClass">
+                <h1>Ugly Blog</h1>
+                {{ include('BlogBundle::navbar.html.twig') }}
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="#">CategoryName</a></li>
+                    <li class="active">{{ post.title }}</li>
+                </ol>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-9">
+                                <div class="row">
+                                    {% if status == 'edited' %}
+                                    <div class="alert alert-success alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>Success!</strong> Your post was edited!
+                                    </div>
+                                    {% elseif status == 'created' %}
+                                    <div class="alert alert-success alert-dismissable">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                        <strong>Success!</strong> Your post was created!
+                                    </div>
+                                    {% endif %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panelHeading">
+                                            <h3 class="panel-title">{{  post.title }}</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            {{ post.text }}
+                                        </div>
+                                        <div class="panel-footer">
+                                         Posted: {{ post.datetime }}
+                                            <span style="float: right">
+                                                <a href="/post/{{ post.id }}/edit">Edit</a> |
+                                                <a href="/post/{{ post.id }}/delete"  >Delete</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                        {{ include('BlogBundle::sidebar.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+
