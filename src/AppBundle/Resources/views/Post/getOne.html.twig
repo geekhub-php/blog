@@ -1,0 +1,28 @@
+{% extends 'body.html.twig' %}
+
+{% block leftside %}
+    <div class="col-md-8">
+        <h2>
+            {{ post.title }}
+        </h2>
+        <p class="lead">
+            by {{ post.author }}
+        </p>
+        <p><span class="glyphicon glyphicon-time"></span> Posted on {{ post.postedOnDate|date("F jS Y") }}</p>
+
+        <p>{{ post.text }}</p>
+        <!-- Comments Form -->
+        <div class="well">
+            <h4>Leave a Comment:</h4>
+            <form role="form">
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+    <a class="btn btn-primary" href="{{ path('homepage') }}"><span class="glyphicon glyphicon-chevron-left"></span>Back</a>
+    </div>
+
+{% endblock leftside %}
