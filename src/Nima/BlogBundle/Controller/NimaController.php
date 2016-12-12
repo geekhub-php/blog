@@ -15,6 +15,8 @@ use Nima\BlogBundle\Entity\Posts;
 use Nima\BlogBundle\Entity\Comments;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Doctrine\ORM\EntityManager;
+
 
 class NimaController extends Controller
 {
@@ -46,7 +48,7 @@ class NimaController extends Controller
         //dump($categories);
         //return new Response('Saved new product with id ' . $categories);
         return $this->render('NimaBlogBundle:Default:index.html.twig', array('data' =>$posts,
-            'categories' => $categories, 'nameCategories' => 'last posts', ));
+            'categories' => $categories, 'nameCategories' => array('name'=>'last posts'), ));
 
         /*
         $dataOptions = new ModelNima();
@@ -191,7 +193,10 @@ class NimaController extends Controller
      */
 
     public function addCategoryAction()
-    {  /*
+    {
+        //$load= new ModelNima();
+        //$load->getLoadCategories();
+/*
         $category = new Categories();
         $category->setName('history');
         $em = $this->getDoctrine()->getManager();
@@ -241,10 +246,10 @@ class NimaController extends Controller
 
         // actually executes the queries (i.e. the INSERT query)
         $em->flush();
-*/
 
 
-   /*
+
+
     //add roles
 
         $role = new Roles();
@@ -266,10 +271,9 @@ class NimaController extends Controller
 
         // actually executes the queries (i.e. the INSERT query)
         $em->flush();
-*/
 
 
-/*
+
         //add users
         $user = new Users();
         $user->setFirstName('vas');
@@ -281,7 +285,7 @@ class NimaController extends Controller
         $user->setEnabled('true');
         $roleId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Roles')
-            ->find('3');
+            ->find('8');
         if (!$roleId) {
             throw $this->createNotFoundException(
                 'No roles id'
@@ -300,11 +304,10 @@ class NimaController extends Controller
 
         // actually executes the queries (i.e. the INSERT query)
         $em->flush();
+
+
 */
 
-
-
-/*
 
 //add posts
         $post = new Posts();
@@ -314,7 +317,7 @@ class NimaController extends Controller
 
         $authorId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Users')
-            ->find('1');
+            ->find('3');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -325,7 +328,7 @@ class NimaController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Categories')
-            ->find('4');
+            ->find('42');
             if (!$categoryId) {
                 throw $this->createNotFoundException(
                     'No category id'
@@ -347,7 +350,7 @@ class NimaController extends Controller
 
                 $authorId = $this->getDoctrine()
                     ->getRepository('NimaBlogBundle:Users')
-                    ->find('1');
+                    ->find('3');
                 if (!$authorId) {
                     throw $this->createNotFoundException(
                         'No author id'
@@ -358,7 +361,7 @@ class NimaController extends Controller
 
                     $categoryId = $this->getDoctrine()
                         ->getRepository('NimaBlogBundle:Categories')
-                        ->find('4');
+                        ->find('43');
                     if (!$categoryId) {
                         throw $this->createNotFoundException(
                             'No category id'
@@ -383,7 +386,7 @@ class NimaController extends Controller
 
         $authorId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Users')
-            ->find('1');
+            ->find('3');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -394,7 +397,7 @@ class NimaController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Categories')
-            ->find('5');
+            ->find('43');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -416,7 +419,7 @@ class NimaController extends Controller
 
         $authorId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Users')
-            ->find('1');
+            ->find('3');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -427,7 +430,7 @@ class NimaController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('NimaBlogBundle:Categories')
-            ->find('5');
+            ->find('43');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -442,8 +445,7 @@ class NimaController extends Controller
         $em->persist($post);
         $em->flush();
 
-     */
 
-        return new Response('Saved new product with id ' . $post->getId());
+        return new Response('new load good ');
      }
 }
