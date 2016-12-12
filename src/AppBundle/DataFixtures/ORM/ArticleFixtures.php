@@ -17,8 +17,8 @@ class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
             $article = new article();
             $article->setTitle($faker->catchPhrase);
             $article->setContent($faker->text($maxNbChars = 1000));
-            $article->setImage('image1.jpg');
-            $article->setDate($faker->dateTimeThisYear($max = 'now'));
+            $article->setImage("image{$i}.jpg");
+            $article->setDate($faker->dateTimeThisYear($max = "now"));
             $manager->persist($article);
 
 
