@@ -1,0 +1,17 @@
+{% extends 'NimaBlogBundle:Default:index.html.twig' %}
+{% block right %}
+    <div class="col-md-9 last-post-block" >
+        <span class="label label-default spanMeny">Most read posts:</span>
+        {% for key in data %}
+            <div class="lastPost-mini-block">
+                {{ key["title"] }}
+                <br>
+                {{ key["annotations"] }}
+                <br>
+                <a href="{{ path('postPage')}}">show this post detals</a>
+            </div>
+        {% endfor %}
+
+    </div>
+    </div>
+{% endblock %}
