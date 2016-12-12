@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,12 +58,19 @@ class User
     private $lastName;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="posts", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="User")
      */
     private $posts;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -217,5 +225,28 @@ class User
     {
         return $this->posts;
     }
-}
 
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return User
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->posts->removeElement($post);
+    }
+}

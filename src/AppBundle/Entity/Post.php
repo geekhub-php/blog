@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,7 +25,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=70)
+     * @ORM\Column(name="title", type="string", length=100)
      */
     private $title;
 
@@ -38,7 +39,7 @@ class Post
     /**
      * @var int
      *
-     * @ORM\Column(name="category", type="integer")
+     * @ORM\ManyToOne(targetEntity="Category")
      */
     private $category;
 
@@ -52,17 +53,25 @@ class Post
     /**
      * @var int
      *
-     * @ORM\Column(name="user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
 
     /**
-     * @var string
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="comments", type="string", length=255, nullable=true)
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="Post")
      */
     private $comments;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -217,5 +226,28 @@ class Post
     {
         return $this->comments;
     }
-}
 
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Post
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+}

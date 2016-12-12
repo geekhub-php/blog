@@ -31,7 +31,7 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\Column(name="user", type="integer")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Comment")
      */
     private $user;
 
@@ -45,7 +45,8 @@ class Comment
     /**
      * @var int
      *
-     * @ORM\Column(name="post", type="integer")
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="Comment")
      */
     private $post;
 
@@ -156,4 +157,3 @@ class Comment
         return $this->post;
     }
 }
-
