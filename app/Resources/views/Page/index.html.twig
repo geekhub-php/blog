@@ -1,5 +1,24 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    Blog homepage
+    {% for article in articles %}
+        <div class="date">
+            <time datetime="{{ article.date|date('c') }}">{{ article.date|date('l, F j, Y') }}</time>
+        </div>
+
+        <header>
+            <h2><a href="{{ path('showarticle', { 'id': article.id }) }}">{{ article.title }}</a></h2>
+        </header>
+
+        <p>{{ article.content(300) }}</p>
+        <p class="continue"><a href="{{ path('showarticle', { 'id': article.id }) }}">Continue reading...</a></p>
+
+        <footer class="meta">
+            <p>Comments: -</p>
+          {#  <p>Posted by <span class="highlight">{{article.author}}</span> at {{ article.date|date('h:iA') }}</p> #}
+        </footer>
+
+    {% else %}
+        <p>There are no articles on this Blog </p>
+    {% endfor %}
 {% endblock %}
