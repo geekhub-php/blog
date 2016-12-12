@@ -1,15 +1,15 @@
-{% extends 'BlogBundle::layout.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %}{{ blog.title }}{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
 
 {% block body %}
     <article class="blog">
         <header>
-            <div class="date"><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></div>
-            <h2>{{ blog.title }}</h2>
+            <div class="date"><time datetime="{{ article.date|date('c') }}">{{ article.date|date('l, F j, Y') }}</time></div>
+            <h2>{{ article.title }}</h2>
         </header>
         <div>
-            <p>{{ blog.blog }}</p>
+            <p>{{ article.content }}</p>
         </div>
     </article>
 {% endblock %}
