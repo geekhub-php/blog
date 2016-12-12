@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -18,15 +19,10 @@ class PostController extends Controller
      */
     public function indexAction()
     {
-        $post = new Category();
-        $post->setName('Jora');
-        $post->setDescription('Danya');
-
         $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
 
-        // actually executes the queries (i.e. the INSERT query)
-        $em->flush();
-        return array();
+        $category = $em->find('AppBundle:Category', 2);
+
+
     }
 }

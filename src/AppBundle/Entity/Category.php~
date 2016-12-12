@@ -2,11 +2,12 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection,
+    Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Category
+ * Post
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
@@ -25,104 +26,28 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=30)
+     * @ORM\Column(name="name", type="string", length=50)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=100, nullable=true)
+     * @ORM\Column(name="description", type="string", length=50, nullable=true)
      */
     private $description;
 
     /**
-     * @var ArrayCollection
-     *
-     * @ORM\Column(name="posts", type="array", nullable=true)
+     * @var Collection
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
-    private $posts;
+    protected $posts;
 
     /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set name
-     *
      * @param string $name
-     *
-     * @return Category
      */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Category
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set posts
-     *
-     * @param array $posts
-     *
-     * @return Category
-     */
-    public function setPosts($posts)
-    {
-        $this->posts = $posts;
-
-        return $this;
-    }
-
-    /**
-     * Get posts
-     *
-     * @return array
-     */
-    public function getPosts()
-    {
-        return $this->posts;
+    public function __construct($name) {
+        $this->posts = new ArrayCollection();
+        $this->setName($name);
     }
 }
-

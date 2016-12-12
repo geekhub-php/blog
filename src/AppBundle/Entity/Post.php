@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +24,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=50)
+     * @ORM\Column(name="title", type="string", length=70)
      */
     private $title;
 
@@ -35,6 +34,13 @@ class Post
      * @ORM\Column(name="text", type="text")
      */
     private $text;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="category", type="integer")
+     */
+    private $category;
 
     /**
      * @var \DateTime
@@ -51,17 +57,9 @@ class Post
     private $user;
 
     /**
-     * Many Users have One Address.
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @var string
      *
-     */
-    private $category;
-
-    /**
-     * @var ArrayCollection
-     *
-     * @ORM\Column(name="comments", nullable=true)
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="Post")
+     * @ORM\Column(name="comments", type="string", length=255, nullable=true)
      */
     private $comments;
 
@@ -125,6 +123,30 @@ class Post
     }
 
     /**
+     * Set category
+     *
+     * @param integer $category
+     *
+     * @return Post
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return int
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
      * Set dateOfPublication
      *
      * @param \DateTime $dateOfPublication
@@ -173,33 +195,9 @@ class Post
     }
 
     /**
-     * Set category
-     *
-     * @param integer $category
-     *
-     * @return Post
-     */
-    public function setCategory($category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return int
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
      * Set comments
      *
-     * @param integer $comments
+     * @param string $comments
      *
      * @return Post
      */
@@ -213,10 +211,11 @@ class Post
     /**
      * Get comments
      *
-     * @return int
+     * @return string
      */
     public function getComments()
     {
         return $this->comments;
     }
 }
+

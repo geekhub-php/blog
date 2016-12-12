@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,23 +43,23 @@ class Post
     private $dateOfPublication;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="user", type="integer")
-     */
-    private $user;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="category", type="integer")
+     * @ORM\Column(name="category", type="string", length=255)
      */
     private $category;
 
     /**
-     * @var ArrayCollection
+     * @var string
      *
-     * @ORM\Column(name="comments", type="array", nullable=true)
+     * @ORM\Column(name="user", type="string", length=255)
+     */
+    private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="comments", type="string", length=255)
      */
     private $comments;
 
@@ -148,33 +147,9 @@ class Post
     }
 
     /**
-     * Set user
-     *
-     * @param integer $user
-     *
-     * @return Post
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return int
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Set category
      *
-     * @param integer $category
+     * @param string $category
      *
      * @return Post
      */
@@ -188,7 +163,7 @@ class Post
     /**
      * Get category
      *
-     * @return int
+     * @return string
      */
     public function getCategory()
     {
@@ -196,9 +171,33 @@ class Post
     }
 
     /**
+     * Set user
+     *
+     * @param string $user
+     *
+     * @return Post
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return string
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
      * Set comments
      *
-     * @param integer $comments
+     * @param string $comments
      *
      * @return Post
      */
@@ -212,7 +211,7 @@ class Post
     /**
      * Get comments
      *
-     * @return int
+     * @return string
      */
     public function getComments()
     {

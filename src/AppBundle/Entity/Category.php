@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,7 +24,7 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=30)
+     * @ORM\Column(name="name", type="string", length=40)
      */
     private $name;
 
@@ -37,17 +36,12 @@ class Category
     private $description;
 
     /**
-     * @var ArrayCollection
+     * @var string
      *
-     * @ORM\Column (name="posts", nullable=true)
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="Category")
-     *
+     * @ORM\Column(name="posts", type="string", length=255, nullable=true)
      */
     private $posts;
 
-    public function __construct() {
-        $this->posts = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -110,7 +104,7 @@ class Category
     /**
      * Set posts
      *
-     * @param array $posts
+     * @param string $posts
      *
      * @return Category
      */
@@ -124,10 +118,11 @@ class Category
     /**
      * Get posts
      *
-     * @return array
+     * @return string
      */
     public function getPosts()
     {
         return $this->posts;
     }
 }
+
