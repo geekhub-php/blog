@@ -1,9 +1,7 @@
 #!/bin/bash
 
-cd ../var/cache
-
-if [ -f "data.json" ]; then
-        echo "File 'data.json' exists";
-    else
-	touch "data.json";
+if [ -d "public" ]; then
+	echo "Directory exists";
+else
+	echo "Directory does not exist!";
 fi

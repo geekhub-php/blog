@@ -1,0 +1,16 @@
+{% extends "AppBundle:layouts:column-two.html.twig" %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="col-md-12">
+            <h2>{{ post.title }}</h2>
+            <div class="author-container"><strong>Author:&nbsp;</strong>{{ post.author.firstName }}&nbsp;{{ post.author.lastName }}</div>
+            <div class="date-container"><strong>Date:&nbsp;</strong>{{ post.createAt.format('d-m-Y H:i:s') }}</div>
+            <div class="post-container">{{ post.content }}</div>
+        </div>
+    {% endfor %}
+{% endblock content %}
+
+{% block sideBar %}
+    Most recent post
+{% endblock sideBar %}
