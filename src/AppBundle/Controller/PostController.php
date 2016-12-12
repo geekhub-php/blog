@@ -20,6 +20,6 @@ class PostController extends Controller
     public function indexAction()
     {
         echo 'hello';
-            return new Response();
+        return new Response();
     }
 }

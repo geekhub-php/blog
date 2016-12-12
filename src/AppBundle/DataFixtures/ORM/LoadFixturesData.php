@@ -41,7 +41,6 @@ class LoadFixturesData implements FixtureInterface
         $userRepository = $manager->getRepository('AppBundle:User');
 
         for ($i = 1; $i < 6; $i++) {
-
             $category = $categoryRepository->find(rand(1, 5));
             $user = $userRepository->find(rand(1, 5));
 
