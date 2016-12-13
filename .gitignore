@@ -14,3 +14,9 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+.idea/
+access.log
+error.log
+!/web/public/css/styles.css
+!/web/public/js/functions.js
+/web/public/
