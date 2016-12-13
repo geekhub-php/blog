@@ -14,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class Post
  * @package AppBundle\Entity
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
  * @ORM\Table(name="posts")
  */
 class Post

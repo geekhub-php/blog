@@ -1,0 +1,17 @@
+{% extends "AppBundle:layouts:column-two.html.twig" %}
+
+{% block title %}AppBundle:Blog:list{% endblock %}
+
+{% block content %}
+    <h3>View Post</h3>
+    <hr>
+    <div><h4>{{ post.title }}</h4></div>
+    <div class="post-container">{{ post.content }}</div>
+{% endblock content %}
+
+{% block sideBar %}
+    <h3>Popular</h3>
+    <hr>
+    Cras eu ullamcorper eros, eget bibendum arcu.<br><br>
+    Fusce semper eros libero, sit amet placerat risus maximus mattis.<br><br>
+{% endblock sideBar %}
