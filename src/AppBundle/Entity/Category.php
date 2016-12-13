@@ -29,8 +29,7 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", inversedBy="categories")
-     * @ORM\JoinTable(name="post_has_category")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="categories")
      */
     private $posts;
 

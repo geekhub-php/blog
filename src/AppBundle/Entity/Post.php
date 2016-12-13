@@ -54,12 +54,14 @@ class Post
     private $comments;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tag", mappedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
+     * @ORM\JoinTable(name="post_has_tag")
      */
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\JoinTable(name="post_has_category")
      */
     private $categories;
 

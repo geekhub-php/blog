@@ -29,8 +29,7 @@ class Tag
     private $tag;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", inversedBy="tags")
-     * @ORM\JoinTable(name="post_has_tag")
+     * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
 
