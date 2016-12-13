@@ -10,11 +10,11 @@ class articleRepository extends \Doctrine\ORM\EntityRepository
                    ->select('a')
                    ->addOrderBy('a.date', 'DESC');
 
-        if (false === is_null($limit))
+        if (false === is_null($limit)) {
             $qb->setMaxResults($limit);
+        }
 
         return $qb->getQuery()
                   ->getResult();
-
     }
 }

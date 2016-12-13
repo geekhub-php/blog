@@ -2,7 +2,6 @@
 
 namespace AppBundle\Repository;
 
-
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
     public function getCommentForArticle($articleId)

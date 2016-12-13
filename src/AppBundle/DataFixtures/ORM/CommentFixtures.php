@@ -16,14 +16,12 @@ class CommentFixtures extends AbstractFixture implements OrderedFixtureInterface
         $faker = Faker\Factory::create();
 
         for ($i=1; $i<=50; $i++) {
-
-            $a=rand(1,30);
+            $a=rand(1, 30);
 
             $comment = new Comment();
             $comment->setContent($faker->text($maxNbChars = 100));
             $comment->setArticle($manager->merge($this->getReference("article-{$a}")));
             $manager->persist($comment);
-
         }
 
         $manager->flush();
@@ -34,5 +32,3 @@ class CommentFixtures extends AbstractFixture implements OrderedFixtureInterface
         return 2;
     }
 }
-
-

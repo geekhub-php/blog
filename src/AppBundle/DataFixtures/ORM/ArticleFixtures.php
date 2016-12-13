@@ -23,7 +23,6 @@ class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
 
 
             $this->addReference("article-{$i}", $article);
-
         }
         $manager->flush();
     }
@@ -33,4 +32,3 @@ class ArticleFixtures extends AbstractFixture implements OrderedFixtureInterface
         return 1;
     }
 }
-

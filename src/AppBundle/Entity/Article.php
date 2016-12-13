@@ -133,11 +133,11 @@ class Article
      */
     public function getContent($length = null)
     {
-        if (false === is_null($length) && $length > 0)
+        if (false === is_null($length) && $length > 0) {
             return substr($this->content, 0, $length);
-        else
-
-        return $this->content;
+        } else {
+            return $this->content;
+        }
     }
 
     /**
@@ -187,6 +187,4 @@ class Article
     {
         return $this->date;
     }
-
 }
-

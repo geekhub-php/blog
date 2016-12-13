@@ -101,4 +101,3 @@ class Comment
         return $this->article;
     }
 }
-

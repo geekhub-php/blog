@@ -18,12 +18,11 @@ class PageController extends Controller
 
     public function indexAction()
     {
-       $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
 
-       $articles = $em->getRepository('AppBundle:Article')->getLatestArticles();
+        $articles = $em->getRepository('AppBundle:Article')->getLatestArticles();
 
-       return $this->render('Page/index.html.twig', array('articles' => $articles) );
-
+        return $this->render('Page/index.html.twig', array('articles' => $articles));
     }
 
     /**
@@ -43,5 +42,4 @@ class PageController extends Controller
     {
         return $this->render('Page/contact.html.twig');
     }
-
 }
