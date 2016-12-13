@@ -1,8 +1,14 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: aleksandr
+ * Date: 13.12.16
+ * Time: 23:45
+ */
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,19 +25,22 @@ class Tags
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @ORM\Column(type="string")
      */
     private $tag_name;
-
     /**
      * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
      */
     private $article;
-
-
-   
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->article = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -65,5 +74,39 @@ class Tags
     public function getTagName()
     {
         return $this->tag_name;
+    }
+
+    /**
+     * Add article
+     *
+     * @param \AppBundle\Entity\Article $article
+     *
+     * @return Tags
+     */
+    public function addArticle(\AppBundle\Entity\Article $article)
+    {
+        $this->article[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article
+     *
+     * @param \AppBundle\Entity\Article $article
+     */
+    public function removeArticle(\AppBundle\Entity\Article $article)
+    {
+        $this->article->removeElement($article);
+    }
+
+    /**
+     * Get article
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticle()
+    {
+        return $this->article;
     }
 }
