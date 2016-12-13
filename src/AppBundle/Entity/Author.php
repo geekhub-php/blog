@@ -199,4 +199,3 @@ class Author
         return $this->address;
     }
 }
-
