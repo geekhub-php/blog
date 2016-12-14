@@ -31,7 +31,10 @@ class BlogController extends Controller
     {
         if (!empty($_POST)) {
             $model = $this->get('model.service');
-            $data = $model->createRecord($_POST);
+            $data = $model->createRecord($_POST["title"]);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($data);
+            $em->flush();
         }
 
         return array('data' => $data);

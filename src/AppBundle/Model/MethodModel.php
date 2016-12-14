@@ -2,6 +2,7 @@
 
 namespace AppBundle\Model;
 
+use AppBundle\Entity\Category;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class MethodModel
@@ -19,7 +20,7 @@ class MethodModel
     public function createRecord($record)
     {
 
-        if (!file_exists($this->path.'/file.json')) {
+/*        if (!file_exists($this->path.'/file.json')) {
             $file = fopen($this->path.'/file.json', 'w');
             fclose($file);
         }
@@ -30,7 +31,10 @@ class MethodModel
 
         $json = json_encode($array);
 
-        file_put_contents($this->path.'/file.json', $json);
+        file_put_contents($this->path.'/file.json', $json);*/
+
+        $category = new Category();
+        $record = $category->setTitle("$record");
 
         return $record;
     }
