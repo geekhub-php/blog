@@ -1,0 +1,56 @@
+{% extends 'AppBundle::main.html.twig' %}
+
+{% block body %}
+    <!--about-starts-->
+    <div class="about">
+        <div class="container">
+            <div class="about-main">
+                <div class="about-btn">
+
+                </div>
+                <div class="col-md-8 about-left">
+                    {% if blog == false %}
+                        <p style="margin-top: 20px">No posts in the storage. Add new one</p>
+                    {% else %}
+
+                        <div class="about-one">
+                            <p>Find The Most</p>
+                            <h3>{{ blog.title }}</h3>
+                        </div>
+                        <div class="about-two">
+                            <a href="#"><img src="{{ asset('images/c-2.jpg') }}" alt="" /></a>
+                            <p>Posted by <b>{{ blog.getUser.getNickName }}</b><a href="#"></a> {{ blog.created|date('h:iA') }} <a href="#">comments({{ blog.getComents|length/2 }})</a></p>
+                            {% set tags=blog.getTags %}
+                            <p>{%  for tag in tags %}
+                                    <b><a href="{{ path('tag', {'slug': tag.getTagName }) }}">#{{ tag.getTagName }}</a></b>
+                                {% endfor %}
+                            </p>
+                            <p>{{ blog.body }}</p>
+                            <p><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></p>
+                            <div class="about-btn">
+
+                                <a href="#">Read More</a>
+
+                            </div>
+                            <ul>
+                                <li><p>Share : </p></li>
+                                <li><a href="#"><span class="fb"> </span></a></li>
+                                <li><a href="#"><span class="twit"> </span></a></li>
+                                <li><a href="#"><span class="pin"> </span></a></li>
+                                <li><a href="#"><span class="rss"> </span></a></li>
+                                <li><a href="#"><span class="drbl"> </span></a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+                {{ render(controller('AppBundle:Pages:sidebar')) }}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <!--about-end-->
+
+{% endblock %}
+{% block slider %}
+    {{ include('AppBundle:Pages:slider.html.twig') }}
+{% endblock %}

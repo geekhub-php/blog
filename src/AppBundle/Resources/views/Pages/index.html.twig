@@ -1,0 +1,64 @@
+{% extends 'AppBundle::main.html.twig' %}
+
+{% block body %}
+    <!--about-starts-->
+    <div class="about">
+        <div class="container">
+            <div class="about-main">
+                <div class="about-btn">
+
+                </div>
+                <div class="col-md-8 about-left">
+                    {% if blogs == false %}
+                        <p style="margin-top: 20px">No posts in the storage. Add new one</p>
+                    {% else %}
+                        <div class="about-tre">
+                            {% set page=app.request.attributes.get('_route_params') %}
+                            {% for row in blogs|batch(2) %}
+                                <div class="a-1">
+                                    {% for blog in row %}
+                                        <div class="col-md-6 abt-left">
+                                            <a href="{{ path('id', {'id': blog.getId }) }}"><img src="{{ asset('images/c-3.jpg') }}" alt="" /></a>
+                                            <h6>Find The Most</h6>
+                                            <h3><a href="{{ path('id', {'id': blog.getId }) }}">{{ blog.title }}</a></h3>
+                                            <p>{{ blog.body[:500] ~ '...' }}</p>
+                                                <label><time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time></label>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="clearfix"></div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                {{ render(controller('AppBundle:Pages:sidebar')) }}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        {% if maxPages > 1 %}
+            <ul class="pagination pagination-sm" style="margin-left: 40%">
+                <li {{ thisPage == 1 ? 'class="disabled"' }}>
+                    <a href="{{ path(app.request.attributes.get('_route'), { page: thisPage-1 < 1 ? 1 : thisPage-1 }) }}">«</a>
+                </li>
+
+
+                {% for i in 1..maxPages %}
+                    <li {{ thisPage == i ? 'class="active"' }}>
+                        <a href="{{ path(app.request.attributes.get('_route'), { page: i }) }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+
+                <li {{ thisPage == maxPages ? 'class="disabled"' }}>
+                    <a href="{{ path(app.request.attributes.get('_route'), { page: thisPage+1 <= maxPages ? thisPage+1 : thisPage}) }}">»</a>
+                </li>
+            </ul>
+        {% endif %}
+    </div>
+    <!--about-end-->
+
+{% endblock %}
+
+{% block slider %}
+    {{ include('AppBundle:Pages:slider.html.twig') }}
+{% endblock %}

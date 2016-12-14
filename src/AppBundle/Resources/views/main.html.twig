@@ -1,0 +1,102 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+    <link href="{{ asset('css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+    <link href="{{ asset('css/style.css') }}" rel='stylesheet' type='text/css' />
+{% endblock %}
+
+{% block javascript %}
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/move-top.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/easing.js') }}"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+        </script>
+        <script>
+            $("span.menu").click(function(){
+                $(" ul.navig").slideToggle("slow" , function(){
+                });
+            });
+
+        </script>
+{% endblock %}
+
+{% block navigation %}
+    <!--header-top-starts-->
+    <div class="header-top">
+        <div class="container">
+            <div class="head-main">
+                <a href="{{ path('homepage') }}"><img src="{{ asset('images/logo-1.png') }}" alt="" /></a>
+            </div>
+        </div>
+    </div>
+    <!--header-top-end-->
+
+    <!--start-header-->
+    <div class="header">
+        <div class="container">
+            <div class="head">
+
+                <div class="navigation">
+
+                    <span class="menu"></span>
+                    <ul class="navig">
+                        <li><a href="{{ path('homepage') }}"  class="active">Home</a></li>
+                        <li><a href="{{ path('category', {'slug': 'buying'}) }}">Buying</a></li>
+                        <li><a href="{{ path('category', {'slug': 'cooking'}) }}">Cooking</a></li>
+                        <li><a href="{{ path('category', {'slug': 'history'}) }}">History</a></li>
+                    </ul>
+                </div>
+                <div class="header-right">
+                    <div class="search-bar">
+                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}">
+                        <input type="submit" value="">
+                    </div>
+                    <ul>
+                        <li><a href="#"><span class="fb"> </span></a></li>
+                        <li><a href="#"><span class="twit"> </span></a></li>
+                        <li><a href="#"><span class="pin"> </span></a></li>
+                        <li><a href="#"><span class="rss"> </span></a></li>
+                        <li><a href="#"><span class="drbl"> </span></a></li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block banner %}
+    <!--banner-starts-->
+    <div class="banner">
+        <div class="container">
+            <div class="banner-top">
+                <div class="banner-text">
+                    <h2>Aliquam erat</h2>
+                    <h1>Suspendisse potenti</h1>
+                    <div class="banner-btn">
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--banner-end-->
+{% endblock %}
+
+{% block footer %}
+    <!--footer-starts-->
+    <div class="footer">
+        <div class="container">
+            <div class="footer-text">
+                <p>© 2015 Coffee Break. All Rights Reserved | Design by Jckjd</a> </p>
+            </div>
+        </div>
+    </div>
+    <!--footer-end-->
+{% endblock %}
