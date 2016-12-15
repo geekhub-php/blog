@@ -56,7 +56,7 @@ class Article
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
      */
-    private $comments;
+    protected $comments;
 
     /**
      * Many Articles have One Category
@@ -92,6 +92,11 @@ class Article
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+    }
+
+    public function getComments()
+    {
+        return $this->comments;
     }
 
     /**

@@ -7,11 +7,17 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ArticleController
+ * @package AppBundle\Controller
+ * @Route ("/article")
+ */
+
 class ArticleController extends Controller
 {
 
     /**
-     * @Route ("/article/{id}", name="showarticle", requirements={"id":"\d+"})
+     * @Route ("/{id}", name="showarticle", requirements={"id":"\d+"})
      * @Method({"GET"})
      */
     public function showAction($id)

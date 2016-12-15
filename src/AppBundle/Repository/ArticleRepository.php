@@ -7,7 +7,8 @@ class articleRepository extends \Doctrine\ORM\EntityRepository
     public function getLatestArticles($limit = null)
     {
         $qb = $this->createQueryBuilder('a')
-                   ->select('a')
+                   ->select('a', 'c')
+                   ->leftJoin('a.comments', 'c')
                    ->addOrderBy('a.date', 'DESC');
 
         if (false === is_null($limit)) {
