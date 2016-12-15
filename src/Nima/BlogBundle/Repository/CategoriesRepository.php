@@ -10,4 +10,7 @@ namespace Nima\BlogBundle\Repository;
  */
 class CategoriesRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function countCategories(){
+
+    }
 }
