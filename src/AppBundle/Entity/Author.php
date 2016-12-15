@@ -58,6 +58,9 @@ class Author
 
     /**
      * One Author has One User
+     *
+     * @var User
+     *
      * @ORM\OneToOne(targetEntity="User", inversedBy="author")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -65,6 +68,9 @@ class Author
 
     /**
      * Many Authors have Many Articles
+     *
+     * @var Article
+     *
      * @ORM\ManyToMany(targetEntity="Article", mappedBy="authors")
      */
     private $articles;

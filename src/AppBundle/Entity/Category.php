@@ -30,18 +30,27 @@ class Category
 
     /**
      * One Category has Many Articles
+     *
+     * @var Article
+     *
      * @ORM\OneToMany(targetEntity="Article", mappedBy="category")
      */
     private $articles;
 
     /**
      * One Category has Many Categories
+     *
+     * @var Category
+     *
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
      */
     private $children;
 
     /**
      * Many Categories have One Category
+     *
+     * @var Category
+     *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
