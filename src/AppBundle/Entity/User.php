@@ -37,6 +37,9 @@ class User
 
     /**
      * One user has One Author.
+     *
+     * @var Author
+     *
      * @ORM\OneToOne(targetEntity="Author", mappedBy="user")
      */
     private $author;

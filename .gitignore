@@ -17,3 +17,5 @@
 .idea/
 .php_cs.cache
 app/DoctrineMigrations/
+/src/AppBundle/DataFixtures/
+*~

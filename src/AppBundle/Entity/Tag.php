@@ -30,6 +30,9 @@ class Tag
 
     /**
      * Many Tags have Many Articles
+     *
+     * @var Article
+     *
      * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
      * @ORM\JoinTable("tags_articles")
      */

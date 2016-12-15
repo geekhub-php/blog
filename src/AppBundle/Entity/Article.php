@@ -51,19 +51,28 @@ class Article
 
     /**
      * One Article has many Comments
+     *
+     * @var Comment
+     *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="article")
      */
     private $comments;
 
     /**
      * Many Articles have One Category
-     * @ORM\ManyToOne(targetEntity="Article", inversedBy="articles")
+     *
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="articles")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
      * Many Articles have Many Authors
+     *
+     * @var Author
+     *
      * @ORM\ManyToMany(targetEntity="Author", inversedBy="articles")
      * @ORM\JoinTable(name="articles_authors")
      */
@@ -71,6 +80,9 @@ class Article
 
     /**
      * Many Articles have Many Tags
+     *
+     * @var Tag
+     *
      * @ORM\ManyToMany(targetEntity="Tag", mappedBy="tags")
      */
     private $tags;
