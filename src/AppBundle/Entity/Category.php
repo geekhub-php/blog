@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
@@ -57,6 +58,11 @@ class Category
     private $parent;
 
 
+    public function __construct() {
+        $this->children = new ArrayCollection();
+        $this->articles = new ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -90,4 +96,26 @@ class Category
     {
         return $this->name;
     }
+
+    public function setParent(Category $parent)
+    {
+        $this->parent = $parent;
+        return $this;
+    }
+
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    public function getChildren ()
+    {
+        return $this->children;
+    }
+
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
 }

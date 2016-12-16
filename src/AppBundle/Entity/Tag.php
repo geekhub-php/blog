@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Tag
@@ -33,10 +34,14 @@ class Tag
      *
      * @var Article
      *
-     * @ORM\ManyToMany(targetEntity="Article", inversedBy="tags")
-     * @ORM\JoinTable("tags_articles")
+     * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
      */
-    private $tags;
+    private $articles;
+
+    public function __construct()
+    {
+        $this->articles = new ArrayCollection();
+    }
 
 
     /**
@@ -72,4 +77,22 @@ class Tag
     {
         return $this->name;
     }
+
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $articles)
+    {
+        if (!$this->articles->contains($articles))
+        {
+            $this->articles[] = $articles;
+            $articles->addTag($this);
+        }
+
+        return $this;
+    }
+
+
 }
