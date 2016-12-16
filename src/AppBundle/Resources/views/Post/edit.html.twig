@@ -1,0 +1,17 @@
+{% extends "AppBundle:layouts:column-one.html.twig" %}
+
+{% block title %}AppBundle:Blog:edit{% endblock %}
+
+{% block content %}
+    <h3>Edit Post</h3>
+    <form action="{{ path('postUpdate') }}" method="POST">
+        <label>Post ID:</label>
+        <input type="text" name="id" value="{{ post.id }}"><br>
+        <label>Post Title:</label>
+        <input type="text" name="title" value="{{ post.title }}"><br>
+        <label>Post Text:</label><br>
+        <textarea cols="28" rows="7" name="content">{{ post.content }}</textarea><br>
+        <input type="submit" name="save_post" value="Update">
+        <a href="{{ path('postsList') }}">Cancel</a>
+    </form>
+{% endblock content %}
