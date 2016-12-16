@@ -88,6 +88,7 @@ class Tag
     {
         if (!$this->posts->contains($post)) {
             $this->posts[] = $post;
+            $post->addTag($this);
         }
 
         return $this;

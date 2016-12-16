@@ -232,6 +232,7 @@ class Post
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
+            $tag->addPost($this);
         }
 
         return $this;

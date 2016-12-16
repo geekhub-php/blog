@@ -18,6 +18,7 @@ AppBundle\Entity\Category:
 AppBundle\Entity\Tag:
     tag{1..10}:
         name (unique): '<word()>'
+        posts: ['@post*']
 
 AppBundle\Entity\Post:
     post{1..10}:
