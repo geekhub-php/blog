@@ -1,0 +1,43 @@
+header{
+    min-height: 60px;
+    background-color: #5b92bc;
+}
+
+header .logo{
+    float: left;
+    margin: 20px 0 20px 0;
+}
+
+header .logo a{
+    display: block;
+}
+
+header nav{
+    margin: 38px 0 38px 0;
+    float: right;
+}
+
+header nav ul{
+    margin: 0;
+    padding: 0;
+    float: right;
+    list-style-type: none;
+}
+
+header nav ul > li{
+    float: left;
+    margin: 0 0 0 20px;
+}
+
+header nav ul li a{
+    color: #ffffff;
+    font-size: 20px;
+}
+
+@media (max-width: 767px){
+    header .logo{
+        float: none;
+        width: 260px;
+        margin: 20px auto;
+    }
+}

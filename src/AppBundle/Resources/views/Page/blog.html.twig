@@ -1,0 +1,55 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+   {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/blog.css') }}">
+{% endblock stylesheets %}
+
+{% block main %}
+
+    <main class="blog">
+
+        <!--  Blog posts  -->
+        <div class="container">
+            <div class="row relative">
+                <div class="blog-posts col-xs-12 col-sm-12 col-md-8">
+                    <h2 class="h2">Blog</h2>
+
+                    {% for post in posts %}
+                        <div class="post-single">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <a href="{{ path('single_post', {'id': post.id}) }}"><img src="{{ post.thumb }}"  alt=""/></a>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <h3>
+                                        <a href="{{ path('single_post', {'id': post.id}) }}">{{ post.title }}</a>
+                                    </h3>
+                                    <div class="text">
+                                        <p>{{ post.content }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="pagination"></div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="static col-xs-12 col-sm-12 col-md-4">
+                    <div class="sidebar">
+
+                    </div>
+                </div>
+                <!-- /Sidebar -->
+            </div>
+        </div>
+        <!--  /Blog posts  -->
+
+
+
+    </main>
+
+{% endblock main %}

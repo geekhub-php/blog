@@ -1,0 +1,26 @@
+.blog .h2{
+    margin: 30px 0;
+}
+
+.post-single{
+    margin: 30px 0;
+    position: relative;
+}
+
+.post-single:after{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    width: 100%;
+    background-color: gray;
+}
+
+
+
+.post-single h3{
+    margin: 0 0 20px 0;
+}

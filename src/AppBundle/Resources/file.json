@@ -1,0 +1,40 @@
+[
+  {
+    "id": 1,
+    "thumb": "/img/img.jpg",
+    "title": "Title 1",
+    "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum velit ut lacus efficitur euismod. Quisque diam ligula, mollis vitae nisl nec, tempus convallis lectus. Duis lobortis quis mauris eu viverra. Donec sit amet magna nec urna elementum egestas. Nullam mattis augue suscipit nibh feugiat facilisis nec sed orci. Nullam non purus volutpat, gravida lectus eu, gravida purus. Suspendisse potenti. Sed tortor purus, iaculis vel nulla a, ultrices finibus velit. Vestibulum condimentum fermentum consectetur. Donec eu elit metus. Suspendisse vehicula dignissim vestibulum. Curabitur eu fermentum turpis, ac placerat mi. Mauris elementum ipsum accumsan dignissim egestas. Phasellus auctor velit pharetra risus viverra, eget consequat mi pulvinar.",
+    "author": "Sasha Zaporozhets",
+    "date_created": "3.12.2016",
+    "date_update": "3.12.2016"
+  },
+
+  {
+  "id": 2,
+  "thumb": "http://record-roots.com/wp-content/uploads/2016/11/windrecordplayer.jpg",
+  "title": "Title 2",
+  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum velit ut lacus efficitur euismod. Quisque diam ligula, mollis vitae nisl nec, tempus convallis lectus. Duis lobortis quis mauris eu viverra. Donec sit amet magna nec urna elementum egestas. Nullam mattis augue suscipit nibh feugiat facilisis nec sed orci. Nullam non purus volutpat, gravida lectus eu, gravida purus. Suspendisse potenti. Sed tortor purus, iaculis vel nulla a, ultrices finibus velit. Vestibulum condimentum fermentum consectetur. Donec eu elit metus. Suspendisse vehicula dignissim vestibulum. Curabitur eu fermentum turpis, ac placerat mi. Mauris elementum ipsum accumsan dignissim egestas. Phasellus auctor velit pharetra risus viverra, eget consequat mi pulvinar.",
+  "author": "Sasha Zaporozhets",
+  "date_created": "2.12.2016",
+  "date_update": "2.12.2016"
+  },
+
+  {
+  "id": 3,
+  "thumb": "http://record-roots.com/wp-content/uploads/2016/11/windrecordplayer.jpg",
+  "title": "lorem ipsum dolor",
+  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum velit ut lacus efficitur euismod. Quisque diam ligula, mollis vitae nisl nec, tempus convallis lectus. Duis lobortis quis mauris eu viverra. Donec sit amet magna nec urna elementum egestas. Nullam mattis augue suscipit nibh feugiat facilisis nec sed orci. Nullam non purus volutpat, gravida lectus eu, gravida purus. Suspendisse potenti. Sed tortor purus, iaculis vel nulla a, ultrices finibus velit. Vestibulum condimentum fermentum consectetur. Donec eu elit metus. Suspendisse vehicula dignissim vestibulum. Curabitur eu fermentum turpis, ac placerat mi. Mauris elementum ipsum accumsan dignissim egestas. Phasellus auctor velit pharetra risus viverra, eget consequat mi pulvinar.",
+  "author": "Sasha Zaporozhets",
+  "date_created": "1.12.2016",
+  "date_update": "1.12.2016"
+  },
+  {
+  "id": 4,
+  "thumb": "http://record-roots.com/wp-content/uploads/2016/11/windrecordplayer.jpg",
+  "title": "lorem ipsum dolor",
+  "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vestibulum velit ut lacus efficitur euismod. Quisque diam ligula, mollis vitae nisl nec, tempus convallis lectus. Duis lobortis quis mauris eu viverra. Donec sit amet magna nec urna elementum egestas. Nullam mattis augue suscipit nibh feugiat facilisis nec sed orci. Nullam non purus volutpat, gravida lectus eu, gravida purus. Suspendisse potenti. Sed tortor purus, iaculis vel nulla a, ultrices finibus velit. Vestibulum condimentum fermentum consectetur. Donec eu elit metus. Suspendisse vehicula dignissim vestibulum. Curabitur eu fermentum turpis, ac placerat mi. Mauris elementum ipsum accumsan dignissim egestas. Phasellus auctor velit pharetra risus viverra, eget consequat mi pulvinar.",
+  "author": "Sasha Zaporozhets",
+  "date_created": "30.11.2016",
+  "date_update": "30.11.2016"
+  }
+]

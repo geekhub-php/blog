@@ -1,0 +1,11 @@
+footer{
+    min-height: 50px;
+    background-color: #5b92bc;
+}
+
+footer .copyright{
+    padding: 20px 0;
+    color: #ffffff;
+    font-size: 15px;
+    text-align: center;
+}

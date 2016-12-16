@@ -1,0 +1,44 @@
+{% extends 'AppBundle:Page:blog.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/single-blog.css') }}">
+{% endblock stylesheets %}
+
+{% block main %}
+
+    <main class="blog">
+
+        <!--  Single post  -->
+
+        <div class="post-thumbnail-bg" style="background-image: url({{ post.Thumb }})">
+            <div class="shadow"></div>
+            <h2>{{ post.title }}</h2>
+        </div>
+        <div class="container">
+            <div class="row relative">
+                <div class="blog-posts col-xs-12 col-sm-12 col-md-8">
+
+
+                    <div class="post-single">
+                        <div class="text">
+                           {{ post.content }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="static col-xs-12 col-sm-12 col-md-4">
+                    <div class="sidebar">
+
+                    </div>
+                </div>
+                <!-- /Sidebar -->
+            </div>
+        </div>
+        <!--  /Blog posts  -->
+
+
+    </main>
+
+{% endblock main %}
