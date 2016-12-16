@@ -1,0 +1,25 @@
+{% extends 'BlogBundle::layout.html.twig' %}
+
+{% block body %}
+    {% for blog in blogs %}
+        <div class="date">
+            <time datetime="{{ blog.created|date('c') }}">{{ blog.created|date('l, F j, Y') }}</time>
+        </div>
+
+        <header>
+            <h2><a href="{{ path('showblog', { 'id': blog.id }) }}">{{ blog.title }}</a></h2>
+        </header>
+
+        <p>{{ blog.overview }}</p>
+        <p class="continue"><a href="{{ path('showblog', { 'id': blog.id }) }}">Continue reading...</a></p>
+
+        <footer class="meta">
+            <p>Comments: -</p>
+            <p>Posted by <span class="highlight">{{blog.author}}</span> at {{ blog.created|date('h:iA') }}</p>
+        </footer>
+
+        {% else %}
+            <p>There are no articles on this Blog </p>
+        {% endfor %}
+
+{% endblock %}
