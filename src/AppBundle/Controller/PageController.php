@@ -42,4 +42,17 @@ class PageController extends Controller
     {
         return $this->render('Page/contact.html.twig');
     }
+
+    public function sidebarAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $tags = $em->getRepository(('AppBundle:Tag'))->getTags();
+
+        $tagWeights = $em->getRepository('AppBundle:Tag')->getTagWeights($tags);
+
+        return $this->render ('Page/sidebar.html.twig', array (
+            'tags' => $tagWeights
+        ));
+    }
 }

@@ -10,4 +10,55 @@ namespace AppBundle\Repository;
  */
 class TagRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getTags()
+    {
+        $tags = $this->createQueryBuilder('t')
+            ->select('t.name')
+            ->getQuery()
+            ->getResult();
+       // dump ($tags); die();
+        $alltags = array();
+
+        foreach ($tags as $tag)
+        {
+            $alltags = array_merge(explode(",", $tag['name']), $alltags);
+        }
+
+        foreach ($alltags as &$onetag)
+        {
+            $tag = trim($onetag);
+        }
+
+        return $alltags;
+    }
+
+    public function getTagWeights($alltags)
+    {
+        $tagWeights = array();
+        if (empty($alltags))
+            return $tagWeights;
+
+        foreach ($alltags as $onetag)
+        {
+            $tagWeights[$onetag] = (isset($tagWeights[$onetag])) ? $tagWeights[$onetag]+1:1;
+        }
+
+        uksort($tagWeights, function(){
+            return rand()>rand();
+        });
+
+        $max = max($tagWeights);
+
+        $multiplier = ($max > 5) ? 5 / $max : 1;
+        foreach ($tagWeights as &$tag)
+        {
+            $tag = ceil($tag * $multiplier);
+        }
+
+        return $tagWeights;
+
+    }
+
+
+
 }
