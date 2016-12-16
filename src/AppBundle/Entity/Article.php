@@ -83,7 +83,8 @@ class Article
      *
      * @var Tag
      *
-     * @ORM\ManyToMany(targetEntity="Tag", mappedBy="tags")
+     * @ORM\ManyToMany(targetEntity="Tag", inversedBy="articles")
+     * @ORM\JoinTable(name="articles_tags")
      */
     private $tags;
 
@@ -92,11 +93,8 @@ class Article
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-    }
-
-    public function getComments()
-    {
-        return $this->comments;
+        $this->authors = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**
@@ -204,4 +202,54 @@ class Article
     {
         return $this->date;
     }
+
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    public function addAuthor(Author $authors)
+    {
+        if (!$this->authors->contains($authors))
+        {
+            $this->authors[] = $authors;
+            $authors->addArticle($this);
+        }
+
+        return $this;
+    }
+
+    public function setCategory(Category $category)
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tags)
+    {
+        if (!$this->tags->contains($tags))
+        {
+            $this->tags[] = $tags;
+            $tags->addArticle($this);
+        }
+        return $this;
+    }
+
+
+
 }
