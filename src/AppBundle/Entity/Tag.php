@@ -24,15 +24,16 @@ class Tag
     /**
      * @var string
      *
-     * @ORM\Column(name="tag", type="string", length=45, unique=true)
+     * @ORM\Column(name="name", type="string", length=45, unique=true)
      */
-    private $tag;
+    private $name;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="Post", mappedBy="tags")
      */
     private $posts;
-
 
     /**
      * Constructor
@@ -45,7 +46,7 @@ class Tag
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -53,27 +54,27 @@ class Tag
     }
 
     /**
-     * Set tag
+     * Set name
      *
-     * @param string $tag
+     * @param string $name
      *
      * @return Tag
      */
-    public function setTag($tag)
+    public function setName($name)
     {
-        $this->tag = $tag;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get tag
+     * Get name
      *
      * @return string
      */
-    public function getTag()
+    public function getName()
     {
-        return $this->tag;
+        return $this->name;
     }
 
     /**
@@ -85,7 +86,9 @@ class Tag
      */
     public function addPost(\AppBundle\Entity\Post $post)
     {
-        $this->posts[] = $post;
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+        }
 
         return $this;
     }

@@ -29,10 +29,11 @@ class Category
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="categories")
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
      */
     private $posts;
-
 
     /**
      * Constructor
@@ -45,7 +46,7 @@ class Category
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {

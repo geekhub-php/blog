@@ -2,11 +2,10 @@ AppBundle\Entity\User:
     user{1..10}:
         username (unique): '<username()>'
         password: '<password()>'
-        displayName: '<firstName()> <lastName()>'
         email: '<email()>'
 
 AppBundle\Entity\Author:
-    author{1..5}:
+    author{1..10}:
         user (unique): '@user*'
         displayName: '<firstName()> <lastName()>'
         firstName: '<firstName()>'
@@ -18,18 +17,19 @@ AppBundle\Entity\Category:
 
 AppBundle\Entity\Tag:
     tag{1..10}:
-        tag (unique): '<word()>'
+        name (unique): '<word()>'
 
 AppBundle\Entity\Post:
     post{1..10}:
         author: '@author*'
         title: '<text(20)>'
         content: '<text(1000)>'
+        category: '@category*'
         datePublished: '<dateTimeBetween("-10 days", "now")>'
 
 AppBundle\Entity\Comment:
     comment{1..10}:
         post: '@post*'
-        user: '@user*'
-        comment: '<realText(100)>'
+        author: '@author*'
+        content: '<realText(100)>'
         datePublished: '<dateTimeBetween("-10 days", "now")>'

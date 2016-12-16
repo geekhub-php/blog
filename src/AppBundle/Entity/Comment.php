@@ -24,9 +24,9 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="comment", type="text")
+     * @ORM\Column(name="content", type="text")
      */
-    private $comment;
+    private $content;
 
     /**
      * @var \DateTime
@@ -36,22 +36,23 @@ class Comment
     private $datePublished;
 
     /**
+     * @var Post
+     *
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
     private $post;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var Author
+     *
+     * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
      */
-    private $user;
-
+    private $author;
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -59,27 +60,27 @@ class Comment
     }
 
     /**
-     * Set comment
+     * Set content
      *
-     * @param string $comment
+     * @param string $content
      *
      * @return Comment
      */
-    public function setComment($comment)
+    public function setContent($content)
     {
-        $this->comment = $comment;
+        $this->content = $content;
 
         return $this;
     }
 
     /**
-     * Get comment
+     * Get content
      *
      * @return string
      */
-    public function getComment()
+    public function getContent()
     {
-        return $this->comment;
+        return $this->content;
     }
 
     /**
@@ -131,26 +132,26 @@ class Comment
     }
 
     /**
-     * Set user
+     * Set author
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\Author $author
      *
      * @return Comment
      */
-    public function setUser(\AppBundle\Entity\User $user = null)
+    public function setAuthor(\AppBundle\Entity\Author $author = null)
     {
-        $this->user = $user;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get author
      *
-     * @return \AppBundle\Entity\User
+     * @return \AppBundle\Entity\Author
      */
-    public function getUser()
+    public function getAuthor()
     {
-        return $this->user;
+        return $this->author;
     }
 }

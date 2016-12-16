@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -43,28 +44,33 @@ class Post
     private $datePublished;
 
     /**
+     * @var Author
+     *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="posts")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      */
     private $author;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comments;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
      * @ORM\ManyToMany(targetEntity="Tag", inversedBy="posts")
      * @ORM\JoinTable(name="post_has_tag")
      */
     private $tags;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
-     * @ORM\JoinTable(name="post_has_category")
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
-    private $categories;
-
+    private $category;
 
     /**
      * Constructor
@@ -72,12 +78,13 @@ class Post
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -223,7 +230,9 @@ class Post
      */
     public function addTag(\AppBundle\Entity\Tag $tag)
     {
-        $this->tags[] = $tag;
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
 
         return $this;
     }
@@ -249,36 +258,26 @@ class Post
     }
 
     /**
-     * Add category
+     * Set category
      *
      * @param \AppBundle\Entity\Category $category
      *
      * @return Post
      */
-    public function addCategory(\AppBundle\Entity\Category $category)
+    public function setCategory(\AppBundle\Entity\Category $category = null)
     {
-        $this->categories[] = $category;
+        $this->category = $category;
 
         return $this;
     }
 
     /**
-     * Remove category
+     * Get category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @return \AppBundle\Entity\Category
      */
-    public function removeCategory(\AppBundle\Entity\Category $category)
+    public function getCategory()
     {
-        $this->categories->removeElement($category);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCategories()
-    {
-        return $this->categories;
+        return $this->category;
     }
 }
