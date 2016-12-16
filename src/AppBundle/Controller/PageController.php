@@ -51,8 +51,12 @@ class PageController extends Controller
 
         $tagWeights = $em->getRepository('AppBundle:Tag')->getTagWeights($tags);
 
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+      //  dump($categories); die();
+
         return $this->render ('Page/sidebar.html.twig', array (
-            'tags' => $tagWeights
+            'tags' => $tagWeights,
+            'categories' => $categories,
         ));
     }
 }

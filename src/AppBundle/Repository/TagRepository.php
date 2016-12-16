@@ -26,7 +26,7 @@ class TagRepository extends \Doctrine\ORM\EntityRepository
 
         foreach ($alltags as &$onetag)
         {
-            $tag = trim($onetag);
+            $onetag = trim($onetag);
         }
 
         return $alltags;
