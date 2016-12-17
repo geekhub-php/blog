@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class BlogController extends Controller
+class NewsController extends Controller
 {
 
     /**
@@ -23,26 +23,22 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/post/add", name="post")
+     * @Route("/news/add", name="addNews")
      * @Method({"POST"})
-     * @Template()
      */
-    public function postAction()
+    public function addAction()
     {
         if (!empty($_POST)) {
             $model = $this->get('model.service');
-            $data = $model->createRecord($_POST["title"]);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($data);
-            $em->flush();
+            $data = $model->createRecord($_POST);
         }
 
-        return array('data' => $data);
+        return $this->getAllAction();
     }
 
 
     /**
-     * @Route("/post/{id}", name="delete")
+     * @Route("/news/{id}", name="deleteNews")
      * @Method({"DELETE"})
      */
     public function deleteAction($id)
@@ -55,19 +51,20 @@ class BlogController extends Controller
 
 
     /**
-     * @Route("/post", name="getAll")
+     * @Route("/news", name="allNews")
      * @Method({"GET"})
+     * @Template()
      */
-    public function getAction()
+    public function getAllAction()
     {
         $model = $this->get('model.service');
         $data = $model->showAllRecords();
 
-        return new JsonResponse($data);
+        return array ('data' => $data);
     }
 
     /**
-     * @Route("/post/{id}", name="getId")
+     * @Route("/news/{id}", name="newsId")
      * @Method({"GET"})
      */
     public function getIdAction($id)
@@ -79,25 +76,13 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/post/{id}", name="put")
+     * @Route("/news/{id}", name="edit")
      * @Method({"PUT"})
      */
-    public function putAction($id)
+    public function editAction($id)
     {
         $model = $this->get('model.service');
         $data = $model->editRecord($id);
-
-        return new JsonResponse($data);
-    }
-
-    /**
-     * @Route("/post/{id}", name="patch")
-     * @Method({"PATCH"})
-     */
-    public function patchAction($id)
-    {
-        $model = $this->get('model.service');
-        $data = $model->patchRecord($id);
 
         return new JsonResponse($data);
     }

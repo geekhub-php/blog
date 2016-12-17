@@ -5,5 +5,5 @@ parameters:
 
 services:
   model.service:
-    class: AppBundle\Model\MethodModel
-    arguments: ["@service_container"]
+    class: AppBundle\Model\BlogModel
+    arguments: ["@doctrine.orm.entity_manager"]
