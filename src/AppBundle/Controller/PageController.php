@@ -16,13 +16,17 @@ class PageController extends Controller
      * @Method({"GET"})
      */
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $articles = $em->getRepository('AppBundle:Article')->getLatestArticles();
 
-        return $this->render('Page/index.html.twig', array('articles' => $articles));
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($articles, $request->query->get('page', 1), 5);
+
+        return $this->render('Page/index.html.twig', array('articles' => $articles,
+                                                           'pagination' => $pagination));
     }
 
     /**

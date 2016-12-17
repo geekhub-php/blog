@@ -1,7 +1,9 @@
 {% extends 'layout.html.twig' %}
 
 {% block body %}
-    {% for article in articles %}
+
+    {% for article in pagination %}
+
         <div class="date">
             <time datetime="{{ article.date|date('c') }}">{{ article.date|date('l, F j, Y') }}</time>
         </div>
@@ -16,9 +18,14 @@
         <footer class="meta">
             <p>Comments: <a href="{{ path('showarticle', {'id':article.id}) }}#comments">{{ article.comments|length }}</a></p>
            {# <p>Posted by <span class="highlight">{{article.author}}</span> at {{ article.date|date('h:iA') }}</p> #}
-        </footer>
+         </footer>
 
-    {% else %}
+   {% else %}
         <p>There are no articles on this Blog </p>
     {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}
+
+

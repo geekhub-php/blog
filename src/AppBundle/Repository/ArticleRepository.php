@@ -1,6 +1,10 @@
 <?php
 
+
 namespace AppBundle\Repository;
+
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 
 class articleRepository extends \Doctrine\ORM\EntityRepository
 {
@@ -18,4 +22,5 @@ class articleRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()
                   ->getResult();
     }
+
 }
