@@ -16,14 +16,31 @@
     </header>
     <ul>
         {% for category in categories %}
-                {% if(category.parent == null) %}
-            <li>
-                {{ category.name }}
-                {% include 'Page/subcategories.html.twig' with {'categories':category.children}%}
-            </li>
-   {% endif %}
-{% endfor %}
-</ul>
+            {% if(category.parent == null) %}
+                <li>
+                    {{ category.name }}
+                    {% include 'Page/subcategories.html.twig' with {'categories':category.children}%}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</section>
+
+<section class="section">
+    <header>
+        <h3>Latest Comments</h3>
+    </header>
+
+    {% for comment in latestComments %}
+        <p><span><b>
+            {{ comment.author.name }} {{ comment.author.surname }}</b> commented on
+            <i><b>{{ comment.article.title }}:</b></i>
+            <p> {{ comment.content }}</p>
+        </span></p><br />
+
+    {% else %}
+        <p>There are no recent comments</p>
+    {% endfor %}
 </section>
 
 

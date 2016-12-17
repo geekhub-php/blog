@@ -106,4 +106,15 @@ class Comment
     {
         return $this->article;
     }
+
+    public function setAuthor(Author $author)
+    {
+        $this->author = $author;
+        return $this;
+    }
+
+    public function getAuthor()
+    {
+        return $this->author;
+    }
 }

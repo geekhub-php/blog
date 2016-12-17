@@ -52,11 +52,15 @@ class PageController extends Controller
         $tagWeights = $em->getRepository('AppBundle:Tag')->getTagWeights($tags);
 
         $categories = $em->getRepository('AppBundle:Category')->findAll();
-      //  dump($categories); die();
 
-        return $this->render ('Page/sidebar.html.twig', array (
-            'tags' => $tagWeights,
-            'categories' => $categories,
+        $commentLimit = $this->container->getParameter('latest_comment_limit');
+
+        $latestComments = $em->getRepository('AppBundle:Comment')->getLatestComments($commentLimit);
+//dump($latestComments); die();
+        return $this->render('Page/sidebar.html.twig', array(
+            'tags'           => $tagWeights,
+            'categories'     => $categories,
+            'latestComments' => $latestComments,
         ));
     }
 }

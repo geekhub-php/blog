@@ -241,25 +241,17 @@ class Author
         return $this->articles;
     }
 
-
     /**
      * @param Article $articles
      * @return Author
      */
     public function addArticle(Article $articles)
     {
-        if (!$this->articles->contains($articles))
-        {
+        if (!$this->articles->contains($articles)) {
             $this->articles[] = $articles;
             $articles->addAuthor($this);
         }
 
         return $this;
     }
-
-
-
-
-
-
 }

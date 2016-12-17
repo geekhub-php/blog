@@ -85,14 +85,11 @@ class Tag
 
     public function addArticle(Article $articles)
     {
-        if (!$this->articles->contains($articles))
-        {
+        if (!$this->articles->contains($articles)) {
             $this->articles[] = $articles;
             $articles->addTag($this);
         }
 
         return $this;
     }
-
-
 }

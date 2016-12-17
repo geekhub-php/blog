@@ -58,7 +58,8 @@ class Category
     private $parent;
 
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->children = new ArrayCollection();
         $this->articles = new ArrayCollection();
     }
@@ -108,7 +109,7 @@ class Category
         return $this->parent;
     }
 
-    public function getChildren ()
+    public function getChildren()
     {
         return $this->children;
     }
@@ -117,5 +118,4 @@ class Category
     {
         return $this->articles;
     }
-
 }

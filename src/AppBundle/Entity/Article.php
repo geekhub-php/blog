@@ -215,8 +215,7 @@ class Article
 
     public function addAuthor(Author $authors)
     {
-        if (!$this->authors->contains($authors))
-        {
+        if (!$this->authors->contains($authors)) {
             $this->authors[] = $authors;
             $authors->addArticle($this);
         }
@@ -242,14 +241,10 @@ class Article
 
     public function addTag(Tag $tags)
     {
-        if (!$this->tags->contains($tags))
-        {
+        if (!$this->tags->contains($tags)) {
             $this->tags[] = $tags;
             $tags->addArticle($this);
         }
         return $this;
     }
-
-
-
 }
