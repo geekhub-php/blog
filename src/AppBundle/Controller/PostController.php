@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Category;
+use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends Controller
 {
@@ -17,12 +18,17 @@ class PostController extends Controller
      *
      * @return array;
      */
-    public function getAllAction()
+    public function getAllAction(Request $request, $page = 1)
     {
         $repository = $this->getDoctrine()->getRepository('AppBundle:Post');
-        $posts = $repository->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($repository->findAll(),
+            $request->query->getInt('page', $page), 5
+        );
 
-        return array('posts' => $posts);
+        return $this->render('AppBundle:Post:getAll.html.twig', [
+            'posts' => $pagination,
+        ]);
     }
 
     /**
