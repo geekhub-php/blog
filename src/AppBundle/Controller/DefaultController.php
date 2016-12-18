@@ -22,12 +22,12 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/", name="welcome")
      */
     public function indexAction()
     {
 
-        //return $this->render('default/index.html.twig'
+        //return $this->render('Default/index.html.twig'
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
             ->findAll();
@@ -50,8 +50,12 @@ class DefaultController extends Controller
 
         //dump($categories);
         //return new Response('Saved new product with id ' . $categories);
+
+
         return $this->render('default/index.html.twig', array('data' =>$posts,
             'categories' => $categories, 'nameCategories' => array('name'=>'last posts'), ));
+
+
 
         /*
         $dataOptions = new ModelNima();
@@ -91,9 +95,11 @@ class DefaultController extends Controller
                 'No posts'.$id
             );
         }
-
-        return $this->render('Default/showPost.html.twig', array('data' =>$post,
+        dump($post);
+        //return new Response('Saved new product with id ' . $post);
+      /*  return $this->render('default/showPost.html.twig', array('data' =>$post,
             'categories' => $categories, ));
+      */
     }
 
     /**
@@ -108,7 +114,7 @@ class DefaultController extends Controller
     {
         $dataOptions = new ModelNima();
 
-        return $this->render('Default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_read'),
+        return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_read'),
             'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most read categories', ));
     }
     /**
@@ -123,7 +129,7 @@ class DefaultController extends Controller
     {
         $dataOptions = new ModelNima();
 
-        return $this->render('Default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
+        return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
             'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most commented caegories', ));
     }
     /**
@@ -168,7 +174,7 @@ class DefaultController extends Controller
 
         //dump($categories);
         //return new Response('Saved new product with id ' . $categories);
-        return $this->render('Default/index.html.twig', array('data' =>$posts,
+        return $this->render('default/index.html.twig', array('data' =>$posts,
             'categories' => $categories, 'nameCategories' => $category, ));
 
 
@@ -184,7 +190,7 @@ class DefaultController extends Controller
      */
     public function showContactsAction()
     {
-        return $this->render('Default/contacts.html.twig');
+        return $this->render('default/contacts.html.twig');
     }
 
     /**
@@ -199,8 +205,8 @@ class DefaultController extends Controller
     {
         //$load= new ModelNima();
         //$load->getLoadCategories();
-        /*
-                $category = new Categories();
+
+        /*       $category = new Category();
                 $category->setName('history');
                 $em = $this->getDoctrine()->getManager();
 
@@ -210,7 +216,7 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-                $category = new Categories();
+                $category = new Category();
                 $category->setName('society');
                 $em = $this->getDoctrine()->getManager();
 
@@ -220,7 +226,7 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-                $category = new Categories();
+                $category = new Category();
                 $category->setName('psychology');
                 $em = $this->getDoctrine()->getManager();
 
@@ -230,7 +236,7 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-                $category = new Categories();
+                $category = new Category();
                 $category->setName('economics');
                 $em = $this->getDoctrine()->getManager();
 
@@ -240,7 +246,7 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-                $category = new Categories();
+                $category = new Category();
                 $category->setName('politics');
                 $em = $this->getDoctrine()->getManager();
 
@@ -255,7 +261,7 @@ class DefaultController extends Controller
 
             //add roles
 
-                $role = new Roles();
+                $role = new Role();
                 $role->setName('author');
                 $em = $this->getDoctrine()->getManager();
 
@@ -265,7 +271,7 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-                $role = new Roles();
+                $role = new Role();
                 $role->setName('commentator');
                 $em = $this->getDoctrine()->getManager();
 
@@ -275,20 +281,21 @@ class DefaultController extends Controller
                 // actually executes the queries (i.e. the INSERT query)
                 $em->flush();
 
-
-
+*/
+        /*
                 //add users
-                $user = new Users();
-                $user->setFirstName('vas');
-                $user->setLastName('vasikov');
-                $user->setLogin('vaslog');
+                $user = new User();
+                $user->setFirstName('kola');
+                $user->setLastName('kolakov');
+                $user->setLogin('loginloginlgin');
                 $user->setPassword('dsddd');
-                $user->setAdress('cherkassy.ffdfd');
+                $user->setCity('cherkassy');
+                $user->setAddress('bulvar 53');
                 $user->setEmail('mail@fdd');
                 $user->setEnabled('true');
                 $roleId = $this->getDoctrine()
-                    ->getRepository('NimaBlogBundle:Roles')
-                    ->find('8');
+                    ->getRepository('AppBundle:Role')
+                    ->find('1');
                 if (!$roleId) {
                     throw $this->createNotFoundException(
                         'No roles id'
@@ -309,18 +316,18 @@ class DefaultController extends Controller
                 $em->flush();
 
 
-        */
+*/
 
 
 //add posts
-        $post = new Posts();
+/*  $post = new Post();
         $post->setName('fgffg');
         $post->setDescription('Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor');
 
 
         $authorId = $this->getDoctrine()
             ->getRepository('AppBundle:User')
-            ->find('3');
+            ->find('2');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -331,7 +338,7 @@ class DefaultController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find('42');
+            ->find('11');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -342,18 +349,21 @@ class DefaultController extends Controller
         $post->setHashtag('dd');
         $post->setRating('5');
         $post->setDataCreate('2016-12-01');
+        $post->setDataEdit('2016-12-03');
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
+*/
 
-        $post = new Posts();
+  /*
+       $post = new Post();
         $post->setName('kjkjkjkjkj');
         $post->setDescription('Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor');
 
 
         $authorId = $this->getDoctrine()
             ->getRepository('AppBundle:User')
-            ->find('3');
+            ->find('2');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -364,7 +374,7 @@ class DefaultController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find('43');
+            ->find('13');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -375,6 +385,7 @@ class DefaultController extends Controller
         $post->setHashtag('dd');
         $post->setRating('10');
         $post->setDataCreate('2016-12-02');
+        $post->setDataEdit('2016-12-03');
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
@@ -382,14 +393,14 @@ class DefaultController extends Controller
 
 
 
-        $post = new Posts();
+        $post = new Post();
         $post->setName('fgffg');
         $post->setDescription('Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor');
 
 
         $authorId = $this->getDoctrine()
             ->getRepository('AppBundle:User')
-            ->find('3');
+            ->find('2');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -400,7 +411,7 @@ class DefaultController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find('43');
+            ->find('13');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -411,18 +422,19 @@ class DefaultController extends Controller
         $post->setHashtag('dd');
         $post->setRating('5');
         $post->setDataCreate('2016-12-01');
+        $post->setDataEdit('2016-12-01');
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
 
-        $post = new Posts();
+        $post = new Post();
         $post->setName('kjkjkjkjkj');
         $post->setDescription('Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor');
 
 
         $authorId = $this->getDoctrine()
             ->getRepository('AppBundle:User')
-            ->find('3');
+            ->find('2');
         if (!$authorId) {
             throw $this->createNotFoundException(
                 'No author id'
@@ -433,7 +445,7 @@ class DefaultController extends Controller
 
         $categoryId = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find('43');
+            ->find('14');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -444,11 +456,13 @@ class DefaultController extends Controller
         $post->setHashtag('dd');
         $post->setRating('10');
         $post->setDataCreate('2016-12-02');
+        $post->setDataEdit('2016-12-02');
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
 
 
         return new Response('new load good ');
+        */
     }
 }

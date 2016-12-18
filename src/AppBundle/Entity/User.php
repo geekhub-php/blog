@@ -80,7 +80,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\OneToOne(targetEntity="Role")
+     * @ORM\ManyToOne(targetEntity="Role")
      */
     private $role;
     /**
@@ -259,31 +259,6 @@ class User
     {
         return $this->city;
     }
-
-    /**
-     * Set street
-     *
-     * @param string $street
-     *
-     * @return User
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-
-        return $this;
-    }
-
-    /**
-     * Get street
-     *
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
     /**
      * Set address
      *

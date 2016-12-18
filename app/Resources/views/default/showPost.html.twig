@@ -1,8 +1,8 @@
-{% include 'NimaBlogBundle:Default:head.html.twig'%}
+{% include 'default/head.html.twig'%}
 
 <div class="row"  id="idMainDiv">
     <div class="row"  >
-        {% include 'NimaBlogBundle:Default:left_menu.html.twig'%}
+        {% include 'default/left_menu.html.twig'%}
 
         <div class="col-md-9 last-post-block" >
             <span class="label label-default spanMeny">post name: {{ data.name }}</span>
@@ -11,11 +11,15 @@
                 <br>
                 {{ data.body }}<br>
                 data: {{ data.dataCreate }}
+                 <br>
 
-
+               {% for key in data.authors %}
+                   aothors: {{ key }}
+                   <br>
+               {% endfor %}
             </div>
 
         </div>
     </div>
 
-{% include 'NimaBlogBundle:Default:footer.html.twig'%}
+{% include 'default/footer.html.twig'%}
