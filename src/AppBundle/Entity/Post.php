@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -39,9 +39,18 @@ class Post
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_published", type="datetime")
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
-    private $datePublished;
+    private $dateCreated;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $dateUpdated;
 
     /**
      * @var Author
@@ -71,6 +80,14 @@ class Post
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
     private $category;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=150, unique=true)
+     * @Gedmo\Slug(fields={"title"})
+     */
+    private $slug;
 
     /**
      * Constructor
@@ -137,30 +154,6 @@ class Post
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * Set datePublished
-     *
-     * @param \DateTime $datePublished
-     *
-     * @return Post
-     */
-    public function setDatePublished($datePublished)
-    {
-        $this->datePublished = $datePublished;
-
-        return $this;
-    }
-
-    /**
-     * Get datePublished
-     *
-     * @return \DateTime
-     */
-    public function getDatePublished()
-    {
-        return $this->datePublished;
     }
 
     /**
@@ -280,5 +273,77 @@ class Post
     public function getCategory()
     {
         return $this->category;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Post
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
+     * Set dateUpdated
+     *
+     * @param \DateTime $dateUpdated
+     *
+     * @return Post
+     */
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->dateUpdated = $dateUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdated
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Post
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }

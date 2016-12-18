@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Comment
@@ -31,9 +32,10 @@ class Comment
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="date_published", type="datetime")
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="create")
      */
-    private $datePublished;
+    private $dateCreated;
 
     /**
      * @var Post
@@ -84,30 +86,6 @@ class Comment
     }
 
     /**
-     * Set datePublished
-     *
-     * @param \DateTime $datePublished
-     *
-     * @return Comment
-     */
-    public function setDatePublished($datePublished)
-    {
-        $this->datePublished = $datePublished;
-
-        return $this;
-    }
-
-    /**
-     * Get datePublished
-     *
-     * @return \DateTime
-     */
-    public function getDatePublished()
-    {
-        return $this->datePublished;
-    }
-
-    /**
      * Set post
      *
      * @param \AppBundle\Entity\Post $post
@@ -153,5 +131,29 @@ class Comment
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Comment
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
     }
 }

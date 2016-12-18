@@ -12,7 +12,7 @@ AppBundle\Entity\Author:
         lastName: '<lastName()>'
 
 AppBundle\Entity\Category:
-    category{1..10}:
+    category{1..5}:
         name (unique): '<word()>'
 
 AppBundle\Entity\Tag:
@@ -26,11 +26,12 @@ AppBundle\Entity\Post:
         title: '<text(20)>'
         content: '<text(1000)>'
         category: '@category*'
-        datePublished: '<dateTimeBetween("-10 days", "now")>'
+        dateCreated: '<dateTimeBetween("-10 days", "now")>'
+        dateUpdated: '<dateTimeBetween("now", "+3 days")>'
 
 AppBundle\Entity\Comment:
     comment{1..10}:
         post: '@post*'
         author: '@author*'
         content: '<realText(100)>'
-        datePublished: '<dateTimeBetween("-10 days", "now")>'
+        dateCreated: '<dateTimeBetween("-10 days", "now")>'
