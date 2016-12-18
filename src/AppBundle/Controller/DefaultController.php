@@ -95,11 +95,17 @@ class DefaultController extends Controller
                 'No posts'.$id
             );
         }
-        dump($post);
-        //return new Response('Saved new product with id ' . $post);
-      /*  return $this->render('default/showPost.html.twig', array('data' =>$post,
-            'categories' => $categories, ));
-      */
+
+
+
+
+//dump($authors);
+
+        //return new Response('Saved new product with id ' . serialize($post));
+   return $this->render('default/showPost.html.twig', array('data' =>$post,
+            'categories' => $categories));
+
+
     }
 
     /**
@@ -318,9 +324,9 @@ class DefaultController extends Controller
 
 */
 
-
+/*
 //add posts
-/*  $post = new Post();
+  $post = new Post();
         $post->setName('fgffg');
         $post->setDescription('Foster, treatment pursue these aspirations nonprofit; equity initiative disruptor');
 
@@ -334,11 +340,21 @@ class DefaultController extends Controller
             );
         }
         $post->addAuthor($authorId);
+        $authorId = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
+            ->find('1');
+        if (!$authorId) {
+            throw $this->createNotFoundException(
+                'No author id'
+            );
+        }
+        $post->addAuthor($authorId);
+
         $post->setBody('Peaceful plumpy\'nut strengthen democracy, Aga Khan breakthrough insights. Innovation Medecins du Monde, micro-finance collaborative consumption think tank. Effectiveness resourceful public institutions solutions inspire breakthroughs; Ford Foundation democratizing the global financial system approach meaningful work. Economic development; lifting people up crisis management community diversity economic security. NGO raise awareness change movements; social, developing nations humanitarian relief challenges initiative courageous. Mobilize dignity, billionaire philanthropy nonviolent resistance Angelina Jolie accelerate progress. Combat malaria best practices cornerstone effect working families experience in the field legitimize dedicated. Liberal; overcome injustice safeguards hack, civil society celebrate. Deep engagement future humanitarian transform gun control theory of social change Jane Addams amplify nonprofit. Enable, results safety proper resources positive social change education human potential assessment expert. Jane Jacobs fighting poverty vaccines affiliate progressive. Improving quality fellows aid; gender equality social innovation maximize shifting landscape. Tackling human rights, beneficiaries equity board of directors. Assistance developing medical supplies worldwide, thinkers who make change happen tackle open source. Respond non-partisan disruptor momentum involvement pathway to a better life. Natural resources contribution local; research health. Frontline; insurmountable challenges; technology political, Rosa Parks Bloomberg underprivileged conflict resolution. United Nations pride social impact shift socio-economic divide. Kickstarter, action catalyst equal opportunity donate international development disruption minority. Eradicate, collaborative; cross-cultural medical organization; necessities working alongside human-centered design Cesar Chavez. Social good altruism evolution change lives youth educate. Impact; free expression; efficient, new approaches, partner, agriculture making progress affordable health care treatment. Medicine, global leaders, world problem solving gender freedom foster stakeholders. Advancement opportunity, advocate refugee; honor, public sector, human experience cooperation. Rural development social responsibility process smart cities, expanding community ownership accessibility informal economies prevention. Globalization, implementation poverty, citizenry provide solve, combat HIV/AIDS social analysis. Replicable Millennium Development Goals policy dialogue, volunteer public service truth development carbon emissions reductions. Sanitation Global South Bill and Melinda Gates sustainable transform the world free-speech elevate transformative global. Accelerate; reproductive rights, innovate network clean water visionary crisis situation.');
 
         $categoryId = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
-            ->find('11');
+            ->find('1');
         if (!$categoryId) {
             throw $this->createNotFoundException(
                 'No category id'
@@ -353,8 +369,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
-*/
 
+*/
   /*
        $post = new Post();
         $post->setName('kjkjkjkjkj');
