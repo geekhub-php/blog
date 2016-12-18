@@ -29,21 +29,21 @@ class Comment
     private $text;
 
     /**
-     * Many Comments have One Post.
-     *
-     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
-     * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
-     */
-    private $post;
-
-    /**
      * @var Author
      *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
      *
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $author;
+
+    /**
+     * @var Post
+     *
+     * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $post;
 
     /**
      * Get id.

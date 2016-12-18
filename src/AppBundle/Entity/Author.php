@@ -23,10 +23,10 @@ class Author
     private $id;
 
     /**
-     * @var string
+     * @var User
      *
      * @ORM\OneToOne(targetEntity="User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(onDelete="SET NULL")
      */
     private $userName;
 
@@ -52,9 +52,9 @@ class Author
     private $birthday;
 
     /**
-     * @var ArrayCollection
+     * @var ArrayCollection|Post[]
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
      */
     private $posts;
 

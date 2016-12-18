@@ -1,0 +1,24 @@
+{% extends 'body.html.twig' %}
+
+{% block leftside %}
+
+    <div class="col-md-8">
+        <h1>{{ posts[0].category.name }} posts:</h1>
+        {% for post in posts %}
+
+            <h2>
+                <a href="">{{ post.title }}</a>
+            </h2>
+            <p class="lead">
+                by {{ post.author.userName.userName }}
+            </p>
+
+            <p>{{ post.content }}</p>
+            <a class="btn btn-primary" href="">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+
+            <hr>
+        {% endfor %}
+    </div>
+
+
+{% endblock leftside %}

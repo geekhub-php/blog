@@ -36,6 +36,12 @@ class User
     private $password;
 
     /**
+     * @var
+     * @ORM\OneToOne(targetEntity="User")
+     */
+    private $author;
+
+    /**
      * Get id.
      *
      * @return int
@@ -91,5 +97,29 @@ class User
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param \AppBundle\Entity\User $author
+     *
+     * @return User
+     */
+    public function setAuthor(\AppBundle\Entity\User $author = null)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getAuthor()
+    {
+        return $this->author;
     }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "description": "db schema: https://docs.google.com/drawings/d/1Cvb0BBS4y4A2LRvhET0A6fyo6lBfyu4exZHz88e1ArE/edit?usp=sharing",
+  "main": "index.js",
+  "authors": [
+    "sentiq22 <sentiq22@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/PavlyukE/blog",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

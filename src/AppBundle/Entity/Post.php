@@ -41,12 +41,12 @@ class Post
      *
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="posts")
      *
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $author;
 
     /**
-     * Many Posts have Many Tags.
+     * @var ArrayCollection|Tag[]
      *
      * @ORM\ManyToMany(targetEntity="Tag")
      * @ORM\JoinTable(name="posts_tags",
@@ -64,6 +64,8 @@ class Post
 
     /**
      * One Post has Many Comments.
+     *
+     * @var ArrayCollection|Comment[]
      *
      * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
@@ -154,6 +156,7 @@ class Post
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
