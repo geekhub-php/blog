@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "description": "link database shem: https://docs.google.com/drawings/d/1AaH5ooFZNx1JtpEXsTeCOLm8QMkiTXMM3FsWfcf7b0M/edit",
+  "main": "index.js",
+  "authors": [
+    "nima"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/nima-vova/blog",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

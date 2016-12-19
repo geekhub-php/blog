@@ -1,0 +1,36 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "link database shem: https://docs.google.com/drawings/d/1AaH5ooFZNx1JtpEXsTeCOLm8QMkiTXMM3FsWfcf7b0M/edit",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "bower": "^1.8.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^2.2.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^3.3.0",
+    "gulp-sourcemaps": "^1.9.1",
+    "gulp-uglify": "^2.0.0",
+    "less": "^2.7.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nima-vova/blog.git"
+  },
+  "author": "nima",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nima-vova/blog/issues"
+  },
+  "homepage": "https://github.com/nima-vova/blog#readme"
+}

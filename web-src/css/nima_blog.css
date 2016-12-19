@@ -3,7 +3,7 @@ background-color: gainsboro;
 }
 #headImg{
     height: 250px;
-    background-image: url("../img/gorod62.jpg");
+    background: url("../images/gorod62.jpg");
     margin-left: 45px;
     margin-right:100px;
 }

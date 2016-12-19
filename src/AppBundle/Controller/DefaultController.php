@@ -66,47 +66,6 @@ class DefaultController extends Controller
 
     }
 
-    /**
-     *@Route("/post/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="postPage")
-     * @Method({"GET"})
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    public function showPostAction($id)
-    {
-
-        $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
-            ->findAll();
-
-        if (!$categories) {
-            throw $this->createNotFoundException(
-                'No catefories'
-            );
-        }
-        $post = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
-            ->find($id);
-
-        if (!$post) {
-            throw $this->createNotFoundException(
-                'No posts'.$id
-            );
-        }
-
-
-
-
-//dump($authors);
-
-        //return new Response('Saved new product with id ' . serialize($post));
-   return $this->render('default/showPost.html.twig', array('data' =>$post,
-            'categories' => $categories));
-
-
-    }
 
     /**
      *@Route("/most_read", name="mostRead")
@@ -138,53 +97,7 @@ class DefaultController extends Controller
         return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
             'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most commented caegories', ));
     }
-    /**
-     *@Route("/categories/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="categories")
-     * @Method({"GET"})
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    public function showSelectedCategoriesAction($id)
-    {
-        $category = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
-            ->find($id);
 
-        if (!$category) {
-            throw $this->createNotFoundException(
-                'No catefories'
-            );
-        }
-
-        $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
-            ->findAll();
-
-        if (!$categories) {
-            throw $this->createNotFoundException(
-                'No catefories'
-            );
-        }
-
-        $posts = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
-            ->findBy(array('category' =>$id));
-
-        if (!$posts) {
-            throw $this->createNotFoundException(
-                'No posts'
-            );
-        }
-
-        //dump($categories);
-        //return new Response('Saved new product with id ' . $categories);
-        return $this->render('default/index.html.twig', array('data' =>$posts,
-            'categories' => $categories, 'nameCategories' => $category, ));
-
-
-    }
 
     /**
      *@Route("/contacts", name="contacts")
