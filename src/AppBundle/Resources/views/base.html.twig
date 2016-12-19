@@ -11,6 +11,25 @@
 </head>
 <body>
 {% block body %}
+    {% block wrapper %}
+        <div class="container-fluid mainWrapper">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 myClass">
+                    <h1>Ugly Blog</h1>
+                    {% block topNavBar %}
+                    {{ include('AppBundle::navbar.html.twig') }}
+                    {% endblock %}
+                    {% block breadcrump %}
+                        <ol class="breadcrumb">
+                            <li class="active">Home</li>
+                        </ol>
+                    {% endblock %}
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 {% endblock %}
 {% block javascripts %}
     <script src="{{ asset('js/jquery.min.js') }}"></script>

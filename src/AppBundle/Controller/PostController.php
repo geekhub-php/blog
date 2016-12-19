@@ -19,7 +19,8 @@ class PostController extends Controller
      */
     public function indexAction()
     {
-        echo 'hello';
-        return new Response();
+        $em = $this->getDoctrine()->getManager();
+
+        return array('hello');
     }
 }
