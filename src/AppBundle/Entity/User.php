@@ -78,7 +78,7 @@ class User
     private $enabled;
 
     /**
-     * @var string
+     * @var int
      *
      * @ORM\ManyToOne(targetEntity="Role")
      */
