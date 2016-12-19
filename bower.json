@@ -1,0 +1,20 @@
+{
+  "name": "blog",
+  "description": "hometask for GeekHub",
+  "main": "index.js",
+  "authors": [
+    "Alex Kobilianskiy"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/AlexKobiliansky/blog",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
