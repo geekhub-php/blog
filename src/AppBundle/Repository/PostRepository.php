@@ -10,4 +10,12 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllOrderByDesc()
+    {
+        return $this->createQueryBuilder('post')
+            ->addOrderBy('post.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
 }

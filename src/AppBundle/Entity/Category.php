@@ -39,7 +39,8 @@ class Category
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="Category", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\OrderBy({"id" = "DESC"})
      */
     private $posts;
 

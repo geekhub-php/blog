@@ -46,21 +46,21 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="firstName", type="string", length=50)
+     * @ORM\Column(name="first_name", type="string", length=50)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="lastName", type="string", length=50)
+     * @ORM\Column(name="last_name", type="string", length=50)
      */
     private $lastName;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="User")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
      */
     private $posts;
 

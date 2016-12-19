@@ -21,7 +21,7 @@ class LoadFixturesData implements FixtureInterface
             //Adding categories
             $category = new Category();
             $category->setName($faker->title);
-            $category->setDescription($faker->sentence(10));
+            $category->setDescription($faker->sentence(5));
 
             $manager->persist($category);
 
@@ -50,7 +50,6 @@ class LoadFixturesData implements FixtureInterface
             $post->setTitle($faker->sentence);
             $post->setText($faker->text(100));
             $post->setCategory($category);
-            $post->setDateOfPublication(new \DateTime());
             $post->setUser($user);
 
             $manager->persist($post);

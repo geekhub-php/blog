@@ -1,32 +1,36 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}{{ category.name }}{% endblock %}
 
 {% block breadcrump %}
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="/category/{{ post.category.id }}">{{ post.category.name }}</a></li>
-        <li class="active">{{ post.title }}</li>
+        <li class="active">{{ category.name }}</li>
     </ol>
 {% endblock %}
  {% block content %}
      <div class="container-fluid">
          <div class="row">
              <div class="col-md-9">
+                 {% for item in posts %}
                      <div class="row">
                          <div class="panel panel-default">
                              <div class="panel-heading panelHeading">
-                                 <h3 class="panel-title"><a href="/post/{{ post.id }}">{{ post.title }}</a><span style="float: right">{{ post.createdAt|date('H:i d-m-Y') }}</span></h3>
+                                 <h3 class="panel-title"><a href="/post/{{ item.id }}">{{ item.title }}</a><span style="float: right">{{ item.createdAt|date('H:i d-m-Y') }}</span></h3>
                              </div>
                              <div class="panel-body">
-                                 {{ post.text }}
+                                 {{ item.text }}
                              </div>
                              <div class="panel-footer">
-                                 <span><strong>Author: </strong><a href="/user/{{ post.user.id }}">{{ post.user.firstName }} {{ post.user.lastName }}</a></span>
-                                 <span style="float: right"><strong>Category: </strong>{{ post.category.name }}</span>
+                                 <span><strong>Author: </strong>{{ item.user.firstName }} {{ item.user.lastName }}</span>
+                                 <span style="float: right"><strong>Category: </strong>{{ item.category.name }}</span>
                              </div>
                          </div>
                      </div>
+                 {% endfor %}
+                 <div class="col-md-offset-4">
+                     {{ knp_pagination_render(posts) }}
+                 </div>
              </div>
              {{ include('AppBundle::sidebar.html.twig') }}
          </div>

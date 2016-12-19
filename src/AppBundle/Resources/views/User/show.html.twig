@@ -1,0 +1,56 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Welcome to main page!{% endblock %}
+
+ {% block content %}
+     <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-9">
+                 <div class="row">
+                    <div class="panel panel-default">
+                     <div class="panel-heading">
+                         <h3 class="panel-title">{{ user.username }}</h3>
+                     </div>
+                     <div class="panel-body">
+                         <table class="table table-user-information">
+                             <tbody>
+                             <tr>
+                                 <th>First name:</th>
+                                 <td>{{ user.firstname }}</td>
+                             </tr>
+                             <tr>
+                                 <th>Last name:</th>
+                                 <td>{{ user.lastname }}</td>
+                             </tr>
+                             <tr>
+                                 <th>Email</th>
+                                 <td>{{ user.email }}</td>
+                             </tr>
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+                 </div>
+             </div>
+             <div class="col-md-3">
+                 <div class="row">
+                     <div class="col-md-11 col-md-offset-1 side">
+                         <div class="row">
+                             <div class="list-group">
+                                 <li class="list-group-item active">Last Posts</li>
+                                 {% for post in lastPosts %}
+                                     <a href="/post/{{ post.id }}" class="list-group-item">{{ post.title }}</a>
+                                 {% endfor %}
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 <div class="row">
+                     <div class="col-md-11 col-md-offset-1 side">
+                         <strong>Block number 2</strong>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ {% endblock %}

@@ -1,6 +1,6 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Welcome to main page!{% endblock %}
 
  {% block content %}
      <div class="container-fluid">
@@ -10,15 +10,21 @@
                      <div class="row">
                          <div class="panel panel-default">
                              <div class="panel-heading panelHeading">
-                                 <h3 class="panel-title"><a href="/post/{{ item.id }}">{{  item.title }}</a><span style="float: right">{{ item.datetime }}</span></h3>
-
+                                 <h3 class="panel-title"><a href="/post/{{ item.id }}">{{ item.title }}</a><span style="float: right">{{ item.createdAt|date('H:i d-m-Y') }}</span></h3>
                              </div>
                              <div class="panel-body">
                                  {{ item.text }}
                              </div>
+                             <div class="panel-footer">
+                                 <span><strong>Author: </strong><a href="/user/{{ item.user.id }}">{{ item.user.firstName }} {{ item.user.lastName }}</a></span>
+                                 <span style="float: right"><strong>Category: </strong>{{ item.category.name }}</span>
+                             </div>
                          </div>
                      </div>
                  {% endfor %}
+                 <div class="col-md-offset-4">
+                     {{ knp_pagination_render(posts) }}
+                 </div>
              </div>
              {{ include('AppBundle::sidebar.html.twig') }}
          </div>

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Post
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Post
 {
+    use ORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var int
      *
@@ -39,21 +42,14 @@ class Post
     /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="posts")
      */
     private $category;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateOfPublication", type="datetime")
-     */
-    private $dateOfPublication;
-
-    /**
      * @var int
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts")
      */
     private $user;
 
@@ -155,29 +151,6 @@ class Post
         return $this->category;
     }
 
-    /**
-     * Set dateOfPublication
-     *
-     * @param \DateTime $dateOfPublication
-     *
-     * @return Post
-     */
-    public function setDateOfPublication($dateOfPublication)
-    {
-        $this->dateOfPublication = $dateOfPublication;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfPublication
-     *
-     * @return \DateTime
-     */
-    public function getDateOfPublication()
-    {
-        return $this->dateOfPublication;
-    }
 
     /**
      * Set user
