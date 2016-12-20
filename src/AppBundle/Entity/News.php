@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Article
+ * News
  *
- * @ORM\Table(name="article")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
+ * @ORM\Table(name="news")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NewsRepository")
  */
-class Article
+class News
 {
     /**
      * @var int
@@ -31,23 +31,25 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="text", type="text")
+     * @ORM\Column(name="subject", type="text")
      */
-    private $text;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="source", type="string", length=150)
-     */
-    private $source;
+    private $subject;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="category_ID", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Author" ,inversedBy="posts")
+     * @ORM\JoinColumn(name="author_id",referencedColumnName="id")
+     *
      */
-    private $categoryID;
+    private $author;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date;
 
 
     /**
@@ -65,7 +67,7 @@ class Article
      *
      * @param string $title
      *
-     * @return Article
+     * @return News
      */
     public function setTitle($title)
     {
@@ -85,74 +87,74 @@ class Article
     }
 
     /**
-     * Set text
+     * Set subject
      *
-     * @param string $text
+     * @param string $subject
      *
-     * @return Article
+     * @return News
      */
-    public function setText($text)
+    public function setSubject($subject)
     {
-        $this->text = $text;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get text
+     * Get subject
      *
      * @return string
      */
-    public function getText()
+    public function getSubject()
     {
-        return $this->text;
+        return $this->subject;
     }
 
     /**
-     * Set source
+     * Set authorID
      *
-     * @param string $source
+     * @param integer $author
      *
-     * @return Article
+     * @return News
      */
-    public function setSource($source)
+    public function setAuthor($author)
     {
-        $this->source = $source;
+        $this->author = $author;
 
         return $this;
     }
 
     /**
-     * Get source
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * Set categoryID
-     *
-     * @param integer $categoryID
-     *
-     * @return Article
-     */
-    public function setCategoryID($categoryID)
-    {
-        $this->categoryID = $categoryID;
-
-        return $this;
-    }
-
-    /**
-     * Get categoryID
+     * Get author
      *
      * @return int
      */
-    public function getCategoryID()
+    public function getAuthor()
     {
-        return $this->categoryID;
+        return $this->author;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return News
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

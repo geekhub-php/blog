@@ -5,5 +5,5 @@ parameters:
 
 services:
   model.service:
-    class: AppBundle\Model\BlogModel
+    class: AppBundle\Model\NewsModel
     arguments: ["@doctrine.orm.entity_manager"]

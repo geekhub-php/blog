@@ -5,7 +5,7 @@ namespace AppBundle\Model;
 use AppBundle\Entity\Category;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class BlogModel
+class NewsModel
 {
 
     private $em;
@@ -22,12 +22,15 @@ class BlogModel
 
     public function deleteRecord($id)
     {
-
+        $repository = $this->em->getRepository('AppBundle:News');
+        $data = $repository->find($id);
+        $this->em->remove($data);
+        $this->em->flush();
     }
 
     public function showAllRecords()
     {
-        $repository = $this->em->getRepository('AppBundle:Category');
+        $repository = $this->em->getRepository('AppBundle:News');
         $data = $repository->findAll();
 
         return $data;
@@ -43,8 +46,4 @@ class BlogModel
 
     }
 
-    public function patchRecord($id)
-    {
-
-    }
 }

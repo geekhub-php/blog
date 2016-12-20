@@ -2,7 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Model\MethodModel;
+use AppBundle\AppBundle;
+use AppBundle\Model\NewsModel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -15,40 +16,12 @@ class NewsController extends Controller
 {
 
     /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction()
-    {
-        return $this->render('@App/base.html.twig');
-    }
-
-    /**
      * @Route("/news/add", name="addNews")
      * @Method({"POST"})
      */
     public function addAction()
     {
-        if (!empty($_POST)) {
-            $model = $this->get('model.service');
-            $data = $model->createRecord($_POST);
-        }
-
-        return $this->getAllAction();
     }
-
-
-    /**
-     * @Route("/news/{id}", name="deleteNews")
-     * @Method({"DELETE"})
-     */
-    public function deleteAction($id)
-    {
-        $model = $this->get('model.service');
-        $data = $model->deleteRecord($id);
-
-        return new JsonResponse();
-    }
-
 
     /**
      * @Route("/news", name="allNews")
@@ -69,21 +42,18 @@ class NewsController extends Controller
      */
     public function getIdAction($id)
     {
-        $model = $this->get('model.service');
-        $data = $model->showRecord($id);
-
-        return new JsonResponse($data);
     }
 
     /**
-     * @Route("/news/{id}", name="edit")
-     * @Method({"PUT"})
+     * @Route("/news/{id}", name="delete")
+     * @Method({"DELETE"})
      */
-    public function editAction($id)
+    public function deleteAction($id)
     {
         $model = $this->get('model.service');
-        $data = $model->editRecord($id);
+        $model->deleteRecord($id);
 
-        return new JsonResponse($data);
+        return $this->render('@App/base.html.twig');
+
     }
 }
