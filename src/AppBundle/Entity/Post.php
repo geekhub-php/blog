@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Post
+ * Post.
  *
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
@@ -57,7 +57,6 @@ class Post
     private $authors;
 
     /**
-     *
      * @ORM\ManyToOne(targetEntity="Category")
      */
     private $category;
@@ -90,11 +89,12 @@ class Post
      */
     private $dataEdit;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -104,7 +104,7 @@ class Post
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -118,7 +118,7 @@ class Post
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -128,7 +128,7 @@ class Post
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -142,7 +142,7 @@ class Post
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -152,7 +152,7 @@ class Post
     }
 
     /**
-     * Set body
+     * Set body.
      *
      * @param string $body
      *
@@ -166,7 +166,7 @@ class Post
     }
 
     /**
-     * Get body
+     * Get body.
      *
      * @return string
      */
@@ -176,7 +176,7 @@ class Post
     }
 
     /**
-     * Set hashtag
+     * Set hashtag.
      *
      * @param string $hashtag
      *
@@ -190,7 +190,7 @@ class Post
     }
 
     /**
-     * Get hashtag
+     * Get hashtag.
      *
      * @return string
      */
@@ -200,7 +200,7 @@ class Post
     }
 
     /**
-     * Set authors
+     * Set authors.
      *
      * @param string $authors
      *
@@ -214,7 +214,7 @@ class Post
     }
 
     /**
-     * Get authors
+     * Get authors.
      *
      * @return string
      */
@@ -224,7 +224,7 @@ class Post
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param string $category
      *
@@ -238,7 +238,7 @@ class Post
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return string
      */
@@ -248,9 +248,9 @@ class Post
     }
 
     /**
-     * Set rating
+     * Set rating.
      *
-     * @param integer $rating
+     * @param int $rating
      *
      * @return Post
      */
@@ -262,7 +262,7 @@ class Post
     }
 
     /**
-     * Get rating
+     * Get rating.
      *
      * @return int
      */
@@ -272,7 +272,7 @@ class Post
     }
 
     /**
-     * Set dataCreate
+     * Set dataCreate.
      *
      * @param string $dataCreate
      *
@@ -286,7 +286,7 @@ class Post
     }
 
     /**
-     * Get dataCreate
+     * Get dataCreate.
      *
      * @return string
      */
@@ -296,7 +296,7 @@ class Post
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
      * @param string $enabled
      *
@@ -310,7 +310,7 @@ class Post
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
      * @return string
      */
@@ -320,7 +320,7 @@ class Post
     }
 
     /**
-     * Set dataEdit
+     * Set dataEdit.
      *
      * @param string $dataEdit
      *
@@ -334,7 +334,7 @@ class Post
     }
 
     /**
-     * Get dataEdit
+     * Get dataEdit.
      *
      * @return string
      */
@@ -344,7 +344,7 @@ class Post
     }
 
     /**
-     * Add author
+     * Add author.
      *
      * @param \AppBundle\Entity\User $author
      *
@@ -358,7 +358,7 @@ class Post
     }
 
     /**
-     * Remove author
+     * Remove author.
      *
      * @param \AppBundle\Entity\User $author
      */

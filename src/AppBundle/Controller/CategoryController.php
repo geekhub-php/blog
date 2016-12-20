@@ -2,26 +2,16 @@
 
 namespace AppBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\Role;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Comment;
-use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\VarDumper\Cloner\Data;
-use Doctrine\ORM\EntityManager;
-
-use Symfony\Component\HttpFoundation\Request;
 
 class CategoryController extends Controller
 {
-
     /**
      *@Route("/categories/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="categories")
      * @Method({"GET"})
@@ -54,7 +44,7 @@ class CategoryController extends Controller
 
         $posts = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
-            ->findBy(array('category' =>$id));
+            ->findBy(array('category' => $id));
 
         if (!$posts) {
             throw $this->createNotFoundException(
@@ -64,11 +54,7 @@ class CategoryController extends Controller
 
         //dump($categories);
         //return new Response('Saved new product with id ' . $categories);
-        return $this->render('default/index.html.twig', array('data' =>$posts,
+        return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $categories, 'nameCategories' => $category, ));
-
-
     }
-
-
 }

@@ -4,17 +4,10 @@ namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Role;
 use AppBundle\Entity\User;
-use AppBundle\Entity\Comment;
-use Symfony\Component\Validator\Constraints\All;
-use Symfony\Component\VarDumper\Cloner\Data;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\EntityManager;
-
 
 class LoadUserData implements FixtureInterface
 {
@@ -50,41 +43,37 @@ class LoadUserData implements FixtureInterface
         $manager->persist($category);
         $manager->flush();
 
-
-
-
          //add roles
 
              $role1 = new Role();
-             $role1->setName('author');
-             $manager->persist($role1);
-             $manager->flush();
+        $role1->setName('author');
+        $manager->persist($role1);
+        $manager->flush();
 
-             $role2 = new Role();
-             $role2->setName('commentator');
-             $manager->persist($role2);
+        $role2 = new Role();
+        $role2->setName('commentator');
+        $manager->persist($role2);
 
-             $manager->flush();
-
+        $manager->flush();
 
         //add user
              $user = new User();
-             $user->setFirstName('kola');
-             $user->setLastName('kolakov');
-             $user->setLogin('loginloginlgin');
-             $user->setPassword('dsddd');
-             $user->setCity('cherkassy');
-             $user->setAddress('bulvar 53');
-             $user->setEmail('mail@fdd');
-             $user->setEnabled('true');
+        $user->setFirstName('kola');
+        $user->setLastName('kolakov');
+        $user->setLogin('loginloginlgin');
+        $user->setPassword('dsddd');
+        $user->setCity('cherkassy');
+        $user->setAddress('bulvar 53');
+        $user->setEmail('mail@fdd');
+        $user->setEnabled('true');
 
-         $roleId = $manager->getRepository('AppBundle:Role')->find('1');
+        $roleId = $manager->getRepository('AppBundle:Role')->find('1');
 
         $user->setRole($roleId);
-             $user->setRating('10');
-             $user->setDataCreate('2016-11-11');
-             $manager->persist($user);
-             $manager->flush();
+        $user->setRating('10');
+        $user->setDataCreate('2016-11-11');
+        $manager->persist($user);
+        $manager->flush();
 
         $user = new User();
         $user->setFirstName('petro');
@@ -101,7 +90,6 @@ class LoadUserData implements FixtureInterface
         $user->setDataCreate('2016-11-11');
         $manager->persist($user);
         $manager->flush();
-
 
         $post = new Post();
         $post->setName('fgffg');

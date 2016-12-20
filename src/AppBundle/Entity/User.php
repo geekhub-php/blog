@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
@@ -103,11 +103,12 @@ class User
      */
     private $dataCreate;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -117,7 +118,7 @@ class User
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -131,7 +132,7 @@ class User
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -141,7 +142,7 @@ class User
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -155,7 +156,7 @@ class User
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -165,7 +166,7 @@ class User
     }
 
     /**
-     * Set login
+     * Set login.
      *
      * @param string $login
      *
@@ -179,7 +180,7 @@ class User
     }
 
     /**
-     * Get login
+     * Get login.
      *
      * @return string
      */
@@ -189,7 +190,7 @@ class User
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -203,7 +204,7 @@ class User
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
@@ -213,7 +214,7 @@ class User
     }
 
     /**
-     * Set email
+     * Set email.
      *
      * @param string $email
      *
@@ -227,7 +228,7 @@ class User
     }
 
     /**
-     * Get email
+     * Get email.
      *
      * @return string
      */
@@ -237,7 +238,7 @@ class User
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
      *
@@ -251,7 +252,7 @@ class User
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -260,7 +261,7 @@ class User
         return $this->city;
     }
     /**
-     * Set address
+     * Set address.
      *
      * @param string $address
      *
@@ -274,7 +275,7 @@ class User
     }
 
     /**
-     * Get address
+     * Get address.
      *
      * @return string
      */
@@ -284,7 +285,7 @@ class User
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
      * @param string $enabled
      *
@@ -298,7 +299,7 @@ class User
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
      * @return string
      */
@@ -308,7 +309,7 @@ class User
     }
 
     /**
-     * Set role
+     * Set role.
      *
      * @param string $role
      *
@@ -322,7 +323,7 @@ class User
     }
 
     /**
-     * Get role
+     * Get role.
      *
      * @return string
      */
@@ -332,9 +333,9 @@ class User
     }
 
     /**
-     * Set rating
+     * Set rating.
      *
-     * @param integer $rating
+     * @param int $rating
      *
      * @return User
      */
@@ -346,7 +347,7 @@ class User
     }
 
     /**
-     * Get rating
+     * Get rating.
      *
      * @return int
      */
@@ -356,7 +357,7 @@ class User
     }
 
     /**
-     * Set dataCreate
+     * Set dataCreate.
      *
      * @param string $dataCreate
      *
@@ -370,7 +371,7 @@ class User
     }
 
     /**
-     * Get dataCreate
+     * Get dataCreate.
      *
      * @return string
      */
@@ -380,7 +381,7 @@ class User
     }
 
     /**
-     * Add post
+     * Add post.
      *
      * @param \AppBundle\Entity\Post $post
      *
@@ -394,7 +395,7 @@ class User
     }
 
     /**
-     * Remove post
+     * Remove post.
      *
      * @param \AppBundle\Entity\Post $post
      */
@@ -404,7 +405,7 @@ class User
     }
 
     /**
-     * Get posts
+     * Get posts.
      *
      * @return \Doctrine\Common\Collections\Collection
      */

@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Comment
+ * Comment.
  *
  * @ORM\Table(name="comment")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CommentRepository")
@@ -31,7 +31,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Post")
+     * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
      */
     private $post;
 
@@ -56,9 +56,8 @@ class Comment
      */
     private $enabled;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -68,7 +67,7 @@ class Comment
     }
 
     /**
-     * Set text
+     * Set text.
      *
      * @param string $text
      *
@@ -82,7 +81,7 @@ class Comment
     }
 
     /**
-     * Get text
+     * Get text.
      *
      * @return string
      */
@@ -92,7 +91,7 @@ class Comment
     }
 
     /**
-     * Set post
+     * Set post.
      *
      * @param string $post
      *
@@ -106,7 +105,7 @@ class Comment
     }
 
     /**
-     * Get post
+     * Get post.
      *
      * @return string
      */
@@ -116,7 +115,7 @@ class Comment
     }
 
     /**
-     * Set user
+     * Set user.
      *
      * @param string $user
      *
@@ -130,7 +129,7 @@ class Comment
     }
 
     /**
-     * Get user
+     * Get user.
      *
      * @return string
      */
@@ -140,7 +139,7 @@ class Comment
     }
 
     /**
-     * Set date
+     * Set date.
      *
      * @param string $date
      *
@@ -154,7 +153,7 @@ class Comment
     }
 
     /**
-     * Get date
+     * Get date.
      *
      * @return string
      */
@@ -164,7 +163,7 @@ class Comment
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
      * @param string $enabled
      *
@@ -178,7 +177,7 @@ class Comment
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
      * @return string
      */
