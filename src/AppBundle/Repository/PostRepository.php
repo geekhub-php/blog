@@ -13,20 +13,33 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @return object
      */
-    public function getCountCategories()
+    public function getCountCategories($categories)
     {
+        $categoriesAndCount =array(array('id' =>'','name'=>'','count'=>''));
+        $i=0;
+        foreach ($categories as $key=>$value){
+            //echo $value->getId();
+            $qb = $this->createQueryBuilder('p');
+            $qb->select('count(p.id)');
+            $qb->where('p.category = :category');
+            $qb->setParameter('category', $value->getId());
+            //echo $qb->getQuery()->getSingleScalarResult();
+           // echo serialize(array('id' =>$value->getId(),'name'=>$value->getName(),'count'=>$qb->getQuery()->getSingleScalarResult()));
+            $categoriesAndCount[$i]['id']=$value->getId();
+            $categoriesAndCount[$i]['name']=$value->getName();
+            $categoriesAndCount[$i]['count']=$qb->getQuery()->getSingleScalarResult();
+            $i++;
+        }
+         return $categoriesAndCount;
+
+        /*
         $qb = $this->createQueryBuilder('p');
         $qb->select('count(p.id)');
         $qb->where('p.category = :category');
         $qb->setParameter('category', '2');
 
-        return $qb->getQuery()->getSingleScalarResult();
+        return $qb->getQuery()->getSingleScalarResult();*/
 
-        /*return $this->getEntityManager()
-              ->createQuery(
-                'SELECT c FROM AppBundle:Category c ORDER BY c.name ASC')
-            ->getResult();
 
-*/
     }
 }

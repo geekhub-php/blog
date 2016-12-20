@@ -41,13 +41,11 @@ class PostController extends Controller
             );
         }
 
-//$authors=$post->getAuthors();
-  //      echo serialize($authors);
+        $em = $this->getDoctrine()->getManager();
 
-//dump($authors);
-
-        //return new Response('Saved new product with id ' . serialize($post));
+        $countCategores = $em->getRepository('AppBundle:Post');
+        $count = $countCategores->getCountCategories($categories);
    return $this->render('default/showPost.html.twig', array('data' => $post,
-            'categories' => $categories, ));
+            'categories' => $count, ));
     }
 }

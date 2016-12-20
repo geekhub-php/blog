@@ -38,10 +38,18 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $countCategores = $em->getRepository('AppBundle:Post');
-        $count = $countCategores->getCountCategories();
+        $count = $countCategores->getCountCategories($categories);
+
+
+
+
+
+        //echo gettype($categories);
+
+        echo serialize($count);
 
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $categories, 'nameCategories' => array('name' => 'last posts'), ));
+            'categories' => $count, 'nameCategories' => array('name' => 'last posts'), ));
     }
 
     /**
@@ -70,6 +78,7 @@ class DefaultController extends Controller
     public function showMostCommentedAction()
     {
         $dataOptions = new ModelNima();
+
 
         return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
             'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most commented caegories', ));

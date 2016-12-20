@@ -51,10 +51,12 @@ class CategoryController extends Controller
                 'No posts'
             );
         }
+        $em = $this->getDoctrine()->getManager();
 
-        //dump($categories);
-        //return new Response('Saved new product with id ' . $categories);
+        $countCategores = $em->getRepository('AppBundle:Post');
+        $count = $countCategores->getCountCategories($categories);
+
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $categories, 'nameCategories' => $category, ));
+            'categories' => $count, 'nameCategories' => $category, ));
     }
 }
