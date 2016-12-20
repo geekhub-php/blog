@@ -57,7 +57,7 @@ class Post
      * @var ArrayCollection
      *
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="Post")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
      */
     private $comments;
 
