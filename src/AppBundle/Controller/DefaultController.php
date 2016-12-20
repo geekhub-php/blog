@@ -46,43 +46,13 @@ class DefaultController extends Controller
 
         //echo gettype($categories);
 
-        echo serialize($count);
+        //echo serialize($count);
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'last posts'), ));
     }
 
-    /**
-     *@Route("/most_read", name="mostRead")
-     * @Method({"GET"})
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    public function showMostReadAction()
-    {
-        $dataOptions = new ModelNima();
 
-        return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_read'),
-            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most read categories', ));
-    }
-    /**
-     *@Route("/most_commented", name="most_commented")
-     * @Method({"GET"})
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    public function showMostCommentedAction()
-    {
-        $dataOptions = new ModelNima();
-
-
-        return $this->render('default/mostRead.html.twig', array('data' => $dataOptions->getRevuePosts('most_commented'),
-            'categories' => $dataOptions->getCategories(), 'nameCategories' => 'most commented caegories', ));
-    }
 
     /**
      *@Route("/contacts", name="contacts")

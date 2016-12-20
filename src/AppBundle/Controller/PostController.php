@@ -13,7 +13,7 @@ use Symfony\Component\VarDumper\Cloner\Data;
 class PostController extends Controller
 {
     /**
-     *@Route("/post/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="postPage")
+     * @Route("/post/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="postPage")
      * @Method({"GET"})
      *
      * @param int $id
@@ -37,7 +37,7 @@ class PostController extends Controller
 
         if (!$post) {
             throw $this->createNotFoundException(
-                'No posts'.$id
+                'No posts' . $id
             );
         }
 
@@ -45,7 +45,81 @@ class PostController extends Controller
 
         $countCategores = $em->getRepository('AppBundle:Post');
         $count = $countCategores->getCountCategories($categories);
-   return $this->render('default/showPost.html.twig', array('data' => $post,
-            'categories' => $count, ));
+        return $this->render('default/showPost.html.twig', array('data' => $post,
+            'categories' => $count,));
     }
+
+    /**
+     * @Route("/most_commented", name="most_commented")
+     * @Method({"GET"})
+     *
+     * @param int $id
+     *
+     * @return object
+     */
+    public function showMostCommentedAction()
+    {
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle:Category')
+            ->findAll();
+
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
+
+        $posts = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->findAll();
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'No posts'
+            );
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $countCategores = $em->getRepository('AppBundle:Post');
+        $count = $countCategores->getCountCategories($categories);
+        return $this->render('default/index.html.twig', array('data' => $posts,
+            'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '), ));
+    }
+    /**
+     *@Route("/top_rated", name="topRated")
+     * @Method({"GET"})
+     *
+     * @param int $id
+     *
+     * @return object
+     */
+    public function showTopRated()
+    {
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle:Category')
+            ->findAll();
+
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
+
+        $posts = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->findAll();
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'No posts'
+            );
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $countCategores = $em->getRepository('AppBundle:Post');
+        $count = $countCategores->getCountCategories($categories);
+        return $this->render('default/index.html.twig', array('data' => $posts,
+            'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'), ));
+    }
+
 }
