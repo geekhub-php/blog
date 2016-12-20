@@ -12,6 +12,12 @@
                 {{ data.body }}<br>
                 data: {{ data.dataCreate }}
                  <br>
+                comments:
+                {% for key in comments %}
+                    <br>
+                    {{ key.text }}
+                    <br>
+                {% endfor %}
             </div>
 
         </div>

@@ -34,10 +34,17 @@ class PostController extends Controller
         $post = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
             ->find($id);
-
         if (!$post) {
             throw $this->createNotFoundException(
                 'No posts' . $id
+            );
+        }
+        $comments = $this->getDoctrine()
+            ->getRepository('AppBundle:Comment')
+            ->findAll();
+        if (!$comments) {
+            throw $this->createNotFoundException(
+                'No comment'
             );
         }
 
@@ -46,7 +53,7 @@ class PostController extends Controller
         $countCategores = $em->getRepository('AppBundle:Post');
         $count = $countCategores->getCountCategories($categories);
         return $this->render('default/showPost.html.twig', array('data' => $post,
-            'categories' => $count,));
+            'categories' => $count, 'comments' => $comments,));
     }
 
     /**
@@ -93,7 +100,7 @@ class PostController extends Controller
      *
      * @return object
      */
-    public function showTopRated()
+    public function showTopRatedAction()
     {
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle:Category')
