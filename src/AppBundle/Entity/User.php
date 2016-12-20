@@ -60,14 +60,14 @@ class User
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Post", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Post", mappedBy="user", cascade={"persist", "remove"})
      */
     private $posts;
 
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user", cascade={"persist", "remove"})
      */
     private $comments;
 

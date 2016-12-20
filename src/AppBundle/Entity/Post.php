@@ -57,7 +57,7 @@ class Post
      * @var ArrayCollection
      *
      *
-     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="post", cascade={"persist", "remove"})
      */
     private $comments;
 

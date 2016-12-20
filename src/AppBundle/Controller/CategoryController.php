@@ -38,7 +38,7 @@ class CategoryController extends Controller
         //Get categories
         $categories = $categoryRepository->findAll();
 
-        if (!$categoryRepository->find($request->get('id'))){
+        if (!$categoryRepository->find($request->get('id'))) {
             throw new NotFoundHttpException('Posts from the category did not found');
         }
 

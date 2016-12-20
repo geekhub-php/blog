@@ -31,7 +31,7 @@ class PostController extends Controller
             $request->query->getInt('page', $page), 4
         );
 
-        if (!$postRepository->findAll()){
+        if (!$postRepository->findAll()) {
             throw new NotFoundHttpException('Empty bro');
         }
 
