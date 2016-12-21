@@ -32,7 +32,6 @@ class LoadNewsData implements FixtureInterface
         $news->setAuthor($author);
 
         $manager->persist($news);
-        $manager->flush();
 
 
 
@@ -44,7 +43,6 @@ class LoadNewsData implements FixtureInterface
         $news1->setAuthor($author);
 
         $manager->persist($news1);
-        $manager->flush();
 
 
         $news2 = new News();
@@ -55,7 +53,6 @@ class LoadNewsData implements FixtureInterface
         $news2->setAuthor($author);
 
         $manager->persist($news2);
-        $manager->flush();
 
 
 
@@ -67,6 +64,38 @@ class LoadNewsData implements FixtureInterface
         $news3->setAuthor($author);
 
         $manager->persist($news3);
+
+
+        $news4 = new News();
+        $news4->setTitle('SomeTitle');
+        $news4->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
+        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $news4->setDate($date);
+        $news4->setAuthor($author);
+
+        $manager->persist($news4);
+
+
+
+        $news5 = new News();
+        $news5->setTitle('SomeTitle');
+        $news5->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
+        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $news5->setDate($date);
+        $news5->setAuthor($author);
+
+        $manager->persist($news5);
+
+
+        $news6 = new News();
+        $news6->setTitle('SomeTitle');
+        $news6->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
+        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $news6->setDate($date);
+        $news6->setAuthor($author);
+
+        $manager->persist($news6);
+
         $manager->flush();
 
     }

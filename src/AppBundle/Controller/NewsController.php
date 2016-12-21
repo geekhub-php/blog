@@ -33,7 +33,7 @@ class NewsController extends Controller
         $model = $this->get('model.service');
         $data = $model->showAllRecords();
 
-        return array ('data' => $data);
+        return $this->render('@App/News/getAll.html.twig');
     }
 
     /**
