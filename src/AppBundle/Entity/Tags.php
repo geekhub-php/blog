@@ -20,15 +20,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Tags
 {
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     private $tag_name;
+
     /**
      * @ORM\ManyToMany(targetEntity="Article", mappedBy="tags")
      */

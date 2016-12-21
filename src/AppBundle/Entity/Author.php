@@ -24,7 +24,7 @@ class Author
     /**
      * @ORM\Column(type="string")
      */
-    private $name;
+    private $firstName;
 
     /**
      * @ORM\Column(type="string")
@@ -32,9 +32,14 @@ class Author
     private $lastName;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="author")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @var string
      *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\OneToOne(targetEntity="User")
      */
     private $user;
 
@@ -163,5 +168,53 @@ class Author
     public function getArticle()
     {
         return $this->article;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     *
+     * @return Author
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set firstName
+     *
+     * @param string $firstName
+     *
+     * @return Author
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
     }
 }

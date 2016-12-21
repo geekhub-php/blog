@@ -1,0 +1,21 @@
+{
+  "name": "hw9",
+  "description": "Blog",
+  "main": "index.js",
+  "authors": [
+    "Ocheretnyi <sasha.ocheretniy@mail.ru>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Ocheretnyi/blog-1",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

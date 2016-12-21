@@ -15,6 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Article
 {
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Id
@@ -22,19 +24,35 @@ class Article
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
     private $title;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $content;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Author", inversedBy="article")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     *
      */
     private $author;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Tags", inversedBy"article")
-     * @JoinColumn(name="tags_id", referencedColumnName="id")
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="article", cascade={"persist", "remove"})
+     */
+    private $comments;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Tags", inversedBy="article")
+     *
      */
     private $tags;
 
@@ -115,5 +133,97 @@ class Article
     public function getAuthor()
     {
         return $this->author;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Article
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Article
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     *
+     * @return Article
+     */
+    public function addTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag
+     *
+     * @param \AppBundle\Entity\Tags $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tags $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

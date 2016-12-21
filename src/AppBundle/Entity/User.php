@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /**
+     * @var int
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -21,29 +23,27 @@ class User
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string")
      */
-    private $nickname;
+    private $username;
 
     /**
-     * @ORM\OneToOne(targetEntity="Author", mappedBy="user")
+     * @var string
+     *
+     * @ORM\Column(type="string")
      */
-    private $author;
-
+    private $password;
 
     /**
-     * Set id
+     * @var string
      *
-     * @param integer $id
-     *
-     * @return User
+     * @ORM\Column(type="string")
      */
-    public function setId($id)
-    {
-        $this->id = $id;
+    private $email;
 
-        return $this;
-    }
+
 
     /**
      * Get id
@@ -56,50 +56,74 @@ class User
     }
 
     /**
-     * Set nickname
+     * Set username
      *
-     * @param string $nickname
+     * @param string $username
      *
      * @return User
      */
-    public function setNickname($nickname)
+    public function setUsername($username)
     {
-        $this->nickname = $nickname;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get nickname
+     * Get username
      *
      * @return string
      */
-    public function getNickname()
+    public function getUsername()
     {
-        return $this->nickname;
+        return $this->username;
     }
 
     /**
-     * Set author
+     * Set password
      *
-     * @param \AppBundle\Entity\Author $author
+     * @param string $password
      *
      * @return User
      */
-    public function setAuthor(\AppBundle\Entity\Author $author = null)
+    public function setPassword($password)
     {
-        $this->author = $author;
+        $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get password
      *
-     * @return \AppBundle\Entity\Author
+     * @return string
      */
-    public function getAuthor()
+    public function getPassword()
     {
-        return $this->author;
+        return $this->password;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
     }
 }
