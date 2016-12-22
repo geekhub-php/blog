@@ -1,7 +1,9 @@
 <?php
 
 namespace AppBundle\Repository;
-
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Post;
+use AppBundle\Entity\Comment;
 /**
  * PostRepository.
  *
@@ -31,15 +33,40 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             $i++;
         }
          return $categoriesAndCount;
-
-        /*
-        $qb = $this->createQueryBuilder('p');
-        $qb->select('count(p.id)');
-        $qb->where('p.category = :category');
-        $qb->setParameter('category', '2');
-
-        return $qb->getQuery()->getSingleScalarResult();*/
-
-
     }
+
+    /**
+     * @return object
+     */
+    public function getPostsTopRated()
+    {
+        return $this->findBy(array(), array('rating' => 'DESC'));
+    }
+    /**
+     * @return object
+     */
+    public function getPostsMostCommented()
+    {
+
+        $qb = $this->createQueryBuilder('p');
+        $qb->Select('p.id, p.name','p.description, count(c.post) as countId');
+        $qb->leftJoin('AppBundle:Comment','c','WITH','c.post=p.id');
+        //$qb->addSelect('count(c.post) as countId');
+
+        $qb->groupBy('p.id');
+        $qb->orderBy('countId', "DESC");
+         return $qb->getQuery()->getScalarResult();
+        //
+        //$qb->where('c.post = :category');
+        //$qb->where('с.post =2');
+        //$qb->from('AppBundle:Post', 'p');
+        //$qb->innerJoin('c.countId','p');
+        //$qb->orderBy('c.countId', "DESC");
+        //$qb->groupBy('p.id');
+        // $qb->groupBy('c.id');
+        //return serialize
+        //echo $qb->getQuery()->getSingleScalarResult();
+        //echo serialize($qb->getQuery()->getScalarResult()).'<br>';
+    }
+
 }

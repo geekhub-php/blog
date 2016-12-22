@@ -14,7 +14,7 @@ class LoadUserData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        
+
         $category = new Category();
         $category->setName('sport');
         $manager->persist($category);

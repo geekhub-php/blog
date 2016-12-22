@@ -76,7 +76,7 @@ class PostController extends Controller
             );
         }
 
-        $posts = $this->getDoctrine()
+        /*$posts = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
             ->findAll();
 
@@ -84,12 +84,18 @@ class PostController extends Controller
             throw $this->createNotFoundException(
                 'No posts'
             );
-        }
+        }*/
         $em = $this->getDoctrine()->getManager();
 
         $countCategores = $em->getRepository('AppBundle:Post');
         $count = $countCategores->getCountCategories($categories);
-        return $this->render('default/index.html.twig', array('data' => $posts,
+
+
+        $em = $this->getDoctrine()->getManager();
+        $posts = $em->getRepository('AppBundle:Post');
+        $contComentsPosts =$posts->getPostsMostCommented();
+
+        return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
             'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '), ));
     }
     /**
@@ -111,20 +117,22 @@ class PostController extends Controller
                 'No catefories'
             );
         }
+        $em = $this->getDoctrine()->getManager();
+        $countCategores = $em->getRepository('AppBundle:Post');
+        $count = $countCategores->getCountCategories($categories);
 
         $posts = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
-            ->findAll();
+            //PostRepository  function getPostsDescRating()
+             ->getPostsTopRated();
+          dump($posts);
 
         if (!$posts) {
             throw $this->createNotFoundException(
                 'No posts'
             );
         }
-        $em = $this->getDoctrine()->getManager();
 
-        $countCategores = $em->getRepository('AppBundle:Post');
-        $count = $countCategores->getCountCategories($categories);
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'), ));
     }
