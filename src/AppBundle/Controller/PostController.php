@@ -2,11 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Entity\Author;
 use AppBundle\Entity\Post;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends Controller
@@ -52,29 +57,46 @@ class PostController extends Controller
 
     /**
      * @Route("/posts/create", name="postsCreate")
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
-    public function createAction()
+    public function createAction(Request $request)
     {
-        $author = $this->getDoctrine()
-            ->getRepository('AppBundle:Author')
-            ->find(1);
-
         $post = new Post();
-        $post->setTitle('Pellentesque in metus accumsan, commodo lacus sit amet, feugiat mi.');
-        $post->setContent('Aenean sagittis dolor eget massa aliquam, non dignissim leo iaculis. Cras vel massa a nisi dictum malesuada non nec ex. Integer eros erat, hendrerit vel tellus eu, posuere tristique turpis. Ut mattis arcu nec tempor interdum. Nunc dui dui, lobortis non massa ut, vestibulum venenatis dolor. Etiam pretium turpis nisi, in egestas diam accumsan vitae. Fusce placerat arcu eget quam bibendum, vel auctor nibh mattis.
-                           Pellentesque in metus accumsan, commodo lacus sit amet, feugiat mi. Vestibulum quis augue quis nunc porta lobortis. Proin sollicitudin suscipit iaculis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec erat elit, porta nec aliquet nec, cursus ut nulla. Cras at sodales velit. Aenean commodo laoreet suscipit. Etiam ac commodo tortor. Phasellus mollis malesuada metus. Duis varius bibendum vehicula.
-                           Morbi pretium ipsum sed finibus blandit. Aliquam porttitor eget tortor eget dignissim. Donec gravida, massa sed gravida tincidunt, risus erat vestibulum arcu, at bibendum tortor augue eu dui. Ut nec odio fermentum, congue mi in, convallis justo. Ut vitae dolor non orci consequat pulvinar. Nulla ac accumsan ante, quis pharetra ante. Aenean feugiat neque eget mi venenatis, non efficitur nulla vehicula. Vivamus vulputate dapibus sapien nec cursus. Suspendisse id purus leo. Duis quis lacus convallis, eleifend est vitae, auctor ligula. Curabitur et scelerisque odio, eu aliquam lectus. Integer a ex at ligula tincidunt placerat.');
-        $post->setDescripton('Pellentesque in metus accumsan, commodo lacus sit amet, feugiat mi.');
-        $post->setVisibility(true);
-        $post->setAuthor($author);
-        $post->setCreateAt(new \DateTime("now"));
 
-        $em = $this->getDoctrine()
-            ->getEntityManager();
+        $form = $this->createFormBuilder($post)
+            ->add('title', TextType::class)
+            ->add('content', TextareaType::class)
+            ->add('description', TextareaType::class, array('label' => 'Short Description'))
+            ->add('visibility', ChoiceType::class, array(
+                'choices' => array(
+                    'Visible' => 1,
+                    'Hidden' => 0,
+                )
+            ))
+            ->add('createAt', DateTimeType::class, array(
+                'format' => 'HTML5_FORMAT'
+            ))
+            ->add('author', EntityType::class, array(
+                'class' => 'AppBundle:Author',
+                'choice_label' => 'firstName',
+            ))
+            ->getForm();
 
-        $em->persist($post);
-        $em->flush();
-        return new Response('Saved new post with id '.$post->getId());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+
+            return $this->redirectToRoute('postsList');
+        }
+
+        return $this->render('AppBundle:Post:create.html.twig', array(
+            'form' => $form->createView()
+        ));
+
     }
 }

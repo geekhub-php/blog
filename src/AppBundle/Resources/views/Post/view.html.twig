@@ -1,12 +1,30 @@
 {% extends "AppBundle:layouts:column-two.html.twig" %}
 
-{% block title %}AppBundle:Blog:list{% endblock %}
+{% block title %}View Post{% endblock %}
 
 {% block content %}
     <h3>View Post</h3>
     <hr>
     <div><h4>{{ post.title }}</h4></div>
     <div class="post-container">{{ post.content }}</div>
+    {% if post.comments|length > 0 %}
+        <div id="comments-block">
+            <div class="comments-caption">Comments</div>
+            {% for comment in post.comments %}
+                <div class="comment-item">
+                    <div><strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong> {{ comment.author.firstName }} {{ comment.author.lastName }}</div>
+                    <div>{{ comment.content }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else  %}
+        <div id="comments-block">
+            <div class="comments-caption">Comments</div>
+                <div class="comment-item">
+                    <div>No comments added yet.</div>
+                </div>
+        </div>
+    {% endif %}
 {% endblock content %}
 
 {% block sideBar %}

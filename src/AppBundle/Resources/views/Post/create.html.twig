@@ -1,0 +1,16 @@
+{% extends "AppBundle:layouts:column-two.html.twig" %}
+
+{% block content %}
+    <div class="col-md-12">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit">Create Post</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock content %}
+
+{% block sideBar %}
+    <h3>Popular</h3>
+    <hr>
+    Most recent post<br><br>
+{% endblock sideBar %}

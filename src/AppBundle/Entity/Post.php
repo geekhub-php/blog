@@ -64,7 +64,7 @@ class Post
      *
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $descripton;
+    private $description;
 
     /**
      * @var boolean
@@ -86,6 +86,7 @@ class Post
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="posts")
      */
     private $comments;
+
     /**
      * Constructor
      */
@@ -160,9 +161,9 @@ class Post
      *
      * @return Post
      */
-    public function setDescripton($descripton)
+    public function setDescription($description)
     {
-        $this->descripton = $descripton;
+        $this->description = $description;
 
         return $this;
     }
@@ -172,9 +173,9 @@ class Post
      *
      * @return string
      */
-    public function getDescripton()
+    public function getDescription()
     {
-        return $this->descripton;
+        return $this->description;
     }
 
     /**
