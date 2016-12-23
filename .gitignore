@@ -20,3 +20,5 @@ error.log
 !/web/public/css/styles.css
 !/web/public/js/functions.js
 /web/public/
+node_modules/
+bower_components/

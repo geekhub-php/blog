@@ -3,14 +3,12 @@
 {% block title %}View Post{% endblock %}
 
 {% block content %}
-    <h3>View Post</h3>
-    <hr>
     <div><h4>{{ post.title }}</h4></div>
-    <div class="post-container">{{ post.content }}</div>
+    <div class="post-item">{{ post.content }}</div>
     {% if post.comments|length > 0 %}
         <div id="comments-block">
-            <div class="comments-caption">Comments</div>
-            {% for comment in post.comments %}
+            <div class="comments-caption">Комментарии</div>
+            {% for comment in comments %}
                 <div class="comment-item">
                     <div><strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong> {{ comment.author.firstName }} {{ comment.author.lastName }}</div>
                     <div>{{ comment.content }}</div>
@@ -19,12 +17,21 @@
         </div>
     {% else  %}
         <div id="comments-block">
-            <div class="comments-caption">Comments</div>
+            <div class="comments-caption">Комментарии</div>
                 <div class="comment-item">
                     <div>No comments added yet.</div>
                 </div>
         </div>
     {% endif %}
+    <div>
+        {{ form_start(form, {"attr":{"id": "comment-form"}}) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.content, {"attr":{"class": "comment-label"}}) }}
+        {{ form_row(form.author, {"attr":{"class": "comment-label"}}) }}
+        {{ form_row(form.createdAt) }}
+        <button type="submit">Create</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock content %}
 
 {% block sideBar %}

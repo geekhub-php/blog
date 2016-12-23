@@ -1,0 +1,51 @@
+#header,
+#footer {
+    background-color: #1f66ad;
+}
+
+#header {
+    height: 100px;
+}
+
+#main-menu {
+    background-color: #5F9EA0;
+}
+
+ul#main-menu>li {
+    color: lightyellow;
+    display: inline-block;
+}
+
+.comment-label {
+    margin: 10px 15px;
+}
+
+.post-item {
+    margin: 10px 0 25px;
+}
+
+.comments-block {
+    margin: 15px 5px 25px;
+}
+
+.comments-caption {
+    font-size: 16px;
+    border-bottom: 1px solid #2C2C2C;
+}
+
+.comment-item {
+    font-size: 12px;
+    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
+    padding: 5px;
+}
+
+#copyright {
+    font-size: 12px;
+    text-align: center;
+    padding: 15px;
+}
+
+#footer {
+    height: 50px;
+    margin-top: 25px;
+}

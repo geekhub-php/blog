@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
+use AppBundle\Entity\Comment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,9 +37,9 @@ class PostController extends Controller
 
     /**
      * @Route("/posts/view/{id}", name="postsView")
-     * @Method({"GET"})
+     * @Method({"GET", "POST"})
      */
-    public function viewAction($id)
+    public function viewAction(Request $request, $id)
     {
         $post = $this->getDoctrine()->getRepository('AppBundle:Post')
             ->find($id);
@@ -49,8 +50,29 @@ class PostController extends Controller
             );
         }
 
+        $comments = $this->getDoctrine()->getRepository('AppBundle:Comment')
+            ->getCommentsByPost($post->getId());
+
+
+        // Create new Comment Form
+
+        $comment = new Comment();
+        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush($comment);
+
+            return $this->redirectToRoute('postsView', array('id' => $post->getId()));
+        }
+
         return $this->render('AppBundle:Post:view.html.twig', array(
-                'post' => $post
+                'post' => $post,
+                'comments' => $comments,
+                'comment' => $comment,
+                'form' => $form->createView(),
             )
         );
     }

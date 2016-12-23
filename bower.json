@@ -1,0 +1,21 @@
+{
+  "name": "personal-blog",
+  "description": "Symfony Framework Homework #10",
+  "main": "",
+  "authors": [
+    "Zakharchenko Vladimir"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Wildcorsair/blog",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}
