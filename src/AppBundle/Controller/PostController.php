@@ -49,9 +49,16 @@ class PostController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-
         $countCategores = $em->getRepository('AppBundle:Post');
         $count = $countCategores->getCountCategories($categories);
+        //foreach ($post->getAuthors() as $key=>$value) {
+          //foreach ($value as $key1 => $value1) {
+          //  echo '<br>';
+            //echo $value->getId();
+            //}
+        //echo $post->getAuthors()->getId();
+        //}
+        //echo serialize($post->getAuthors('gfff'));
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments,));
     }
