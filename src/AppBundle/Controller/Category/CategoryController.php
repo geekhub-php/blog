@@ -1,13 +1,12 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Category;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Post;
+use AppBundle\Entity;
 use Symfony\Component\VarDumper\Cloner\Data;
 
 class CategoryController extends Controller
@@ -23,7 +22,7 @@ class CategoryController extends Controller
     public function showSelectedCategoriesAction($id)
     {
         $category = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->find($id);
 
         if (!$category) {
@@ -33,7 +32,7 @@ class CategoryController extends Controller
         }
 
         $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
 
         if (!$categories) {
@@ -43,7 +42,7 @@ class CategoryController extends Controller
         }
 
         $posts = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
             ->findBy(array('category' => $id));
 
         if (!$posts) {
@@ -53,7 +52,7 @@ class CategoryController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        $countCategores = $em->getRepository('AppBundle:Post');
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
         return $this->render('default/index.html.twig', array('data' => $posts,

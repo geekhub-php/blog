@@ -2,36 +2,26 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Category.
- *
- * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * Category
  */
 class Category
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=200)
      */
     private $name;
 
+
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -39,7 +29,7 @@ class Category
     }
 
     /**
-     * Set name.
+     * Set name
      *
      * @param string $name
      *
@@ -53,7 +43,7 @@ class Category
     }
 
     /**
-     * Get name.
+     * Get name
      *
      * @return string
      */
@@ -62,3 +52,4 @@ class Category
         return $this->name;
     }
 }
+

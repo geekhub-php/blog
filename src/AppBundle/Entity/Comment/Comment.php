@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace AppBundle\Entity\Comment;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,14 +31,14 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Post", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post\Post", cascade={"remove"})
      */
     private $post;
 
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User\User")
      */
     private $user;
 

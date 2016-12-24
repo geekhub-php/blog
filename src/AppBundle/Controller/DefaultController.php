@@ -17,7 +17,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
 
         if (!$categories) {
@@ -27,7 +27,7 @@ class DefaultController extends Controller
         }
 
         $posts = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
             ->findAll();
 
         if (!$posts) {
@@ -37,7 +37,7 @@ class DefaultController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
 
-        $countCategores = $em->getRepository('AppBundle:Post');
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
 

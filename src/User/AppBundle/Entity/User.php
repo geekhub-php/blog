@@ -2,115 +2,88 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
- * User.
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * User
  */
 class User
 {
     /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer
      */
     private $id;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="firstName", type="string", length=50)
      */
     private $firstName;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="lastName", type="string", length=50)
      */
     private $lastName;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="login", type="string", length=100, unique=true)
      */
     private $login;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=50)
      */
     private $password;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=150)
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="city", type="string", length=100)
      */
     private $city;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=200)
      */
     private $address;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="enabled", type="string", length=10)
      */
     private $enabled;
 
     /**
-     * @var int
-     *
-     * @ORM\ManyToOne(targetEntity="Role")
-     */
-    private $role;
-    /**
-     * @var int
-     *
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="authors")
-     */
-    private $posts;
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="rating", type="integer")
+     * @var integer
      */
     private $rating;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="dataCreate", type="string", length=10)
      */
     private $dataCreate;
 
+    /**
+     * @var \AppBundle\Entity\Role
+     */
+    private $role;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $posts;
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
     /**
-     * Get id.
+     * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -118,7 +91,7 @@ class User
     }
 
     /**
-     * Set firstName.
+     * Set firstName
      *
      * @param string $firstName
      *
@@ -132,7 +105,7 @@ class User
     }
 
     /**
-     * Get firstName.
+     * Get firstName
      *
      * @return string
      */
@@ -142,7 +115,7 @@ class User
     }
 
     /**
-     * Set lastName.
+     * Set lastName
      *
      * @param string $lastName
      *
@@ -156,7 +129,7 @@ class User
     }
 
     /**
-     * Get lastName.
+     * Get lastName
      *
      * @return string
      */
@@ -166,7 +139,7 @@ class User
     }
 
     /**
-     * Set login.
+     * Set login
      *
      * @param string $login
      *
@@ -180,7 +153,7 @@ class User
     }
 
     /**
-     * Get login.
+     * Get login
      *
      * @return string
      */
@@ -190,7 +163,7 @@ class User
     }
 
     /**
-     * Set password.
+     * Set password
      *
      * @param string $password
      *
@@ -204,7 +177,7 @@ class User
     }
 
     /**
-     * Get password.
+     * Get password
      *
      * @return string
      */
@@ -214,7 +187,7 @@ class User
     }
 
     /**
-     * Set email.
+     * Set email
      *
      * @param string $email
      *
@@ -228,7 +201,7 @@ class User
     }
 
     /**
-     * Get email.
+     * Get email
      *
      * @return string
      */
@@ -238,7 +211,7 @@ class User
     }
 
     /**
-     * Set city.
+     * Set city
      *
      * @param string $city
      *
@@ -252,7 +225,7 @@ class User
     }
 
     /**
-     * Get city.
+     * Get city
      *
      * @return string
      */
@@ -260,8 +233,9 @@ class User
     {
         return $this->city;
     }
+
     /**
-     * Set address.
+     * Set address
      *
      * @param string $address
      *
@@ -275,7 +249,7 @@ class User
     }
 
     /**
-     * Get address.
+     * Get address
      *
      * @return string
      */
@@ -285,7 +259,7 @@ class User
     }
 
     /**
-     * Set enabled.
+     * Set enabled
      *
      * @param string $enabled
      *
@@ -299,7 +273,7 @@ class User
     }
 
     /**
-     * Get enabled.
+     * Get enabled
      *
      * @return string
      */
@@ -309,33 +283,9 @@ class User
     }
 
     /**
-     * Set role.
+     * Set rating
      *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * Get role.
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set rating.
-     *
-     * @param int $rating
+     * @param integer $rating
      *
      * @return User
      */
@@ -347,9 +297,9 @@ class User
     }
 
     /**
-     * Get rating.
+     * Get rating
      *
-     * @return int
+     * @return integer
      */
     public function getRating()
     {
@@ -357,7 +307,7 @@ class User
     }
 
     /**
-     * Set dataCreate.
+     * Set dataCreate
      *
      * @param string $dataCreate
      *
@@ -371,7 +321,7 @@ class User
     }
 
     /**
-     * Get dataCreate.
+     * Get dataCreate
      *
      * @return string
      */
@@ -381,7 +331,31 @@ class User
     }
 
     /**
-     * Add post.
+     * Set role
+     *
+     * @param \AppBundle\Entity\Role $role
+     *
+     * @return User
+     */
+    public function setRole(\AppBundle\Entity\Role $role = null)
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \AppBundle\Entity\Role
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * Add post
      *
      * @param \AppBundle\Entity\Post $post
      *
@@ -395,7 +369,7 @@ class User
     }
 
     /**
-     * Remove post.
+     * Remove post
      *
      * @param \AppBundle\Entity\Post $post
      */
@@ -405,7 +379,7 @@ class User
     }
 
     /**
-     * Get posts.
+     * Get posts
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -414,3 +388,4 @@ class User
         return $this->posts;
     }
 }
+

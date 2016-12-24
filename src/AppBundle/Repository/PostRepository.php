@@ -50,7 +50,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
         $qb = $this->createQueryBuilder('p');
         $qb->Select('p.id, p.name','p.description, count(c.post) as countId');
-        $qb->leftJoin('AppBundle:Comment','c','WITH','c.post=p.id');
+        $qb->leftJoin('AppBundle\\Entity\\Comment\\Comment','c','WITH','c.post=p.id');
         //$qb->addSelect('count(c.post) as countId');
 
         $qb->groupBy('p.id');

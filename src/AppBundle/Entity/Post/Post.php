@@ -1,7 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
-
+namespace AppBundle\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,12 +51,12 @@ class Post
     /**
      * @var string
      *
-     * @ORM\ManyToMany(targetEntity="User", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User\User", inversedBy="posts")
      */
     private $authors;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category\Category")
      */
     private $category;
 
@@ -350,7 +349,7 @@ class Post
      *
      * @return Post
      */
-    public function addAuthor(\AppBundle\Entity\User $author)
+    public function addAuthor(\AppBundle\Entity\User\User $author)
     {
         $this->authors[] = $author;
 
@@ -362,7 +361,7 @@ class Post
      *
      * @param \AppBundle\Entity\User $author
      */
-    public function removeAuthor(\AppBundle\Entity\User $author)
+    public function removeAuthor(\AppBundle\Entity\User\User $author)
     {
         $this->authors->removeElement($author);
     }

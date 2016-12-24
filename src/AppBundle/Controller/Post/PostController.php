@@ -1,12 +1,12 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Post;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity\Category;
+use AppBundle\Entity;
 use AppBundle\Entity\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 
@@ -23,7 +23,7 @@ class PostController extends Controller
     public function showPostAction($id)
     {
         $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
 
         if (!$categories) {
@@ -32,7 +32,7 @@ class PostController extends Controller
             );
         }
         $post = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
             ->find($id);
         if (!$post) {
             throw $this->createNotFoundException(
@@ -40,7 +40,7 @@ class PostController extends Controller
             );
         }
         $comments = $this->getDoctrine()
-            ->getRepository('AppBundle:Comment')
+            ->getRepository('AppBundle\\Entity\\Comment\\Comment')
             ->findAll();
         if (!$comments) {
             throw $this->createNotFoundException(
@@ -49,7 +49,7 @@ class PostController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $countCategores = $em->getRepository('AppBundle:Post');
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
         //foreach ($post->getAuthors() as $key=>$value) {
           //foreach ($value as $key1 => $value1) {
@@ -74,7 +74,7 @@ class PostController extends Controller
     public function showMostCommentedAction()
     {
         $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
 
         if (!$categories) {
@@ -94,12 +94,12 @@ class PostController extends Controller
         }*/
         $em = $this->getDoctrine()->getManager();
 
-        $countCategores = $em->getRepository('AppBundle:Post');
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
 
         $em = $this->getDoctrine()->getManager();
-        $posts = $em->getRepository('AppBundle:Post');
+        $posts = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $contComentsPosts =$posts->getPostsMostCommented();
 
         return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
@@ -116,7 +116,7 @@ class PostController extends Controller
     public function showTopRatedAction()
     {
         $categories = $this->getDoctrine()
-            ->getRepository('AppBundle:Category')
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
 
         if (!$categories) {
@@ -125,11 +125,11 @@ class PostController extends Controller
             );
         }
         $em = $this->getDoctrine()->getManager();
-        $countCategores = $em->getRepository('AppBundle:Post');
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
         $posts = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
             //PostRepository  function getPostsDescRating()
              ->getPostsTopRated();
           dump($posts);

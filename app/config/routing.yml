@@ -1,3 +1,15 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+app1:
+    resource: "@AppBundle/Controller/User"
+    type:     annotation
+
+app2:
+    resource: "@AppBundle/Controller/Post"
+    type:     annotation
+
+app3:
+    resource: "@AppBundle/Controller/Category"
+    type:     annotation
