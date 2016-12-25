@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PostTypeSuperClass
@@ -25,6 +26,10 @@ abstract class PostTypeSuperClass
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=150)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(min="3", max="150")
      */
     private $title;
 
@@ -40,6 +45,8 @@ abstract class PostTypeSuperClass
      *
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
+     *
+     * @Assert\DateTime()
      */
     private $dateCreated;
 
@@ -48,6 +55,8 @@ abstract class PostTypeSuperClass
      *
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
+     *
+     * @Assert\DateTime()
      */
     private $dateUpdated;
 
@@ -56,6 +65,10 @@ abstract class PostTypeSuperClass
      *
      * @ORM\Column(type="string", length=150, unique=true)
      * @Gedmo\Slug(fields={"title"})
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type("string")
+     * @Assert\Length(min="3", max="150")
      */
     private $slug;
 
