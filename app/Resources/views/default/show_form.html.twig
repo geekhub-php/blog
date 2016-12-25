@@ -1,0 +1,22 @@
+{% extends 'default/mostRead.html.twig' %}
+{% block startMainDiv %}
+    <div class="row"  id="idMainDiv">
+        <div class="contentOneMenu">
+        <span class="label label-default spanMeny">forms show:</span>
+
+            <div class="contentOneMenu">
+                <h1>category show </h1>
+                {{ category.id }}<br>
+                {{ category.name }}
+                {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </div>
+
+    </div>
+    </div>
+{%endblock%}
+{% block left %}
+{% endblock%}
+{% block right%}
+{% endblock %}
