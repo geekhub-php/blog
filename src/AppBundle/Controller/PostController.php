@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
 use AppBundle\Repository\PostRepository;
+use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,7 +23,7 @@ class PostController extends Controller
      *
      * @param int $page
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction($page = 1)
     {
@@ -47,7 +48,7 @@ class PostController extends Controller
      *
      * @param int $id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function showAction($id)
     {
@@ -71,11 +72,29 @@ class PostController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function newAction(Request $request)
     {
-        // @TODO: 'New post' functionality.
+        $post = new Post();
+
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('AppBundle:post:new.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -85,11 +104,31 @@ class PostController extends Controller
      * @param Request $request
      * @param int     $id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function editAction(Request $request, $id)
     {
-        // @TODO: 'Edit post' functionality.
+        $post = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->find($id);
+
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+
+            return $this->redirectToRoute('post_show', ['id' => $id]);
+        }
+
+        return $this->render('AppBundle:post:edit.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
@@ -98,10 +137,16 @@ class PostController extends Controller
      *
      * @param int $id
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function deleteAction($id)
     {
-        // @TODO: 'Delete post' functionality.
+        $em = $this->getDoctrine()->getManager();
+        $post = $em->getRepository('AppBundle:Post')->find($id);
+
+        $em->remove($post);
+        $em->flush();
+
+        return $this->redirectToRoute('homepage');
     }
 }

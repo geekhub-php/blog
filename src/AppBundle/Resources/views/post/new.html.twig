@@ -2,22 +2,16 @@
 
 {% block main %}
     <div class="container">
+        <div class="row">
 
-        <h1>New post form</h1>
+            <div class="col-sm-6">
+                <h1>New post form</h1>
 
-        <form method="POST" action="{{ path('post_new') }}">
-            <div class="form-group">
-                <label for="title">Title:</label>
-                <input class="form-control" type="text" id="title" name="title" value="{{ title }}">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                {{ form_end(form) }}
             </div>
 
-            <div class="form-group">
-                <label for="content">Content:</label>
-                <textarea class="form-control" id="content" name="content" rows="5">{{ content }}</textarea>
-            </div>
-
-            <p><input class="btn btn-primary" type="submit" value="Create"></p>
-        </form>
-
+        </div>
     </div>
 {% endblock %}

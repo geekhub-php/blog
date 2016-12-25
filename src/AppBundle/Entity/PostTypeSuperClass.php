@@ -65,10 +65,6 @@ abstract class PostTypeSuperClass
      *
      * @ORM\Column(type="string", length=150, unique=true)
      * @Gedmo\Slug(fields={"title"})
-     *
-     * @Assert\NotBlank()
-     * @Assert\Type("string")
-     * @Assert\Length(min="3", max="150")
      */
     private $slug;
 
