@@ -1,0 +1,51 @@
+{% extends 'default/mostRead.html.twig' %}
+{% block startMainDiv %}
+    <div class="row"  id="idMainDiv">
+        <div class="contentOneMenu">
+        <span class="label label-default spanMeny">forms show:</span>
+
+            <div class="contentOneMenu">
+                <h1>category edit </h1>
+
+                            <table border="1px solid grey">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>name</th>
+                                <th>edit or delete</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for key in categories %}
+
+                                <tr>
+                                    <td>{{ key.id }}</td>
+                                    <td>{{ key.name }}</td>
+                                    <td> <a href="{{ path('category_edit', { 'id': key.id }) }}">Edit or Delete</a></td>
+
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">create</button>
+                {{ form_end(form) }}
+
+              {#  {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+
+                <button type="submit">Edit</button>
+                {{ form_end(edit_form) }} #}
+
+            </div>
+
+    </div>
+    </div>
+{%endblock%}
+{% block left %}
+{% endblock%}
+{% block right%}
+{% endblock %}

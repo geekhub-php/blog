@@ -70,49 +70,7 @@ class DefaultController extends Controller
     {
         return $this->render('default/contacts.html.twig');
     }
-    /**
-     *@Route("/add_forms_category", name="new_forms_categoru")
-     * @Method({"GET", "POST"})
-     */
-    public function newAction(Request $request)
-    {
-        $category = new Category\Category();
-        $form = $this->createForm(CategoryType::class, $category    , [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
-        $form->handleRequest($request);
 
 
-        //$form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush($category);
-            return $this->redirectToRoute('category_form_show',
-                array('id' => $category->getId()));
-        }
-
-        return $this->render('default/new_form.html.twig', array(
-            'category' => $category,
-            'form' => $form->createView(),
-        ));
-       // return $this->render('default/new_form.html.twig');
-    }
-    /**
-     * Finds and displays a author entity.
-     *
-     * @Route("category_form_show/{id}", name="category_form_show")
-     * @Method("GET")
-     */
-    public function showCategoryFormAction(Category\Category $category)
-    {
-       // $deleteForm = $this->createDeleteForm($category);
-
-        return $this->render('default/show_form.html.twig', array(
-            'category' => $category,
-            //'delete_form' => $deleteForm->createView(),
-        ));
-    }
 
 }

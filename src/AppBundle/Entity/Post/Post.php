@@ -22,28 +22,34 @@ class Post
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="name", type="text")
      */
     private $name;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="description", type="text")
      */
     private $description;
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank()
      * @ORM\Column(name="body", type="text")
      */
     private $body;
 
     /**
      * @var string
-     *
+    /**
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * @ORM\Column(name="hashtag", type="string", length=100)
      */
     private $hashtag;
