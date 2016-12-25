@@ -11,47 +11,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
  */
-class Post
+class Post extends PostTypeSuperClass
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="title", type="string", length=150)
-     */
-    private $title;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="content", type="text", nullable=true)
-     */
-    private $content;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $dateCreated;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $dateUpdated;
-
     /**
      * @var Author
      *
@@ -82,78 +43,12 @@ class Post
     private $category;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=150, unique=true)
-     * @Gedmo\Slug(fields={"title"})
-     */
-    private $slug;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     *
-     * @return Post
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content
-     *
-     * @return Post
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * Get content
-     *
-     * @return string
-     */
-    public function getContent()
-    {
-        return $this->content;
     }
 
     /**
@@ -273,77 +168,5 @@ class Post
     public function getCategory()
     {
         return $this->category;
-    }
-
-    /**
-     * Set dateCreated
-     *
-     * @param \DateTime $dateCreated
-     *
-     * @return Post
-     */
-    public function setDateCreated($dateCreated)
-    {
-        $this->dateCreated = $dateCreated;
-
-        return $this;
-    }
-
-    /**
-     * Get dateCreated
-     *
-     * @return \DateTime
-     */
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    /**
-     * Set dateUpdated
-     *
-     * @param \DateTime $dateUpdated
-     *
-     * @return Post
-     */
-    public function setDateUpdated($dateUpdated)
-    {
-        $this->dateUpdated = $dateUpdated;
-
-        return $this;
-    }
-
-    /**
-     * Get dateUpdated
-     *
-     * @return \DateTime
-     */
-    public function getDateUpdated()
-    {
-        return $this->dateUpdated;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     *
-     * @return Post
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 }

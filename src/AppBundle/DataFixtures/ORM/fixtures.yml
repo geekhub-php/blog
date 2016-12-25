@@ -29,6 +29,14 @@ AppBundle\Entity\Post:
         dateCreated: '<dateTimeBetween("-10 days", "now")>'
         dateUpdated: '<dateTimeBetween("now", "+3 days")>'
 
+AppBundle\Entity\Page:
+    page{1..3}:
+        author: '@author*'
+        title: '<text(20)>'
+        content: '<text(1000)>'
+        dateCreated: '<dateTimeBetween("-10 days", "now")>'
+        dateUpdated: '<dateTimeBetween("now", "+3 days")>'
+
 AppBundle\Entity\Comment:
     comment{1..10}:
         post: '@post*'

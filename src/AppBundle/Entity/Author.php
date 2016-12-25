@@ -50,6 +50,13 @@ class Author
     private $posts;
 
     /**
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="author")
+     */
+    private $pages;
+
+    /**
      * @var User
      *
      * @ORM\OneToOne(targetEntity="User")
@@ -69,6 +76,7 @@ class Author
     public function __construct()
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -186,6 +194,40 @@ class Author
     public function getPosts()
     {
         return $this->posts;
+    }
+
+    /**
+     * Add page
+     *
+     * @param \AppBundle\Entity\Page $page
+     *
+     * @return Author
+     */
+    public function addPage(\AppBundle\Entity\Page $page)
+    {
+        $this->pages[] = $page;
+
+        return $this;
+    }
+
+    /**
+     * Remove page
+     *
+     * @param \AppBundle\Entity\Page $page
+     */
+    public function removePage(\AppBundle\Entity\Page $page)
+    {
+        $this->pages->removeElement($page);
+    }
+
+    /**
+     * Get pages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPages()
+    {
+        return $this->pages;
     }
 
     /**
