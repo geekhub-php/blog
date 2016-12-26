@@ -49,20 +49,17 @@ class PostType extends AbstractType
                 'label' => 'hashtag',
                 'attr' => ['class' => 'test col-xs-6']
             ])
-            ->add('hashtag', TextType::class,[
-                'required' => false,
-                'label' => 'hashtag',
-                'attr' => ['class' => 'test col-xs-6']
-            ])
-            ->add('authors', CollectionType::class, array(
-                'entry_type' => TagType::class
-            ))
-              ->add('category', EntityType::class, [
-                'class' => Category\Category::class,
-                'query_builder' => function (CategoryRepository $ur) {
-                    return $ur->createQueryBuilder('c')->where('c.locked IS FALSE');
-                }
-            ])
+            ->add('authors', EntityType::class, array(
+               'class' => 'AppBundle\\Entity\\User\\User',
+                'choice_label' => 'id',
+                'multiple' => true,
+                'expanded' => true,
+                    ))
+            ->add('category', EntityType::class, array(
+                       'class' => 'AppBundle\\Entity\\Category\\Category',
+                       'choice_label' => 'name',
+                    ))
+
           ->add('rating', TextType::class,[
            'required' => false,
            'label' => 'rating',
@@ -73,11 +70,7 @@ class PostType extends AbstractType
         'label' => 'dataCreate',
         'attr' => ['class' => 'test col-xs-6']
     ])
-        ->add('dataCreate', TextType::class,[
-            'required' => false,
-            'label' => 'dataCreate',
-            'attr' => ['class' => 'test col-xs-6']
-        ])
+
 
         ->add('enabled', TextType::class,[
         'required' => false,
