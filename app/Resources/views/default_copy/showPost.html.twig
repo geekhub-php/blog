@@ -1,0 +1,35 @@
+{% include 'default/head.html.twig'%}
+
+<div class="row"  id="idMainDiv">
+    <div class="row"  >
+        {% include 'default/left_menu.html.twig'%}
+
+        <div class="col-md-9 last-post-block" >
+            <span class="label label-default spanMeny">post name: {{ data.name }}</span>
+            <div class="lastPost-mini-block">
+
+                author:
+                {% for key in data.authors %}
+
+                    {{ key.firstName}} {{ key.LastName}}
+
+                {% endfor %}
+
+                <br>
+                {{ data.body }}<br>
+                data: {{ data.dataCreate }}
+
+
+               <br>
+                comments:
+                {% for key in comments %}
+                    <br>
+                    {{ key.text }}
+                    <br>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+{% include 'default/footer.html.twig'%}

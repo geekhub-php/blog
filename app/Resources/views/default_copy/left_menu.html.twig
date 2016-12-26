@@ -1,0 +1,18 @@
+    <div class="col-md-3 categories-and-top-block">
+        <span class="label label-default spanMenyLeft">categories:</span>
+        <div  id="idCategories">
+            {% for key in categories %}
+
+
+                <a href="{{ path('categories',{'id':key.id})}}">{{ key.name }}.....{{ key.count }}{# {{ key["countPosts"] }}#}</a>
+                <br>
+
+            {% endfor %}
+        </div>
+        <span class="label label-default spanMenyLeft">top posts:</span>
+        <div class="" id="idTopPost">
+            <a href="{{ path('topRated')}}">top-rated</a>
+            <br>
+            <a href="{{ path('most_commented')}}">most commented</a>
+        </div>
+    </div>

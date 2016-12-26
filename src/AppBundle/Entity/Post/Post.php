@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity\Post;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post.
