@@ -1,0 +1,30 @@
+{% extends 'default/mostRead.html.twig' %}
+{% block startMainDiv %}
+    <div class="row"  id="idMainDiv">
+        <div class="contentOneMenu">
+        <span class="label label-default spanMeny">forms show:</span>
+
+            <div class="contentOneMenu">
+                <h1>comment test </h1>
+
+
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">create</button>
+                {{ form_end(form) }}
+
+              {#  {{ form_start(edit_form) }}
+                {{ form_widget(edit_form) }}
+
+                <button type="submit">Edit</button>
+                {{ form_end(edit_form) }} #}
+
+            </div>
+
+    </div>
+    </div>
+{%endblock%}
+{% block left %}
+{% endblock%}
+{% block right%}
+{% endblock %}
