@@ -20,3 +20,9 @@ body {
 @-webkit-keyframes example {
     0% {opacity: 0;}
 }
+
+#add-icon{
+    position: fixed;
+    bottom: 15px;
+    left: 10px;
+}

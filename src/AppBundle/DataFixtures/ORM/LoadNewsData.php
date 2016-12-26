@@ -19,15 +19,17 @@ class LoadNewsData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $date = new \DateTime();
-        $date = $date->setDate(2016,12,10);
+        $date = new \DateTime('2016-12-10');
+        $date = $date->format('Y-m-d');
         $author = $manager->getRepository('AppBundle:Author');
         $author = $author->findOneBy(array('name' => 'author'));
 
         $news = new News();
         $news->setTitle('SomeTitle');
-        $news->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news->setSubject($content);
         $news->setDate($date);
         $news->setAuthor($author);
 
@@ -37,8 +39,10 @@ class LoadNewsData implements FixtureInterface
 
         $news1 = new News();
         $news1->setTitle('SomeTitle');
-        $news1->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news1->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news1->setSubject($content);
         $news1->setDate($date);
         $news1->setAuthor($author);
 
@@ -47,8 +51,10 @@ class LoadNewsData implements FixtureInterface
 
         $news2 = new News();
         $news2->setTitle('SomeTitle');
-        $news2->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news2->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news2->setSubject($content);
         $news2->setDate($date);
         $news2->setAuthor($author);
 
@@ -58,8 +64,10 @@ class LoadNewsData implements FixtureInterface
 
         $news3 = new News();
         $news3->setTitle('SomeTitle');
-        $news3->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news3->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news3->setSubject($content);
         $news3->setDate($date);
         $news3->setAuthor($author);
 
@@ -68,8 +76,10 @@ class LoadNewsData implements FixtureInterface
 
         $news4 = new News();
         $news4->setTitle('SomeTitle');
-        $news4->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news4->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news4->setSubject($content);
         $news4->setDate($date);
         $news4->setAuthor($author);
 
@@ -79,8 +89,10 @@ class LoadNewsData implements FixtureInterface
 
         $news5 = new News();
         $news5->setTitle('SomeTitle');
-        $news5->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news5->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news5->setSubject($content);
         $news5->setDate($date);
         $news5->setAuthor($author);
 
@@ -89,8 +101,10 @@ class LoadNewsData implements FixtureInterface
 
         $news6 = new News();
         $news6->setTitle('SomeTitle');
-        $news6->setSubject('SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText
-        SomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeTextSomeText');
+        $content = file_get_contents('http://loripsum.net/api/1/plaintext');
+        $news6->setDescription($content);
+        $content = file_get_contents('http://loripsum.net/api/3/plaintext');
+        $news6->setSubject($content);
         $news6->setDate($date);
         $news6->setAuthor($author);
 

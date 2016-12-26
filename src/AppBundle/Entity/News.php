@@ -31,6 +31,13 @@ class News
     /**
      * @var string
      *
+     * @ORM\Column(name="description", type="string")
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="subject", type="text")
      */
     private $subject;
@@ -45,9 +52,9 @@ class News
     private $author;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="date", type="string")
      */
     private $date;
 
@@ -84,6 +91,30 @@ class News
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return News
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
@@ -137,7 +168,7 @@ class News
     /**
      * Set date
      *
-     * @param \DateTime $date
+     * @param string $date
      *
      * @return News
      */
@@ -151,7 +182,7 @@ class News
     /**
      * Get date
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDate()
     {

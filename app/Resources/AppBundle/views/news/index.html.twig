@@ -1,0 +1,38 @@
+{% extends '@App/base.html.twig' %}
+
+{%  block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="page-header">
+                    <h1>Всі новини</h1>
+                </div>
+    {% for news in news %}
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="#" class="thumbnail">
+                            <img src="http://www.securitylab.ru/upload/iblock/74f/74f9c7eeade55cc4f3a8d37899e36fdc.png" alt="">
+                        </a>
+                    </div>
+                    <div class="col-md-9">
+                        <h4><a href="#">{{ news.title }}</a></h4>
+                        <p>
+                            {{ news.description}}
+                        </p>
+                        <p><a class="btn btn-info btn-sm" href="{{ path('news_show', { 'id': news.id }) }}">Читати повністю</a></p>
+                        <br/>
+                        <ul class="list-inline">
+                            <li><i class="glyphicon glyphicon-music"></i> <a href="#">Назва категорії</a> | </li>
+                            <li><i class="glyphicon glyphicon-calendar"></i> {{ news.date }}|</li>
+                            <li><i class="icon-comment"></i> <a href="#">3 Comments</a></li>
+                            <li><i class="icon-tags"></i> Tags : <a href="#"><span class="label label-info">Snipp</span></a>
+                                <a href="#"><span class="label label-info">Bootstrap</span></a>
+                                <a href="#"><span class="label label-info">UI</span></a>
+                                <a href="#"><span class="label label-info">growth</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+    {% endfor %}
+    <a href="{{ path('news_new') }}"><img id="add-icon" src="{{ asset('image/add.png') }}"></a>
+{% endblock content %}

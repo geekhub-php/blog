@@ -2,58 +2,135 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
-use AppBundle\Model\NewsModel;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Entity\News;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-
+/**
+ *
+ * @Route("news")
+ */
 class NewsController extends Controller
 {
-
     /**
-     * @Route("/news/add", name="addNews")
-     * @Method({"POST"})
+     * Lists all news entities.
+     *
+     * @Route("/", name="news_index")
+     * @Method("GET")
      */
-    public function addAction()
+    public function indexAction()
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $news = $em->getRepository('AppBundle:News')->findAll();
+
+        return $this->render('@App/news/index.html.twig', array(
+            'news' => $news,
+        ));
     }
 
     /**
-     * @Route("/news", name="allNews")
-     * @Method({"GET"})
-     * @Template()
+     * Creates a new news entity.
+     *
+     * @Route("/new", name="news_new")
+     * @Method({"GET", "POST"})
      */
-    public function getAllAction()
+    public function newAction(Request $request)
     {
-        $model = $this->get('model.service');
-        $data = $model->showAllRecords();
+        $news = new News();
+        $form = $this->createForm('AppBundle\Form\NewsType', $news);
+        $form->handleRequest($request);
 
-        return $this->render('@App/News/getAll.html.twig');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($news);
+            $em->flush($news);
+
+            return $this->redirectToRoute('news_show', array('id' => $news->getId()));
+        }
+
+        return $this->render('@App/news/new.html.twig', array(
+            'news' => $news,
+            'form' => $form->createView(),
+        ));
     }
 
     /**
-     * @Route("/news/{id}", name="newsId")
-     * @Method({"GET"})
+     * Finds and displays a news entity.
+     *
+     * @Route("/{id}", name="news_show")
+     * @Method("GET")
      */
-    public function getIdAction($id)
+    public function showAction(News $news)
     {
+        $deleteForm = $this->createDeleteForm($news);
+
+        return $this->render('@App/news/show.html.twig', array(
+            'news' => $news,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
-     * @Route("/news/{id}", name="delete")
-     * @Method({"DELETE"})
+     * Displays a form to edit an existing news entity.
+     *
+     * @Route("/{id}/edit", name="news_edit")
+     * @Method({"GET", "POST"})
      */
-    public function deleteAction($id)
+    public function editAction(Request $request, News $news)
     {
-        $model = $this->get('model.service');
-        $model->deleteRecord($id);
+        $deleteForm = $this->createDeleteForm($news);
+        $editForm = $this->createForm('AppBundle\Form\NewsType', $news);
+        $editForm->handleRequest($request);
 
-        return $this->render('@App/base.html.twig');
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
+            return $this->redirectToRoute('news_edit', array('id' => $news->getId()));
+        }
+
+        return $this->render('news/edit.html.twig', array(
+            'news' => $news,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Deletes a news entity.
+     *
+     * @Route("/{id}", name="news_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, News $news)
+    {
+        $form = $this->createDeleteForm($news);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($news);
+            $em->flush($news);
+        }
+
+        return $this->redirectToRoute('news_index');
+    }
+
+    /**
+     * Creates a form to delete a news entity.
+     *
+     * @param News $news The news entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDeleteForm(News $news)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('news_delete', array('id' => $news->getId())))
+            ->setMethod('DELETE')
+            ->getForm()
+        ;
     }
 }
