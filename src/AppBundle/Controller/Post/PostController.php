@@ -60,7 +60,7 @@ class PostController extends Controller
         //}
         //echo serialize($post->getAuthors('gfff'));
         return $this->render('default/showPost.html.twig', array('data' => $post,
-            'categories' => $count, 'comments' => $comments,));
+            'categories' => $count, 'comments' => $comments,'id'=>$id ));
     }
 
     /**

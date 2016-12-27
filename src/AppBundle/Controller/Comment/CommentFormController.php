@@ -26,14 +26,47 @@ class CommentFormController extends Controller
 
 
     /**
-     *@Route("/add_comment", name="add_comment")
+     *@Route("/post/{id}/add_comment", name="add_comment")
      * @Method({"GET", "POST"})
      */
-    public function addCommnetTestAction(Request $request)
+    public function addCommnetTestAction(Request $request, $id )
     {
+
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
+            ->findAll();
+
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
         $post = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Post\\Post')
-            ->find('3');
+            ->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException(
+                'No posts' . $id
+            );
+        }
+        $comments = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+            ->findAll();
+        if (!$comments) {
+            throw $this->createNotFoundException(
+                'No comment'
+            );
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
+        $count = $countCategores->getCountCategories($categories);
+
+
+
+
+
+
         $comment = new Comment\Comment();
         $form = $this->createForm(CommentType::class, $comment, [
             'em' => $this->getDoctrine()->getManager()
@@ -55,10 +88,15 @@ class CommentFormController extends Controller
             return $this->redirectToRoute("welcome");
         }
 
-        return $this->render('default/crud_form_comment_test.html.twig', array(
+        return $this->render('default/showPost.html.twig', array('data' => $post,
+            'categories' => $count, 'comments' => $comments, 'comment' => $comment,
+            'form' => $form->createView(), 'id'=>$id));
+
+        /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
             'form' => $form->createView(),
         ));
+        */
     }
 
     /**
