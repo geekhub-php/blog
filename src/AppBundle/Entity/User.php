@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  * @UniqueEntity(fields={"username"})
  */
-class User 
+class User
 {
     /**
      * @var int
@@ -85,7 +85,8 @@ class User
         $this->comments = new ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->firstName . ' ' . $this->lastName;
     }
 

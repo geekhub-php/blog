@@ -31,8 +31,7 @@ class CategoryController extends Controller
         //Getting category as a single object
         if ($categoryRepository->find($request->get('id'))) {
             $category = $categoryRepository->find($request->get('id'));
-        }
-        else {
+        } else {
             throw new NotFoundHttpException('Category did not found');
         }
 
@@ -153,5 +152,4 @@ class CategoryController extends Controller
             ->getForm()
             ;
     }
-
 }

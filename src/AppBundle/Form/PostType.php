@@ -24,7 +24,7 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class,[
+            ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Title',
                 'attr' => ['class' => 'test col-xs-6']
@@ -42,7 +42,6 @@ class PostType extends AbstractType
                 'attr' => ['class' => 'form-control']
             ])
         ;
-
     }
 
     /**
@@ -64,5 +63,4 @@ class PostType extends AbstractType
     {
         return 'appbundle_post';
     }
-
 }

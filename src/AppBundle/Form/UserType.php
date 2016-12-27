@@ -25,7 +25,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class,[
+            ->add('username', TextType::class, [
                 'required' => false,
                 'label' => 'Username',
                 'attr' => ['class' => 'test col-xs-6']
@@ -47,7 +47,6 @@ class UserType extends AbstractType
                 'label' => 'Lastname'
             ])
         ;
-
     }
 
     /**
@@ -69,5 +68,4 @@ class UserType extends AbstractType
     {
         return 'appbundle_user';
     }
-
 }

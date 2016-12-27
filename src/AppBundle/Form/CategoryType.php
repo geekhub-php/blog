@@ -20,13 +20,12 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class,[
+            ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'Name',
                 'attr' => ['class' => 'test col-xs-6']
             ])
         ;
-
     }
 
     /**
@@ -48,5 +47,4 @@ class CategoryType extends AbstractType
     {
         return 'appbundle_category';
     }
-
 }
