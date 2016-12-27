@@ -62,6 +62,7 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $comment->setPosts($post);
             $em->persist($comment);
             $em->flush($comment);
 
@@ -120,5 +121,38 @@ class PostController extends Controller
             'form' => $form->createView()
         ));
 
+    }
+
+    /**
+     * Edit post.
+     *
+     * @Route("/posts/edit/{id}", name="postsEdit",
+     *      requirements={
+     *          "id": "\d+"
+     *      }
+     * )
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, $id)
+    {
+        $post = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->find($id);
+
+        $form = $this->createForm('AppBundle\Form\PostType', $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($post);
+            $em->flush();
+
+            return $this->redirectToRoute('postsView', array('id' => $post->getId()));
+        }
+
+        return $this->render('AppBundle:Post:edit.html.twig', array(
+            'post' => $post,
+            'form' => $form->createView()
+        ));
     }
 }

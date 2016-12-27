@@ -1,51 +1,75 @@
-#header,
-#footer {
-    background-color: #1f66ad;
-}
-
 #header {
     height: 100px;
+    background-color: #222222;
+    color: #E0E0E0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    padding: 10px 30px;
 }
 
-#main-menu {
-    background-color: #5F9EA0;
+ul#main-menu {
+    background-color: #adadad;
 }
 
-ul#main-menu>li {
-    color: lightyellow;
+ul#main-menu li {
     display: inline-block;
+    float: left;
 }
 
-.comment-label {
-    margin: 10px 15px;
+.author-container {
+    margin: 10px 0;
 }
 
-.post-item {
-    margin: 10px 0 25px;
+.post-controls-container {
+    margin: 15px 10px 30px;
+    text-align: right;
 }
 
-.comments-block {
-    margin: 15px 5px 25px;
+.post-container {
+    margin: 25px 0;
 }
 
-.comments-caption {
+#comments-block {
+    margin: 15px;
+}
+
+#comments-block .comments-caption {
     font-size: 16px;
-    border-bottom: 1px solid #2C2C2C;
+    border-bottom: 1px solid #2a2730;
+    padding: 5px;
+    margin-bottom: 25px;
 }
 
 .comment-item {
-    font-size: 12px;
-    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
-    padding: 5px;
+    padding: 10px 5px 15px;
 }
 
-#copyright {
-    font-size: 12px;
+#comment-form label {
+    display: block;
+}
+
+form {
+    padding: 15px 10px;
+}
+
+.btn-container {
     text-align: center;
-    padding: 15px;
+}
+
+#side-block {
+    /*background-color: #c3e3b5;*/
 }
 
 #footer {
     height: 50px;
+    background-color: #222222;
+    color: #E0E0E0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    padding: 15px 30px;
     margin-top: 25px;
+}
+
+#copyright {
+    text-align: center;
 }

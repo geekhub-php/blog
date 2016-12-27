@@ -3,17 +3,21 @@
 {% block title %}View Post{% endblock %}
 
 {% block content %}
-    <div><h4>{{ post.title }}</h4></div>
+    <h3>{{ post.title }}</h3>
+    <span class="post-controls-container"><a class="btn btn-primary" href="{{ path('postsEdit', {'id': post.id}) }}">Edit</a></span>
     <div class="post-item">{{ post.content }}</div>
+
     {% if post.comments|length > 0 %}
         <div id="comments-block">
-            <div class="comments-caption">Комментарии</div>
+            <div class="comments-caption"><h4>Комментарии</h4></div>
+
             {% for comment in comments %}
                 <div class="comment-item">
                     <div><strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong> {{ comment.author.firstName }} {{ comment.author.lastName }}</div>
                     <div>{{ comment.content }}</div>
                 </div>
             {% endfor %}
+
         </div>
     {% else  %}
         <div id="comments-block">
@@ -23,14 +27,39 @@
                 </div>
         </div>
     {% endif %}
-    <div>
-        {{ form_start(form, {"attr":{"id": "comment-form"}}) }}
-        {{ form_errors(form) }}
-        {{ form_row(form.content, {"attr":{"class": "comment-label"}}) }}
-        {{ form_row(form.author, {"attr":{"class": "comment-label"}}) }}
-        {{ form_row(form.createdAt) }}
-        <button type="submit">Create</button>
-        {{ form_end(form) }}
+
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4>Добавить комментарий</h4>
+            {{ form_start(form, {"attr":{"id": "comment-form"}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.content) }}
+                {{ form_errors(form.content) }}
+                {{ form_widget(form.content) }}
+            </div>
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.author) }}
+                {{ form_errors(form.author) }}
+                {{ form_widget(form.author) }}
+            </div>
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.createdAt) }}
+                {{ form_errors(form.createdAt) }}
+                {{ form_widget(form.createdAt) }}
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">Комментировать</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
     </div>
 {% endblock content %}
 

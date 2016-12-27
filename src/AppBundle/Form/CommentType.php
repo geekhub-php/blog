@@ -5,8 +5,12 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CommentType extends AbstractType
@@ -16,16 +20,33 @@ class CommentType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('content', TextareaType::class)
-            ->add('createdAt', DateTimeType::class, array(
-                'format' => 'HTML5_FORMAT'
-            ))
-            ->add('author', EntityType::class, array(
-                'class' => 'AppBundle:Author',
-                'choice_label' => 'lastName'
-            ));
+        $builder->add('content', TextareaType::class, array(
+            'label' => 'Текст комментария:',
+            'attr' => ['cols' => '75', 'rows' => '7']
+        ))
+        ->add('createdAt', DateTimeType::class, array(
+            'label' => 'Дата:',
+//            'format' => 'HTML5_FORMAT',
+//            'attr' => ['class' => 'test col-xs-6']
+        ))
+        ->add('author', EntityType::class, array(
+            'label' => 'Автор:',
+            'class' => 'AppBundle:Author',
+            'choice_label' => 'lastName',
+//            'attr' => ['class' => 'test col-xs-6']
+        ))
+        ->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) {
+            $comment = $event->getData();
+            $form = $event->getForm();
+
+            /*if ($comment) {
+                $form->add('imageFile', FileType::class, array(
+                    'mapped' => false
+                ));
+            }*/
+        });
     }
-    
+
     /**
      * {@inheritdoc}
      */

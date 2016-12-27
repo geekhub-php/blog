@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     prefixer = require('gulp-autoprefixer'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
-    cssmin = require('gulp-minify-css'),
+    cssmin = require('gulp-clean-css'),
     imagemin = require('gulp-imagemin');
 
 gulp.task('init-css', function() {

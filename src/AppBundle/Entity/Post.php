@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Post
@@ -49,6 +50,12 @@ class Post
      * @var string
      *
      * @ORM\Column(type="string", length=180)
+     * @Assert\Length(
+     *      min = 50,
+     *      max = 180,
+     *      minMessage = "Post title must be at least {{ limit }} characters long",
+     *      maxMessage = "Post title cannot be longer than {{ limit }} characters"
+     * )
      */
     private $title;
 
@@ -56,6 +63,7 @@ class Post
      * @var string
      *
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
@@ -63,6 +71,12 @@ class Post
      * @var string
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *      min = 50,
+     *      max = 255,
+     *      minMessage = "Description must be at least {{ limit }} characters long",
+     *      maxMessage = "Description name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $description;
 
@@ -70,6 +84,10 @@ class Post
      * @var boolean
      *
      * @ORM\Column(type="boolean")
+     * @Assert\Choice(
+     *     choices = { 0, 1 },
+     *     message = "Choose a post visibility."
+     * )
      */
     private $visibility;
 
@@ -77,6 +95,7 @@ class Post
      * @var date
      *
      * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
     private $createAt;
 
