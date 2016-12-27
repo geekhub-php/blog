@@ -1,10 +1,10 @@
 {% extends 'AppBundle::base.html.twig' %}
-{% block title %}Creating a new post{% endblock %}
+{% block title %}Creating a new user{% endblock %}
 
 {% block breadcrump %}
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li><a href="#">Post</a></li>
+        <li><a href="/user/{{ user.id }}">{{ user.username }}</a></li>
         <li class="active">New</li>
     </ol>
 {% endblock %}
@@ -15,14 +15,17 @@
                  <div class="row">
                      <div class="panel panel-default">
                          <div class="panel-heading panelHeading">
-                             <h3 class="panel-title">Creating a new post</h3>
+                             <h3 class="panel-title">Editing the user</h3>
                          </div>
                          <div class="panel-body">
                              {% form_theme form 'AppBundle::form.html.twig' %}
                              {{ form_start(form) }}
                              {{ form_widget(form) }}
-                             <button class="btn btn-default" type="submit">Create</button>
+                             <button class="btn btn-default" type="submit">Edit</button>
                              {{ form_end(form) }}
+                             {{ form_start(delete_form) }}
+                                <button type="submit" class="btn btn-danger right">Delete</button>
+                             {{ form_end(delete_form) }}
                          </div>
                      </div>
                  </div>

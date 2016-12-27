@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -26,15 +27,14 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=40)
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 40,
+     *      minMessage = "Your first name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="string", length=100, nullable=true)
-     */
-    private $description;
 
     /**
      * @var ArrayCollection
@@ -50,6 +50,10 @@ class Category
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->name;
     }
 
     /**
@@ -84,30 +88,6 @@ class Category
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Category
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**

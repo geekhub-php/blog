@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Post
@@ -29,6 +30,13 @@ class Post
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 100,
+     *      minMessage = "Your title must be at least {{ limit }} characters long",
+     *      maxMessage = "Your title cannot be longer than {{ limit }} characters"
+     * )
      */
     private $title;
 
@@ -36,6 +44,12 @@ class Post
      * @var string
      *
      * @ORM\Column(name="text", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      minMessage = "Your text must be at least {{ limit }} characters long"
+     * )
+     *
      */
     private $text;
 

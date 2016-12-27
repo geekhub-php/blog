@@ -26,6 +26,10 @@
                                  <th>Email</th>
                                  <td>{{ user.email }}</td>
                              </tr>
+                             <tr>
+                                 <th>Edit</th>
+                                 <td><a href="/user/{{ user.id }}/edit">Edit</a></td>
+                             </tr>
                              </tbody>
                          </table>
                      </div>
@@ -38,6 +42,7 @@
                          <div class="row">
                              <div class="list-group">
                                  <li class="list-group-item active">Last Posts</li>
+
                                  {% for post in lastPosts %}
                                      <a href="/post/{{ post.id }}" class="list-group-item">{{ post.title }}</a>
                                  {% endfor %}

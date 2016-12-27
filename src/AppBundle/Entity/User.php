@@ -4,14 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"})
  */
-class User
+class User 
 {
     /**
      * @var int
@@ -40,6 +43,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=50, unique=true)
+     * @Assert\Email()
      */
     private $email;
 
@@ -64,6 +68,7 @@ class User
      */
     private $posts;
 
+
     /**
      * @var ArrayCollection
      *
@@ -77,6 +82,11 @@ class User
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
+
+    public function __toString() {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
     /**

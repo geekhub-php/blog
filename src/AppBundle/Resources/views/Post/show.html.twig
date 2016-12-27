@@ -23,9 +23,30 @@
                              </div>
                              <div class="panel-footer">
                                  <span><strong>Author: </strong><a href="/user/{{ post.user.id }}">{{ post.user.firstName }} {{ post.user.lastName }}</a></span>
-                                 <span style="float: right"><strong>Category: </strong>{{ post.category.name }}</span>
+                                 <span style="float: right"><strong>Category: </strong><a href="/category/{{ post.category.id }}">{{ post.category.name }}</a></span><br />
+                                 <a href="/post/{{ post.id }}/edit">Edit</a>
                              </div>
                          </div>
+                         {% if comments|length  == 0 %}
+                             <p>Empty. You will be the first</p>
+                         {% endif %}
+                         {% for comment in comments %}
+                             <div class="row">
+                                 <div class="panel panel-info">
+                                     <div class="panel-heading">
+                                         <h3 class="panel-title"><a href="/user/{{ comment.user.id }}">{{ comment.user.id }}</a></h3>
+                                     </div>
+                                     <div class="panel-body">
+                                         {{ comment.text }}
+                                     </div>
+                                 </div>
+                             </div>
+                         {% endfor %}
+                         {% form_theme form 'AppBundle::form.html.twig' %}
+                         {{ form_start(form) }}
+                         {{ form_widget(form) }}
+                         <button class="btn btn-default" type="submit">Create</button>
+                         {{ form_end(form) }}
                      </div>
              </div>
              {{ include('AppBundle::sidebar.html.twig') }}
