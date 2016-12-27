@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for article in articles %}
+    <article>
+        <header>
+            <a href="{{ path('view_article', {'id':article.id }) }}">
+            <h2>{{ article.title }}</h2>
+            </a>
+        </header>
+        <div>
+            <p>{{ article.content }}</p>
+        </div>
+        <small>published by {{ article.author.firstName }} {{ article.author.lastName }}</small>
+    </article>
+    {% endfor %}
+
+    <div class="navigation col-md-offset-4">
+        {{ knp_pagination_render(articles) }}
+    </div>
+
+{% endblock %}
+

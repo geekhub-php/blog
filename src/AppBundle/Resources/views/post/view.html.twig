@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article class="post">
+        <header>
+            <h2>{{ article.title }}</h2>
+        </header>
+        <div>
+            <p>{{ article.content }}</p>
+        </div>
+        <small>published by {{ article.author.firstName }} {{ article.author.lastName }}</small>
+    </article>
+{% endblock %}
