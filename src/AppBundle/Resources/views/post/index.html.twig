@@ -5,7 +5,7 @@
     {% for article in articles %}
     <article>
         <header>
-            <a href="{{ path('view_article', {'id':article.id }) }}">
+            <a href="{{ path('view_article', { 'id' : article.id }) }}">
             <h2>{{ article.title }}</h2>
             </a>
         </header>
