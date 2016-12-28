@@ -1,0 +1,22 @@
+{% extends 'AppBundle:Blog:layout.html.twig' %}
+
+{% block main_column %}
+    <img src="{{ post.image }}">
+    <h3>
+        {{ post.title }}
+    </h3>
+    <span>
+        {{ post.content }}
+    </span>
+    <div>
+        {% for comment in post.comments %}
+            <div>
+                {{ comment.id }} {{ comment.author.lastName }} {{ comment.author.firstName }}
+            </div>
+            <div>
+                {{ comment.content }}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

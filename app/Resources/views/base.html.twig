@@ -4,10 +4,15 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+        <link rel="stylesheet" href="{{ asset('/css/bootstrap.css') }}">
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            {% include 'header.html.twig' %}
+            {% block content %}{% endblock %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
+        <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     </body>
 </html>
