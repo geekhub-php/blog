@@ -13,6 +13,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
+/**
+ * Class ArticleController
+ * @package AppBundle\Controller
+ */
 class ArticleController extends Controller
 {
     /**
@@ -23,7 +27,6 @@ class ArticleController extends Controller
      */
     public function newAction(Request $request){
 
-        $article = new Article();
         $form = $this->createForm(ArticleType::class);
 
         $form->handleRequest($request);
@@ -44,10 +47,10 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("article/{id}", name="view_article", requirements={"\d+"})
-     *
      * @param int $id
      * @return Response
+     *
+     * @Route("article/{id}", name="view_article", requirements={"\d+"})
      */
     public function viewAction($id)
     {
@@ -63,13 +66,12 @@ class ArticleController extends Controller
         ]);
     }
 
-     /**
-     * @Route("/{page}", name="homepage", requirements={"page": "\d+"})
-     *
-     * @param $request
-     * @param $page
-     *
+    /**
+     * @param Request $request
+     * @param int $page
      * @return Response
+     *
+     * @Route("/{page}", name="homepage", requirements={"page": "\d+"})
      */
     public function indexAction(Request $request, $page = 1)
     {
@@ -93,19 +95,17 @@ class ArticleController extends Controller
         return $paginator->paginate($query, $currentPage, $perPage);
     }
 
-    /**
+    /*
      * @param Article $article
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
      * @Route(article/{id}/remove, name="article_remove", requirements={"\d+"})
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function removeAction(Article $article){
+    /*public function removeAction(Article $article){
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
         $em->flush();
 
         return $this->redirectToRoute('homepage');
-    }
-
+    }*/
 }

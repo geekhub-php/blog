@@ -5,7 +5,7 @@
     {% for article in articles %}
     <article>
         <header>
-            <a href="{{ path('view_article', { 'id' : article.id }) }}">
+            <a href="{{ path('view_article', {'id' : article.id}) }}">
             <h2>{{ article.title }}</h2>
             </a>
         </header>
@@ -16,7 +16,9 @@
     </article>
     {% endfor %}
 
-    <div class="navigation col-md-offset-4">
+    <div><a href="{{ path('new_article') }}">Create new Article</a></div>
+
+    <div>
         {{ knp_pagination_render(articles) }}
     </div>
 

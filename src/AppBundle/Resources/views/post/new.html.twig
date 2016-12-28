@@ -2,8 +2,8 @@
 
 {% block main %}
     <p>Create new Article</p>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_start(articleType) }}
+    {{ form_widget(articleType) }}
     <button type="submit" class="btn btn-primary">Save</button>
-    {{ form_end(form) }}
+    {{ form_end(articleType) }}
 {% endblock %}
