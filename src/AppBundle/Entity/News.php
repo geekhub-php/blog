@@ -52,9 +52,9 @@ class News
     private $author;
 
     /**
-     * @var string
+     * @var \DateTime
      *
-     * @ORM\Column(name="date", type="string")
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 

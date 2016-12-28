@@ -20,7 +20,6 @@ class LoadNewsData implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $date = new \DateTime('2016-12-10');
-        $date = $date->format('Y-m-d');
         $author = $manager->getRepository('AppBundle:Author');
         $author = $author->findOneBy(array('name' => 'author'));
 
