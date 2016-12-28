@@ -3,8 +3,10 @@
 namespace AppBundle\Entity;
 
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\Form;
 
 /**
  * Class Article
@@ -27,6 +29,7 @@ class Article
      * @var string
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -34,6 +37,7 @@ class Article
      * @var string
      *
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 

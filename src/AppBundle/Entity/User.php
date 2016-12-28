@@ -4,11 +4,14 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Class User
  * @package AppBundle\Entity
  * @ORM\Entity
+ * @UniqueEntity("email")
  * @ORM\Table(name="user")
  */
 class User
@@ -16,7 +19,7 @@ class User
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,21 +28,25 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="username", type="string")
+     * @Assert\NotBlank()
      */
     private $username;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="password", type="string")
+     * @Assert\NotBlank()
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(name="email", type="string", unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 

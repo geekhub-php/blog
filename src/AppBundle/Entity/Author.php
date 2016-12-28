@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Author
@@ -23,11 +24,25 @@ class Author
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     min = 2,
+     *     max = 20,
+     *     minMessage = "Your first name must be at least {{ limit }} characters long",
+     *     maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\NotBlank()
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Length(
+     *     min = 2,
+     *     max = 20,
+     *     minMessage = "Your first name must be at least {{ limit }} characters long",
+     *     maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
+     * @Assert\NotBlank()
      */
     private $lastName;
 
