@@ -1,0 +1,14 @@
+{% extends '@App/base.html.twig' %}
+
+{% block content %}
+    <h1>Add News</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+
+    <hr>
+    <a class="btn btn-info btn-sm" href="{{ path('news_index') }}">Back to the list</a>
+
+
+{% endblock content %}
