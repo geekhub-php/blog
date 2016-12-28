@@ -128,8 +128,8 @@ class PostController extends Controller
      *
      * @Route("/posts/edit/{id}", name="postsEdit",
      *      requirements={
-                "id": "\d+"
-*           }
+     *          "id": "\d+"
+     *      }
      * )
      * @Method({"GET", "POST"})
      */
