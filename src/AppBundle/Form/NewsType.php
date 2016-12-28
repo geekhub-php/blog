@@ -17,12 +17,10 @@ class NewsType extends AbstractType
     {
         $builder
             ->add('title')
+            ->add('description')
             ->add('subject')
             ->add('date')
-            ->add('author', Author::class,
-                $builder
-                ->add('name', TextType::class)
-            );
+            ->add('author');
     }
     
     /**
