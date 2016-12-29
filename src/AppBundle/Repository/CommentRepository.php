@@ -9,7 +9,7 @@ class CommentRepository extends \Doctrine\ORM\EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $comments = $qb->select('c')
             ->from('AppBundle:Comment', 'c')
-            ->where('c.posts = ' . $id)
+            ->where('c.post = ' . $id)
             ->orderBy('c.createdAt', 'DESC');
 
         return $comments->getQuery()->getResult();

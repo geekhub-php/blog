@@ -38,7 +38,7 @@ class Category
     /**
      * @var array
      *
-     * @ORM\ManyToMany(targetEntity="Post", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Post", inversedBy="categories")
      */
     private $posts;
 

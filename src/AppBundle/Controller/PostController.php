@@ -36,6 +36,11 @@ class PostController extends Controller
     }
 
     /**
+     *
+     * @param Request $request
+     * @param int $id
+     * @return string
+     *
      * @Route("/posts/view/{id}", name="postsView")
      * @Method({"GET", "POST"})
      */
@@ -62,9 +67,10 @@ class PostController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $comment->setPosts($post);
+            $post->addComment($comment);
             $em->persist($comment);
             $em->flush($comment);
+//            $post->getComments()->add($comment);
 
             return $this->redirectToRoute('postsView', array('id' => $post->getId()));
         }
@@ -154,5 +160,24 @@ class PostController extends Controller
             'post' => $post,
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     *
+     * @Route("/posts/{postId}/comment/{commentId}", name="removeComment")
+     * @Method({"GET", "POST"})
+     *
+     */
+    public function removeCommentAction($postId, $commentId)
+    {
+        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
+        $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($commentId);
+        $post->removeComment($comment);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($post);
+        $em->flush();
+
+        return $this->redirectToRoute('postsView', array('id' => $post->getId()));
     }
 }

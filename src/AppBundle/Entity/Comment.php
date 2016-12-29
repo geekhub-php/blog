@@ -53,7 +53,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
      * @ORM\JoinColumn(name="post_id", referencedColumnName="id")
      */
-    private $posts;
+    private $post;
 
     /**
      * Get id
@@ -138,26 +138,26 @@ class Comment
     }
 
     /**
-     * Set posts
+     * Set post
      *
-     * @param \AppBundle\Entity\Post $posts
+     * @param \AppBundle\Entity\Post $post
      *
      * @return Comment
      */
-    public function setPosts(\AppBundle\Entity\Post $posts = null)
+    public function setPost(\AppBundle\Entity\Post $post = null)
     {
-        $this->posts = $posts;
+        $this->post = $post;
 
         return $this;
     }
 
     /**
-     * Get posts
+     * Get post
      *
      * @return \AppBundle\Entity\Post
      */
-    public function getPosts()
+    public function getPost()
     {
-        return $this->posts;
+        return $this->post;
     }
 }

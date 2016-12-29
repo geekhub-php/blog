@@ -13,7 +13,12 @@
 
             {% for comment in comments %}
                 <div class="comment-item">
-                    <div><strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong> {{ comment.author.firstName }} {{ comment.author.lastName }}</div>
+                    <div>
+                        <strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong>
+                        {{ comment.author.firstName }}
+                        {{ comment.author.lastName }}
+                        <a href="{{ path('removeComment', {'postId': post.id, 'commentId': comment.id}) }}">Удалить</a>
+                    </div>
                     <div>{{ comment.content }}</div>
                 </div>
             {% endfor %}

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,10 +42,10 @@ class Post
     /**
      * @var integer
      *
-     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Category", mappedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
-    private $category;
+    private $categories;
 
     /**
      * @var string
@@ -100,9 +101,9 @@ class Post
     private $createAt;
 
     /**
-     * @var array
+     * @var Collection
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="posts")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="post")
      */
     private $comments;
 
@@ -312,6 +313,7 @@ class Post
      */
     public function addComment(\AppBundle\Entity\Comment $comment)
     {
+        $comment->setPost($this);
         $this->comments[] = $comment;
 
         return $this;
@@ -335,5 +337,15 @@ class Post
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }
