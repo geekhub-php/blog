@@ -23,6 +23,7 @@
                <br>
 
                 <a href="{{ path('add_comment', {'id': id })}}">test add comment</a>
+                <br>
                 {% if app.request.attributes.get('_route') == "add_comment" %}
                     <h1>comment test </h1>
 
@@ -36,13 +37,14 @@
                   <br>
                 {% endif %}
 
-
+         {% if  comments!=0 %}
                 comments:
                 {% for key in comments %}
                     <br>
                     {{ key.text }}
                     <br>
                 {% endfor %}
+         {% endif %}
             </div>
 
         </div>

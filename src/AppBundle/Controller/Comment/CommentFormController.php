@@ -51,11 +51,12 @@ class CommentFormController extends Controller
         }
         $comments = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Comment\\Comment')
-            ->findAll();
+            ->findBy(array('post'=>$post->getId()));
         if (!$comments) {
-            throw $this->createNotFoundException(
+            /*throw $this->createNotFoundException(
                 'No comment'
-            );
+            ); */
+            $comments=0;
         }
 
         $em = $this->getDoctrine()->getManager();
