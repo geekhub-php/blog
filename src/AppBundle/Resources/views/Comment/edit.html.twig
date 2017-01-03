@@ -1,0 +1,39 @@
+{% extends "AppBundle:layouts:column-two.html.twig" %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-md-12">
+            <h4>Редактировать комментарий</h4>
+            {{ form_start(form, {"attr":{"id": "comment-form"}}) }}
+            {{ form_errors(form) }}
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.content) }}
+                {{ form_errors(form.content) }}
+                {{ form_widget(form.content) }}
+            </div>
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.author) }}
+                {{ form_errors(form.author) }}
+                {{ form_widget(form.author) }}
+            </div>
+
+            <div class="form-group col-md-12">
+                {{ form_label(form.createdAt) }}
+                {{ form_errors(form.createdAt) }}
+                {{ form_widget(form.createdAt) }}
+            </div>
+
+            <div class="btn-container">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
+{% endblock content %}

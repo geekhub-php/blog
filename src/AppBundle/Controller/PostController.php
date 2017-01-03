@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
+use AppBundle\Entity\Category;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -163,21 +164,51 @@ class PostController extends Controller
     }
 
     /**
+     * @Route("/posts/{postId}/comment/{commentId}", name="editComment")
+     * @Method({"GET", "POST"})
+     */
+    public function editComment(Request $request, $postId, $commentId)
+    {
+        $comment = $this->getDoctrine()
+            ->getRepository('AppBundle:Comment')
+            ->find($commentId);
+        $form = $this->createForm('AppBundle\Form\CommentType', $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('postsView', array('id' => $postId));
+        }
+
+        return $this->render('AppBundle:Comment:edit.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
      *
-     * @Route("/posts/{postId}/comment/{commentId}", name="removeComment")
+     * @Route("/posts/{postId}/comment/remove/{commentId}", name="removeComment")
      * @Method({"GET", "POST"})
      *
      */
     public function removeCommentAction($postId, $commentId)
     {
-        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
+//        $post = $this->getDoctrine()->getRepository('AppBundle:Post')->find($postId);
         $comment = $this->getDoctrine()->getRepository('AppBundle:Comment')->find($commentId);
-        $post->removeComment($comment);
+//        $post->removeComment($comment);
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $em->persist($post);
+//        $em->flush();
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($post);
-        $em->flush();
+        $form = $this->createForm('AppBundle\Form\CommentRemoveType', $comment);
 
-        return $this->redirectToRoute('postsView', array('id' => $post->getId()));
+        return $this->render('AppBundle:Comment:remove.html.twig', array(
+            'form' => $form->createView()
+        ));
+//        return $this->redirectToRoute('postsView', array('id' => $post->getId()));
     }
 }

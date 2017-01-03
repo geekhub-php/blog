@@ -19,9 +19,11 @@ class PostType extends AbstractType
             ->add('visibility')
             ->add('author')
             ->add('createAt', DateTimeType::class)
-            ->add('category', EntityType::class, array(
+            ->add('categories', EntityType::class, array(
                 'class' => 'AppBundle\Entity\Category',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
             ))
             ->add('author', EntityType::class, array(
                 'class' => 'AppBundle:Author',

@@ -42,7 +42,7 @@ class Post
     /**
      * @var integer
      *
-     * @ORM\ManyToMany(targetEntity="Category", mappedBy="posts")
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="posts")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $categories;

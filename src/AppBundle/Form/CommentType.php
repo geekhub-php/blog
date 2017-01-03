@@ -26,14 +26,11 @@ class CommentType extends AbstractType
         ))
         ->add('createdAt', DateTimeType::class, array(
             'label' => 'Дата:',
-//            'format' => 'HTML5_FORMAT',
-//            'attr' => ['class' => 'test col-xs-6']
         ))
         ->add('author', EntityType::class, array(
             'label' => 'Автор:',
             'class' => 'AppBundle:Author',
             'choice_label' => 'lastName',
-//            'attr' => ['class' => 'test col-xs-6']
         ))
         ->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) {
             $comment = $event->getData();

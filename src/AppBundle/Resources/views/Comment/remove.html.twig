@@ -1,0 +1,14 @@
+{% extends "AppBundle:layouts:column-two.html.twig" %}
+
+{% block title %}Edit Comment{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <span>Удалить комментарий?</span>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock content %}
