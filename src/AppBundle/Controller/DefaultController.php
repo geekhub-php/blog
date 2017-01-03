@@ -19,7 +19,7 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="welcome")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
@@ -50,11 +50,21 @@ class DefaultController extends Controller
 
 
         //echo gettype($categories);
-
         //echo serialize($count);
 
+//test using paginator bundle
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/
+        );
+//dump($pagination);
+        // parameters to template
+        //return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
+
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $count, 'nameCategories' => array('name' => 'last posts'), ));
+            'categories' => $count, 'nameCategories' => array('name' => 'last posts'), 'pagination' => $pagination, ));
     }
 
 

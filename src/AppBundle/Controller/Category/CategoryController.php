@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class CategoryController extends Controller
 {
@@ -19,7 +21,7 @@ class CategoryController extends Controller
      *
      * @return object
      */
-    public function showSelectedCategoriesAction($id)
+    public function showSelectedCategoriesAction($id, Request $request)
     {
         $category = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
@@ -55,7 +57,14 @@ class CategoryController extends Controller
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
+        //test using paginator bundle
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/
+        );
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $count, 'nameCategories' => $category, ));
+            'categories' => $count, 'nameCategories' => $category,  'pagination' => $pagination, ));
     }
 }

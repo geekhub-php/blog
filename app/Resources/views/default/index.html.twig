@@ -12,7 +12,7 @@
 {% block right %}
     <div class="col-md-9 last-post-block" >
         <span class="label label-default spanMeny"> {{ nameCategories.name }}:</span>
-        {% for key in data %}
+        {% for key in pagination %}
             <div class="lastPost-mini-block">
                 {{ key.id }}
                 <br>
@@ -24,6 +24,18 @@
                 <a href="{{ path('postPage', {'id': key.id})}}">show this post detals</a>
           </div>
         {% endfor %}
+
+
+        {#paginator bundle#}
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+
+
+
 
     </div>
     </div>

@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity;
 use AppBundle\Entity\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class PostController extends Controller
 {
@@ -72,7 +74,7 @@ class PostController extends Controller
      *
      * @return object
      */
-    public function showMostCommentedAction()
+    public function showMostCommentedAction(Request $request)
     {
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
@@ -103,8 +105,15 @@ class PostController extends Controller
         $posts = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $contComentsPosts =$posts->getPostsMostCommented();
 
+        //test paginator bundle
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $contComentsPosts, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/
+        );
         return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
-            'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '), ));
+            'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '), 'pagination' => $pagination,));
     }
     /**
      *@Route("/top_rated", name="topRated")
@@ -114,7 +123,7 @@ class PostController extends Controller
      *
      * @return object
      */
-    public function showTopRatedAction()
+    public function showTopRatedAction(Request $request)
     {
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
@@ -141,8 +150,16 @@ class PostController extends Controller
             );
         }
 
+        //test paginator bundle
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $posts, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/
+        );
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'), ));
+            'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'),
+            'pagination' => $pagination,));
     }
 
 }
