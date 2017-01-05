@@ -44,16 +44,10 @@ class Post
 
     /**
      * @var string
-    /**
-     * @Assert\Length(
-     *      min = 2,
-     *      max = 100,
-     *      minMessage = "Your first name must be at least {{ limit }} characters long",
-     *      maxMessage = "Your first name cannot be longer than {{ limit }} characters"
-     * )
-     * @ORM\Column(name="hashtag", type="string", length=100)
+     *
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag\Tag", inversedBy="posts")
      */
-    private $hashtag;
+    private $tags;
 
     /**
      * @var string
@@ -98,6 +92,7 @@ class Post
     public function __construct()
     {
         $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -182,27 +177,27 @@ class Post
     }
 
     /**
-     * Set hashtag.
+     * Set tags.
      *
-     * @param string $hashtag
+     * @param string $tags
      *
      * @return Post
      */
-    public function setHashtag($hashtag)
+    public function setTags($tags)
     {
-        $this->hashtag = $hashtag;
+        $this->tags = $tags;
 
         return $this;
     }
 
     /**
-     * Get hashtag.
+     * Get tags.
      *
      * @return string
      */
-    public function getHashtag()
+    public function getTags()
     {
-        return $this->hashtag;
+        return $this->tags;
     }
 
     /**
@@ -350,9 +345,33 @@ class Post
     }
 
     /**
+     * Add tags.
+     *
+     * @param \AppBundle\Entity\Tag\Tag $tag
+     *
+     * @return Post
+     */
+    public function addTag(\AppBundle\Entity\Tag\Tag $tag)
+    {
+        $this->tags[] = $tag;
+
+        return $this;
+    }
+
+    /**
+     * Remove tag.
+     *
+     * @param \AppBundle\Entity\Tag\Tag $tag
+     */
+    public function removeTag(\AppBundle\Entity\Tag\Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+    }
+
+    /**
      * Add author.
      *
-     * @param \AppBundle\Entity\User $author
+     * @param \AppBundle\Entity\User\User $author
      *
      * @return Post
      */
@@ -366,7 +385,7 @@ class Post
     /**
      * Remove author.
      *
-     * @param \AppBundle\Entity\User $author
+     * @param \AppBundle\Entity\User\User $author
      */
     public function removeAuthor(\AppBundle\Entity\User\User $author)
     {
