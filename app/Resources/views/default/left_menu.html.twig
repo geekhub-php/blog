@@ -15,4 +15,11 @@
             <br>
             <a href="{{ path('most_commented')}}">most commented</a>
         </div>
+        <span class="label label-default spanMenyLeft">Could Tags:</span>
+        <div class="" id="idCouldPost">
+            {% for key in tags %}
+               <a href="{{ path('tags',{'id':key.id})}}">{{ key.name }}</a>
+            {% endfor %}
+        </div>
+
     </div>

@@ -1,26 +1,38 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace AppBundle\Controller\Tag;
 
-use AppBundle\Form\AuthorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Post;
+use Symfony\Component\HttpFoundation\Response;
+use AppBundle\Entity;
 use Symfony\Component\VarDumper\Cloner\Data;
-use AppBundle\Form\CategoryType;
-use AppBundle\Form\PostType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
-class DefaultController extends Controller
+
+class TagController extends Controller
 {
     /**
-     * @Route("/", name="welcome")
+     *@Route("/tags/{id}", requirements={"id" = "\d+"}, defaults={"id" =0}, name="tags")
+     * @Method({"GET"})
+     *
+     * @param int $id
+     *
+     * @return object
      */
-    public function indexAction(Request $request)
+    public function showSelectedTagAction($id, Request $request)
     {
+        $tag = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->find($id);
+
+        if (!$tag) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
+
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -31,15 +43,17 @@ class DefaultController extends Controller
             );
         }
 
-        $posts = $this->getDoctrine()
+        /*$posts = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Post\\Post')
-            ->findAll();
+            ->findBy($tag);
+        dump($posts);
 
         if (!$posts) {
             throw $this->createNotFoundException(
                 'No posts'
             );
         }
+        */
         $tags = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Tag\\Tag')
             ->findAll();
@@ -54,45 +68,15 @@ class DefaultController extends Controller
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
-
-
-
-
-        //echo gettype($categories);
-        //echo serialize($count);
-
-//test using paginator bundle
+        //test using paginator bundle
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $posts, /* query NOT result */
+            $tag->getPosts(), /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
-//dump($pagination);
-        // parameters to template
-        //return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
-
-        return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $count, 'nameCategories' => array('name' => 'last posts'),
+        return $this->render('default/index.html.twig', array('data' => $tag->getPosts(),
+            'categories' => $count, 'nameCategories' => $tag,
             'pagination' => $pagination, 'tags'=>$tags,));
     }
-
-
-
-    /**
-     *@Route("/contacts", name="contacts")
-     * @Method({"GET"})
-     *
-     * @param int $id
-     *
-     * @return object
-     */
-    public function showContactsAction()
-    {
-        return $this->render('default/contacts.html.twig');
-    }
-
-
-
-
 }
