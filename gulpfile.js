@@ -42,7 +42,7 @@ gulp.task('init-libs', function() {
 });
 
 gulp.task('minimize-css', function() {
-    return gulp.src('web-src/public/css/styles.css')
+    return gulp.src(['web-src/public/css/styles.css', 'web-src/public/css/modals.css'])
         .pipe(prefixer())
         .pipe(cssmin())
         .pipe(gulp.dest('web/public/css'))

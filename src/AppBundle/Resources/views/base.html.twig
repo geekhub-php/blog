@@ -13,6 +13,7 @@
         {# Custom styles #}
         {% block stylesheets %}
             <link href="{{ asset("public/css/styles.css") }}" rel="stylesheet" />
+            <link href="{{ asset("public/css/modals.css") }}" rel="stylesheet" />
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 
@@ -40,6 +41,17 @@
             </footer>
         </div>
 
+        <div id="overlay-frame"></div>
+        <div id="dialog-window">
+            <div id="dialog-window-caption">Dialog Window</div>
+            <div id="dialog-window-content">
+                Delete record?
+            </div>
+            <div id="dialog-window-controls">
+                <button id="dialog-window-btn-delete">Delete</button>
+                <button id="dialog-window-btn-cancel">Cancel</button>
+            </div>
+        </div>
         {# jQuery #}
         <script src="{{ asset("public/js/jquery.min.js") }}"></script>
         <script src="{{ asset("public/js/bootstrap.min.js") }}"></script>

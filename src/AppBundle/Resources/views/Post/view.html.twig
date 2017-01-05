@@ -17,8 +17,8 @@
                         <strong>{{ comment.createdAt.format('d-m-Y H:i:s') }}:</strong>
                         {{ comment.author.firstName }}
                         {{ comment.author.lastName }}
-                        <a href="{{ path('editComment', {'postId': post.id, 'commentId': comment.id}) }}">Редактировать</a>
-                        <a href="{{ path('removeComment', {'postId': post.id, 'commentId': comment.id}) }}">Удалить</a>
+                        <a class="comment-edit" href="{{ path('editComment', {'postId': post.id, 'commentId': comment.id}) }}">Редактировать</a>
+                        <span class="comment-delete" data-value="{{ comment.id }}">Удалить</span>
                     </div>
                     <div>{{ comment.content }}</div>
                 </div>
