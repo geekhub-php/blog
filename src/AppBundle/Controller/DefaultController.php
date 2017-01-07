@@ -7,12 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Category;
-use AppBundle\Entity\Post;
+use AppBundle\Entity\Post\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 use AppBundle\Form\CategoryType;
 use AppBundle\Form\PostType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Padam87\SearchBundle\Filter\Filter;
+use Elastica\Query\QueryString;
+use Doctrine\ORM\Query;
+
 
 class DefaultController extends Controller
 {
@@ -92,7 +96,41 @@ class DefaultController extends Controller
         return $this->render('default/contacts.html.twig');
     }
 
+    /**
+     *@Route("/search", name="search")
+     * @Method({"POST"})
+     *
+     * @param int $id
+     *
+     * @return object
+     */
+    public function searchAction()
+    {
+       $search= $_POST['go'];
+       $data = array(1=>$search);
+        //dump($search);
+/*
+        $resultEntity= new Post();
+        $resultEntity->setDescription($search);
+        $fm = $this->get('padam87_search.filter.manager');
+        $filter = new Filter($resultEntity, 'AppBundle\\Entity\\Post\\Post', 'alias');
+        $qb = $fm->createQueryBuilder($filter);
+        dump($qb->getQuery()->getScalarResult());
+*/
 
+
+        $finder = $this->container->get('fos_elastica.finder.search.post');
+
+
+
+        $posts = $finder->find($search);
+        dump($posts);
+
+
+
+
+        return $this->render('default/contacts.html.twig');
+    }
 
 
 }

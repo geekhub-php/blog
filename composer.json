@@ -29,8 +29,10 @@
         "sensio/framework-extra-bundle": "^3.0.2",
         "incenteev/composer-parameter-handler": "^2.0",
         "knplabs/knp-paginator-bundle": "^2.5",
-        "doctrine/doctrine-migrations-bundle": "^1.0"
-    },
+        "doctrine/doctrine-migrations-bundle": "^1.0",
+        "padam87/search-bundle": "2.0.*",
+        "friendsofsymfony/elastica-bundle": "dev-master"
+     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",

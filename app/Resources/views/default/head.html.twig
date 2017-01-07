@@ -19,8 +19,18 @@
             <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">crud category form</a></li>
             <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud post form</a></li>
 
-
+            <div class="col-md-3"><div class="input-group">
+      <input type="text" class="form-control" placeholder="Search for..." >
+      <span class="input-group-btn">
+        <button class="btn btn-secondary" type="button" >Go!</button></form>
+      </span>
+    </div>
+      <form action="{{ path('search')}}" method="POST">
+   <input type="text" name="go" value="">
+      <button type="submit" name="submit">Update</button>
+</form>
         </ul>
+
 
     </div>
 
