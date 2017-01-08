@@ -1,0 +1,36 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block title %}Editing comment{% endblock %}
+
+{% block breadcrump %}
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li>Comment</li>
+        <li class="active">Edit</li>
+    </ol>
+{% endblock %}
+ {% block content %}
+     <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-9">
+                 <div class="row">
+                     <div class="panel panel-default">
+                         <div class="panel-heading panelHeading">
+                             <h3 class="panel-title">Editing the comment</h3>
+                         </div>
+                         <div class="panel-body">
+                             {% form_theme form 'AppBundle::form.html.twig' %}
+                             {{ form_start(form) }}
+                             {{ form_widget(form) }}
+                             <button class="btn btn-default" type="submit">Edit</button>
+                             {{ form_end(form) }}
+                             {{ form_start(delete_form) }}
+                             <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');" type="submit">Delete</button>
+                             {{ form_end(delete_form) }}
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             {{ include('AppBundle::sidebar.html.twig') }}
+         </div>
+     </div>
+ {% endblock %}

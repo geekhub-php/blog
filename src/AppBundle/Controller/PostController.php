@@ -47,7 +47,6 @@ class PostController extends Controller
     /**
      * @Route("/post/{id}", name="post_show", requirements={"id": "\d+"})
      * @Template()
-     * @Method("GET")
      */
     public function showAction(Request $request)
     {
@@ -60,6 +59,7 @@ class PostController extends Controller
         if (!$post) {
             throw new NotFoundHttpException('Empty bro');
         }
+
         return $this->render('AppBundle:Post:show.html.twig', [
             'post' => $post,
             'categories' => $categories,

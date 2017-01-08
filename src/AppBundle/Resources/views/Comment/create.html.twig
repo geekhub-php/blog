@@ -1,0 +1,6 @@
+<h3>Leave your comment here</h3>
+{% form_theme form 'AppBundle::form.html.twig' %}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-default" type="submit">Add comment</button>
+{{ form_end(form) }}

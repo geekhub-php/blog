@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 
 /**
  * Comment
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
+    use ORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var int
      *
@@ -34,13 +37,6 @@ class Comment
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      */
     private $user;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateOfPublication", type="datetime")
-     */
-    private $dateOfPublication;
 
     /**
      * @var int
@@ -107,30 +103,6 @@ class Comment
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * Set dateOfPublication
-     *
-     * @param \DateTime $dateOfPublication
-     *
-     * @return Comment
-     */
-    public function setDateOfPublication($dateOfPublication)
-    {
-        $this->dateOfPublication = $dateOfPublication;
-
-        return $this;
-    }
-
-    /**
-     * Get dateOfPublication
-     *
-     * @return \DateTime
-     */
-    public function getDateOfPublication()
-    {
-        return $this->dateOfPublication;
     }
 
     /**
