@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Controller;
 
 
@@ -27,15 +26,18 @@ class ArticleController extends Controller
      */
     public function newAction(Request $request){
 
-        $form = $this->createForm(ArticleType::class);
+        $article = new Article();
+
+        $form = $this->createForm(ArticleType::class, $article);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
             $em = $this->getDoctrine()->getManager();
 
-            $article = $form->getData();
-            $em->persist($form);
+            $article->setAuthor($em->getRepository('AppBundle:Author')->find(60));
+
+            $em->persist($article);
             $em->flush();
 
             return $this->redirectToRoute('homepage');
@@ -47,12 +49,41 @@ class ArticleController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $article
+     * @return Response
+     *
+     * @Route("article/{id}/edit", name="edit_article", requirements={"\d+"})
+     */
+    public function editAction(Request $request, Article $article){
+
+        $form = $this->createForm(ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+
+
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('show_article', array(
+                'id' => $article->getId()));
+        }
+
+        return $this->render('AppBundle:post:edit.html.twig', array(
+            'articleType' => $form->createView(),
+        ));
+    }
+
+    /**
      * @param int $id
      * @return Response
      *
-     * @Route("article/{id}", name="view_article", requirements={"\d+"})
+     * @Route("article/{id}", name="show_article", requirements={"\d+"})
      */
-    public function viewAction($id)
+    public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
@@ -61,7 +92,7 @@ class ArticleController extends Controller
             throw new NotFoundHttpException('Article is not exist!');
         }
 
-        return $this->render('AppBundle:post:view.html.twig', [
+        return $this->render('AppBundle:post:show.html.twig', [
             'article' => $article
         ]);
     }
@@ -95,17 +126,18 @@ class ArticleController extends Controller
         return $paginator->paginate($query, $currentPage, $perPage);
     }
 
-    /*
+    /**
      * @param Article $article
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      *
-     * @Route(article/{id}/remove, name="article_remove", requirements={"\d+"})
+     * @Route("article/{id}/delete", name="article_delete", requirements={"\d+"})
      */
-    /*public function removeAction(Article $article){
+    public function deleteAction(Article $article){
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($article);
         $em->flush();
 
         return $this->redirectToRoute('homepage');
-    }*/
+    }
 }
