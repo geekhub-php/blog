@@ -16,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Padam87\SearchBundle\Filter\Filter;
 use Elastica\Query\QueryString;
 use Doctrine\ORM\Query;
+use Symfony\Component\HttpFoundation\Session\Session;
+use AppBundle\Services\SavedInputForm;
 
 
 class DefaultController extends Controller
@@ -98,39 +100,64 @@ class DefaultController extends Controller
 
     /**
      *@Route("/search", name="search")
-     * @Method({"POST"})
+     * @Method({"POST", "GET"})
      *
      * @param int $id
      *
      * @return object
      */
-    public function searchAction()
+    public function searchAction(Request $request)
     {
-       $search= $_POST['go'];
-       $data = array(1=>$search);
-        //dump($search);
-/*
-        $resultEntity= new Post();
-        $resultEntity->setDescription($search);
-        $fm = $this->get('padam87_search.filter.manager');
-        $filter = new Filter($resultEntity, 'AppBundle\\Entity\\Post\\Post', 'alias');
-        $qb = $fm->createQueryBuilder($filter);
-        dump($qb->getQuery()->getScalarResult());
-*/
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
+            ->findAll();
 
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
 
+        /*$posts = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
+            ->findAll();
+
+        if (!$posts) {
+            throw $this->createNotFoundException(
+                'No posts'
+            );
+        }
+        */
+
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
+
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
+        $count = $countCategores->getCountCategories($categories);
+        //service saved value search form, for plaginator
+        $myService = $this->get('service_saved_input_value');
+        $search=$myService->getValue();
+        //using serch bundle- FOSElasticaBundle
         $finder = $this->container->get('fos_elastica.finder.search.post');
-
-
-
         $posts = $finder->find($search);
-        dump($posts);
 
+//test using paginator bundle
+       $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+          $posts, /* query NOT result */
+            $request->query->getInt('page', 1)/*page number*/,
+            3/*limit per page*/);
 
-
-
-        return $this->render('default/contacts.html.twig');
+        return $this->render('default/index.html.twig', array('data' => $posts,
+            'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
+            'pagination' => $pagination, 'tags'=>$tags,));
     }
-
-
 }
