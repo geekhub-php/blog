@@ -8,6 +8,19 @@
         <div>
             <h3>{{ article.content }}</h3>
         </div>
-        {# <h4>{{ article.author.firstName }} {{ article.author.lastName }}</h4> #}
-        <a href="{{ path('homepage') }}"><div class="btn btn-primary">Exit</div></a>
+        <h4>{{ article.author.firstName }} {{ article.author.lastName }}</h4>
+    <a href="{{ path('edit_article', {'id':article.id}) }}"><button type="button" class="btn btn-default">Редактировать</button></a>
+    <a href="{{ path('article_delete', {'id':article.id}) }}"><button type="button" class="btn btn-danger">Удалить</button></a>
+    <h3>Комментарии</h3>
+    {% for comment in article.comments %}
+    <div class="container">
+        <small>
+            <br>{{ comment.content }}<a href="{{ path('delete_comment', {'id':article.id}) }}">
+                <button type="button" class="btn btn-danger">x</button>
+            </a>
+        </small>
+    </div>
+    {% endfor %}
+    <a href="{{ path('new_comment', {'id':article.id}) }}"><button type="button" class="btn btn-primary">Написать комментарий</button></a>
+
 {% endblock %}
