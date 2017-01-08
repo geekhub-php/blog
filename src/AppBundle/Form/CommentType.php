@@ -16,7 +16,7 @@ class CommentType extends AbstractType
         $builder
             ->add('content', TextareaType::class, array(
                 'required' => true,
-                'attr' => ['cols' => 5, 'rows' => 10]
+                'attr' => array('class' => 'form-control', 'rows' => 2)
             ));
     }
 
