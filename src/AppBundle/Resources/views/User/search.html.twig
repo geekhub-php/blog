@@ -1,0 +1,55 @@
+{% extends 'AppBundle::base.html.twig' %}
+{% block title %}Search user{% endblock %}
+
+{% block breadcrump %}
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="#">User</a></li>
+        <li class="active">Search</li>
+    </ol>
+{% endblock %}
+ {% block content %}
+     <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-9">
+                 <div class="row">
+                     <div class="panel panel-default">
+                         <div class="panel-heading panelHeading">
+                             <h3 class="panel-title">Searching users</h3>
+                         </div>
+                         <div class="panel-body">
+                             {% form_theme form 'AppBundle::form.html.twig' %}
+                             {{ form_start(form) }}
+                             {{ form_widget(form) }}
+                             <button class="btn btn-default" type="submit">Go!</button>
+                             {{ form_end(form) }}
+                         </div>
+                     </div>
+                 </div>
+                 <table class="table">
+                     <thead>
+                     <tr>
+                         <th>#</th>
+                         <th>Username</th>
+                         <th>Firstname</th>
+                         <th>Lastname</th>
+                         <th>Email</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                 {% for user in users %}
+                     <tr>
+                         <td><a href="/user/{{ user.id }}">{{ user.id }}</a></td>
+                         <td>{{ user.username }}</td>
+                         <td>{{ user.firstName }}</td>
+                         <td>{{ user.lastName }}</td>
+                         <td>{{ user.email }}</td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+                 </table>
+             </div>
+             {{ include('AppBundle::sidebar.html.twig') }}
+         </div>
+     </div>
+ {% endblock %}

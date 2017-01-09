@@ -134,7 +134,7 @@ class CategoryController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('category_show');
+        return $this->redirectToRoute('homepage');
     }
 
     /**

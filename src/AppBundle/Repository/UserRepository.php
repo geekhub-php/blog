@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function search($param)
+    {
+        return $this->createQueryBuilder('user')
+            ->andWhere('user.username LIKE :param')
+            ->orWhere('user.firstName LIKE :param')
+            ->orWhere('user.lastName LIKE :param')
+            ->setParameter(':param', '%'.$param.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

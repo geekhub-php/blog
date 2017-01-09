@@ -17,4 +17,14 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function search($param)
+    {
+        return $this->createQueryBuilder('post')
+            ->andWhere('post.title LIKE :param')
+            ->orWhere('post.text LIKE :param')
+            ->setParameter(':param', '%'.$param.'%')
+            ->getQuery()
+            ->getResult();
+    }
 }

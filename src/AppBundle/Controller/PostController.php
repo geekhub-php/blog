@@ -3,8 +3,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\Comment;
-use AppBundle\Form\CommentType;
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -13,6 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class PostController extends Controller
 {
@@ -34,10 +36,6 @@ class PostController extends Controller
             $request->query->getInt('page', $page), 4
         );
 
-        if (!$postRepository->findAll()) {
-            throw new NotFoundHttpException('Empty bro');
-        }
-
         return $this->render('AppBundle:Post:index.html.twig', [
             'posts' => $pagination,
             'categories' => $categoryRepository,
@@ -47,6 +45,7 @@ class PostController extends Controller
     /**
      * @Route("/post/{id}", name="post_show", requirements={"id": "\d+"})
      * @Template()
+     * @Method({"GET"})
      */
     public function showAction(Request $request)
     {
@@ -78,11 +77,16 @@ class PostController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
+        $userRepository = $em->getRepository('AppBundle:User');
 
         $form = $this->createForm(PostType::class, $post, [
             'em' => $this->getDoctrine()->getManager(),
         ]);
         $form->handleRequest($request);
+
+        if (!$categoryRepository->findAll() || !$userRepository->findAll()) {
+            throw new NotFoundHttpException('Create category and user');
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($post);
@@ -167,5 +171,54 @@ class PostController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    /**
+     *
+     * @Route("/search/post", name="post_search")
+     * @Method({"GET", "POST"})
+     */
+    public function searchAction(Request $request)
+    {
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('text', SearchType::class, [
+                'required' => false,
+                'label' => 'Search',
+                'attr' => ['class' => 'test col-xs-6'],
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array(
+                        'min' => 3,
+                    )),
+                ),
+            ])
+            ->setMethod('POST')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $categoryRepository = $em->getRepository('AppBundle:Category');
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $result = $em->getRepository('AppBundle:Post')
+                ->search($data['text']);
+            return $this->render('AppBundle:Post:search.html.twig', array(
+                'posts' => $result,
+                'categories' => $categoryRepository->findAll(),
+                'form' => $form->createView(),
+            ));
+        }
+
+        return $this->render('AppBundle:Post:search.html.twig', array(
+                'categories' => $categoryRepository->findAll(),
+                'form' => $form->createView(),
+                'posts' => null,
+            )
+        );
+
     }
 }

@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 
 class UserController extends Controller
 {
@@ -152,13 +155,13 @@ class UserController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('category_show');
+        return $this->redirectToRoute('user_list');
     }
 
     /**
      * Creates a form to delete a user entity.
      *
-     * @param Category $category The category entity
+     * @param User $user The user entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -169,5 +172,54 @@ class UserController extends Controller
             ->setMethod('DELETE')
             ->getForm()
             ;
+    }
+
+    /**
+     *
+     * @Route("/search/user", name="user_search")
+     * @Method({"GET", "POST"})
+     */
+    public function searchAction(Request $request)
+    {
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+            ->add('text', SearchType::class, [
+                'required' => false,
+                'label' => 'Search',
+                'attr' => ['class' => 'test col-xs-6'],
+                'constraints' => array(
+                    new NotBlank(),
+                    new Length(array(
+                        'min' => 3,
+                    )),
+                ),
+            ])
+            ->setMethod('POST')
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $categoryRepository = $em->getRepository('AppBundle:Category');
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $result = $em->getRepository('AppBundle:User')
+                ->search($data['text']);
+            return $this->render('AppBundle:User:search.html.twig', array(
+                'users' => $result,
+                'categories' => $categoryRepository->findAll(),
+                'form' => $form->createView(),
+            ));
+        }
+
+        return $this->render('AppBundle:User:search.html.twig', array(
+                'categories' => $categoryRepository->findAll(),
+                'form' => $form->createView(),
+                'users' => null,
+            )
+        );
+
     }
 }

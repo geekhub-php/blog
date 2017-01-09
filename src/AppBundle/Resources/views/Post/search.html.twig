@@ -1,29 +1,31 @@
 {% extends 'AppBundle::base.html.twig' %}
-
-{% block title %}{{ category.name }}{% endblock %}
+{% block title %}Search post{% endblock %}
 
 {% block breadcrump %}
     <ol class="breadcrumb">
         <li><a href="/">Home</a></li>
-        <li class="active">{{ category.name }}</li>
-        <a href="/category/{{ category.id }}/edit" style="float: right" >Edit</a>
+        <li><a href="#">Post</a></li>
+        <li class="active">Search</li>
     </ol>
 {% endblock %}
  {% block content %}
      <div class="container-fluid">
          <div class="row">
              <div class="col-md-9">
-                 {% if status == 'edited' %}
-                     <div class="alert alert-success alert-dismissable">
-                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                         <strong>Success!</strong> Your category was edited!
+                 <div class="row">
+                     <div class="panel panel-default">
+                         <div class="panel-heading panelHeading">
+                             <h3 class="panel-title">Searching posts</h3>
+                         </div>
+                         <div class="panel-body">
+                             {% form_theme form 'AppBundle::form.html.twig' %}
+                             {{ form_start(form) }}
+                             {{ form_widget(form) }}
+                             <button class="btn btn-default" type="submit">Go!</button>
+                             {{ form_end(form) }}
+                         </div>
                      </div>
-                 {% elseif status == 'created' %}
-                     <div class="alert alert-success alert-dismissable">
-                         <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
-                         <strong>Success!</strong> Category was created!
-                     </div>
-                 {% endif %}
+                 </div>
                  {% for item in posts %}
                      <div class="row">
                          <div class="panel panel-default">
@@ -40,12 +42,6 @@
                          </div>
                      </div>
                  {% endfor %}
-                 <div class="col-md-offset-4">
-                     {{ knp_pagination_render(posts) }}
-                 </div>
-                 {% if posts|length  == 0  %}
-                     <p>There are no posts!</p>
-                 {% endif %}
              </div>
              {{ include('AppBundle::sidebar.html.twig') }}
          </div>

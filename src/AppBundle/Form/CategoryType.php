@@ -23,7 +23,6 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'Name',
-                'attr' => ['class' => 'test col-xs-6']
             ])
         ;
     }
