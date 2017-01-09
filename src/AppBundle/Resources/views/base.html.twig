@@ -5,11 +5,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% include 'AppBundle::head.html.twig' %}
+        {% include 'AppBundle:base:head.html.twig' %}
     </head>
     <body class="{% block bodyClass %}{% endblock %}">
         {% block header %}
-            {% include 'AppBundle::header.html.twig' %}
+            {% include 'AppBundle:base:header.html.twig' %}
         {% endblock %}
 
         <main class="site-main">
@@ -17,11 +17,11 @@
         </main>
 
         {% block footer %}
-            {% include 'AppBundle::footer.html.twig' %}
+            {% include 'AppBundle:base:footer.html.twig' %}
         {% endblock %}
 
         {% block bottom %}
-            {% include 'AppBundle::bottom.html.twig' %}
+            {% include 'AppBundle:base:bottom.html.twig' %}
         {% endblock %}
     </body>
 </html>

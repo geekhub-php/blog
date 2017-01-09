@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="post")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
  */
-class Post extends PostTypeSuperClass
+class Post extends PostSuperClass
 {
     /**
      * @var Author
@@ -84,7 +84,10 @@ class Post extends PostTypeSuperClass
      */
     public function addComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->comments[] = $comment;
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPost($this);
+        }
 
         return $this;
     }

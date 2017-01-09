@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Form\CommentType;
 use AppBundle\Repository\PostRepository;
 use AppBundle\Form\PostType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -44,13 +46,14 @@ class PostController extends Controller
 
     /**
      * @Route("/posts/{id}", requirements={"id": "\d+"}, name="post_show")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      *
-     * @param int $id
+     * @param Request $request
+     * @param int     $id
      *
      * @return Response
      */
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $post = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
@@ -59,10 +62,33 @@ class PostController extends Controller
         $tags = $post->getTags();
         $comments = $post->getComments();
 
+        $author = $this->getDoctrine()
+            ->getRepository('AppBundle:Author')
+            ->find(rand(1, 10));
+
+        $comment = new Comment();
+        $comment->setPost($post);
+        $comment->setAuthor($author);
+
+        $commentForm = $this->createForm(CommentType::class, $comment);
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+            $comment = $commentForm->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush();
+
+            return $this->redirectToRoute('post_show', ['id' => $id]);
+        }
+
         return $this->render('AppBundle:post:show.html.twig', array(
-            'post'      => $post,
-            'tags'      => $tags,
-            'comments'  => $comments
+            'post'             => $post,
+            'tags'             => $tags,
+            'comments'         => $comments,
+            'commentForm'      => $commentForm->createView()
         ));
     }
 
@@ -92,8 +118,9 @@ class PostController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('AppBundle:post:new.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('AppBundle:base:form.html.twig', array(
+            'formTitle' => 'Form: New post',
+            'form'      => $form->createView()
         ));
     }
 
@@ -126,8 +153,9 @@ class PostController extends Controller
             return $this->redirectToRoute('post_show', ['id' => $id]);
         }
 
-        return $this->render('AppBundle:post:edit.html.twig', array(
-            'form' => $form->createView(),
+        return $this->render('AppBundle:base:form.html.twig', array(
+            'formTitle' => 'Form: Edit post',
+            'form' => $form->createView()
         ));
     }
 

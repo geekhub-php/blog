@@ -11,7 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="page")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PageRepository")
  */
-class Page extends PostTypeSuperClass
+class Page extends PostSuperClass
 {
     /**
      * @var Author

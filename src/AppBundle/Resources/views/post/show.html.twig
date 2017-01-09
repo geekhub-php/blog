@@ -41,9 +41,22 @@
                             <p>Author: {{ comment.author.displayName }}</p>
                             <p>Date: {{ comment.dateCreated|date("d.m.Y") }}</p>
                             <div>{{ comment.content }}</div>
+                            <p>
+                                <br>
+                                <a class="btn btn-default" href="{{ path('comment_edit', {'postId': post.id, 'id': comment.id}) }}">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('comment_delete', {'postId': post.id, 'id': comment.id}) }}">Delete</a>
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
+            </div>
+
+            <div class="col-sm-12">
+                <h4>Add a new comment:</h4>
+
+                {{ form_start(commentForm) }}
+                {{ form_widget(commentForm) }}
+                {{ form_end(commentForm) }}
             </div>
 
         </div>

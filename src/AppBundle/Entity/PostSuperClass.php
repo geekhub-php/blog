@@ -7,11 +7,11 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * PostTypeSuperClass
+ * PostSuperClass
  *
  * @ORM\MappedSuperclass
  */
-abstract class PostTypeSuperClass
+abstract class PostSuperClass
 {
     /**
      * @var int
@@ -83,7 +83,7 @@ abstract class PostTypeSuperClass
      *
      * @param string $title
      *
-     * @return PostTypeSuperClass
+     * @return PostSuperClass
      */
     public function setTitle($title)
     {
@@ -131,7 +131,7 @@ abstract class PostTypeSuperClass
      *
      * @param \DateTime $dateCreated
      *
-     * @return PostTypeSuperClass
+     * @return PostSuperClass
      */
     public function setDateCreated($dateCreated)
     {
@@ -155,7 +155,7 @@ abstract class PostTypeSuperClass
      *
      * @param \DateTime $dateUpdated
      *
-     * @return PostTypeSuperClass
+     * @return PostSuperClass
      */
     public function setDateUpdated($dateUpdated)
     {
@@ -179,7 +179,7 @@ abstract class PostTypeSuperClass
      *
      * @param string $slug
      *
-     * @return PostTypeSuperClass
+     * @return PostSuperClass
      */
     public function setSlug($slug)
     {
