@@ -9,7 +9,10 @@
 </head>
 <body>
 <div class="row" >
-    <div id="headImg" background-image=""></div>
+
+    <div id="headImg" background-image="" align="right">
+        {{ greeting()|raw}}
+        </div>
     <div class="col-md-12">
         <ul class="nav nav-pills navbar-fixed-top" id="idMenuLu">
             <li role="presentation" class="active MenuLi"><a href="{{ path('welcome')}}">Home</a></li>
@@ -19,15 +22,10 @@
             <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">crud category form</a></li>
             <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud post form</a></li>
 
-            <div class="col-md-3"><div class="input-group">
-      <input type="text" class="form-control" placeholder="Search for..." >
-      <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" >Go!</button></form>
-      </span>
-    </div>
+
       <form action="{{ path('search')}}" method="POST">
    <input type="text" name="go">
-      <button type="submit" name="submit">Update</button>
+      <button type="submit" name="submit">search</button>
 </form>
         </ul>
 

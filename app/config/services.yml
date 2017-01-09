@@ -10,4 +10,9 @@ services:
     service_saved_input_value:
         class: AppBundle\Services\SavedInputForm
 
+    twig.extension.greeting:
+              class: AppBundle\Twig\GreetingHolidays
+              public: true
+              tags:
+                  - { name: twig.extension }
 
