@@ -20,7 +20,7 @@ class PostController extends Controller
 {
     /**
      * @Route("/", name="homepage")
-     * @Route("/page/{page}", requirements={"id": "\d+"}, name="post_index")
+     * @Route("/{page}", requirements={"id": "\d+"}, name="post_index")
      * @Method("GET")
      *
      * @param int $page
@@ -31,16 +31,12 @@ class PostController extends Controller
     {
         $posts = $this->getDoctrine()
             ->getRepository('AppBundle:Post')
-            ->findAllPosts($page);
+            ->findAllPosts();
 
-        $limit = 5;
-        $maxPages = ceil($posts->count() / $limit);
-        $thisPage = $page;
+        $pagination = $this->get('app.paginator')->paginate($posts, $page);
 
         return $this->render('AppBundle:post:index.html.twig', array(
-            'posts'     => $posts,
-            'maxPages'  => $maxPages,
-            'thisPage'  => $thisPage
+            'pagination' => $pagination
         ));
     }
 

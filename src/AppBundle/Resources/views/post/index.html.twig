@@ -8,7 +8,7 @@
             <p><a href="{{ path('post_new') }}">Add new post</a></p>
 
             <div class="row">
-                {% for post in posts %}
+                {% for post in pagination.objects %}
                     <div class="col-sm-4">
                         <article class="post post-id-{{ post.id }}">
                             <header>
@@ -32,24 +32,24 @@
                     </div>
                 {% endfor %}
 
-                {% if maxPages > 1 %}
+                {% if pagination.maxPages > 1 %}
                     <div class="col-sm-12 text-center">
                         <ul class="pagination">
                             {# `«` arrow  #}
-                            <li {{ thisPage == 1 ? 'class="disabled"' }}>
-                                <a href="{{ path('post_index', {page: thisPage-1 < 1 ? 1 : thisPage-1}) }}">«</a>
+                            <li {{ pagination.thisPage == 1 ? 'class="disabled"' }}>
+                                <a href="{{ path('post_index', {page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
                             </li>
 
                             {# Render each page number #}
-                            {% for i in 1..maxPages %}
-                                <li {{ thisPage == i ? 'class="active"' }}>
+                            {% for i in 1..pagination.maxPages %}
+                                <li {{ pagination.thisPage == i ? 'class="active"' }}>
                                     <a href="{{ path('post_index', {page: i}) }}">{{ i }}</a>
                                 </li>
                             {% endfor %}
 
                             {# `»` arrow #}
-                            <li {{ thisPage == maxPages ? 'class="disabled"' }}>
-                                <a href="{{ path('post_index', {page: thisPage+1 <= maxPages ? thisPage+1 : thisPage}) }}">»</a>
+                            <li {{ pagination.thisPage == pagination.maxPages ? 'class="disabled"' }}>
+                                <a href="{{ path('post_index', {page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
                             </li>
                         </ul>
                     </div>

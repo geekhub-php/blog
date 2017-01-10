@@ -1,4 +1,4 @@
-Geekhub PHP HomeWork#11: Symfony Blog Application - Forms
+Geekhub PHP HomeWork#12: Symfony Blog Application - Services
 =
 
 ####EER Diagram:
@@ -10,7 +10,7 @@ https://docs.google.com/drawings/d/1XUZobv29uI36bmTPK0FkOvrifI3X4qPjDL0hPI-9vRk/
 Note: Before continue, install Node.js.
 
 ```bash
-$ git clone -b hw11-andrey-lukashenko https://github.com/AndreyLuka/geekhub-php-blog.git
+$ git clone -b hw12-andrey-lukashenko https://github.com/AndreyLuka/geekhub-php-blog.git
 $ cd geekhub-php-blog
 $ composer install
 $ php bin/console doctrine:fixtures:load
