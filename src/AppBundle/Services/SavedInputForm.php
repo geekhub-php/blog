@@ -10,27 +10,23 @@ class SavedInputForm
     private $parametr;
     public function __construct()
     {
-
         $session = new Session();
 
-        if (!$session->get('postSearch')&&(isset($_POST['go']))) {
-            $this->parametr= $_POST['go'];
+        if (!$session->get('postSearch') && (isset($_POST['go']))) {
+            $this->parametr = $_POST['go'];
             $session->set('postSearch', $_POST['go']);
-        }
-        else if($session->get('postSearch')&&(isset($_POST['go'])&&($_POST['go']!=""))) {
-            $this->parametr= $_POST['go'];
+        } elseif ($session->get('postSearch') && (isset($_POST['go']) && ($_POST['go'] != ''))) {
+            $this->parametr = $_POST['go'];
             $session->set('postSearch', $_POST['go']);
-        } else if($session->get('postSearch')&&(isset($_POST['go'])&&($_POST['go']==""))) {
-            $this->parametr=" ";
-            $session->set('postSearch', " ");
+        } elseif ($session->get('postSearch') && (isset($_POST['go']) && ($_POST['go'] == ''))) {
+            $this->parametr = ' ';
+            $session->set('postSearch', ' ');
+        } elseif ($session->get('postSearch') && (!isset($_POST['go']))) {
+            $this->parametr = $session->get('postSearch');
         }
-
-        else if($session->get('postSearch')&&(!isset($_POST['go']))){
-            $this->parametr=$session->get('postSearch');
-        }
-
     }
-    public function getValue(){
-     return $this->parametr;
+    public function getValue()
+    {
+        return $this->parametr;
     }
 }

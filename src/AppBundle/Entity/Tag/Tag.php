@@ -3,11 +3,9 @@
 namespace AppBundle\Entity\Tag;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 /**
- * Tag
+ * Tag.
  *
  * @ORM\Table(name="tag_tag")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\Tag\TagRepository")
@@ -37,19 +35,21 @@ class Tag
      */
     private $posts;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
-     * Get posts
+     * Get posts.
      *
      * @return array
      */
-    public function getPosts() {
+    public function getPosts()
+    {
         return $this->posts;
     }
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -59,7 +59,7 @@ class Tag
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -73,7 +73,7 @@ class Tag
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -83,7 +83,7 @@ class Tag
     }
 
     /**
-     * Add post
+     * Add post.
      *
      * @param \AppBundle\Entity\Post\Post $post
      *
@@ -97,7 +97,7 @@ class Tag
     }
 
     /**
-     * Remove post
+     * Remove post.
      *
      * @param \AppBundle\Entity\Post\Post $post
      */

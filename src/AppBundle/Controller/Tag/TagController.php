@@ -5,11 +5,8 @@ namespace AppBundle\Controller\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
-
 
 class TagController extends Controller
 {
@@ -69,14 +66,15 @@ class TagController extends Controller
         $count = $countCategores->getCountCategories($categories);
 
         //test using paginator bundle
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $tag->getPosts(), /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
         return $this->render('default/index.html.twig', array('data' => $tag->getPosts(),
             'categories' => $count, 'nameCategories' => $tag,
-            'pagination' => $pagination, 'tags'=>$tags,));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
 }

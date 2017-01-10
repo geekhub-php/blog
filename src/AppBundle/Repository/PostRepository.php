@@ -1,9 +1,10 @@
 <?php
 
 namespace AppBundle\Repository;
+
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\Comment;
+
 /**
  * PostRepository.
  *
@@ -17,9 +18,9 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getCountCategories($categories)
     {
-        $categoriesAndCount =array(array('id' =>'','name'=>'','count'=>''));
-        $i=0;
-        foreach ($categories as $key=>$value){
+        $categoriesAndCount = array(array('id' => '', 'name' => '', 'count' => ''));
+        $i = 0;
+        foreach ($categories as $key => $value) {
             //echo $value->getId();
             $qb = $this->createQueryBuilder('p');
             $qb->select('count(p.id)');
@@ -27,12 +28,13 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             $qb->setParameter('category', $value->getId());
             //echo $qb->getQuery()->getSingleScalarResult();
            // echo serialize(array('id' =>$value->getId(),'name'=>$value->getName(),'count'=>$qb->getQuery()->getSingleScalarResult()));
-            $categoriesAndCount[$i]['id']=$value->getId();
-            $categoriesAndCount[$i]['name']=$value->getName();
-            $categoriesAndCount[$i]['count']=$qb->getQuery()->getSingleScalarResult();
-            $i++;
+            $categoriesAndCount[$i]['id'] = $value->getId();
+            $categoriesAndCount[$i]['name'] = $value->getName();
+            $categoriesAndCount[$i]['count'] = $qb->getQuery()->getSingleScalarResult();
+            ++$i;
         }
-         return $categoriesAndCount;
+
+        return $categoriesAndCount;
     }
 
     /**
@@ -47,16 +49,16 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getPostsMostCommented()
     {
-
         $qb = $this->createQueryBuilder('p');
-        $qb->Select('p.id, p.name','p.description, count(c.post) as countId');
-        $qb->leftJoin('AppBundle\\Entity\\Comment\\Comment','c','WITH','c.post=p.id');
+        $qb->Select('p.id, p.name', 'p.description, count(c.post) as countId');
+        $qb->leftJoin('AppBundle\\Entity\\Comment\\Comment', 'c', 'WITH', 'c.post=p.id');
         //$qb->addSelect('count(c.post) as countId');
 
         $qb->groupBy('p.id');
-        $qb->orderBy('countId', "DESC");
-         return $qb->getQuery()->getScalarResult();
-        //
+        $qb->orderBy('countId', 'DESC');
+
+        return $qb->getQuery()->getScalarResult();
+
         //$qb->where('c.post = :category');
         //$qb->where('с.post =2');
         //$qb->from('AppBundle:Post', 'p');
@@ -68,5 +70,4 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         //echo $qb->getQuery()->getSingleScalarResult();
         //echo serialize($qb->getQuery()->getScalarResult()).'<br>';
     }
-
 }

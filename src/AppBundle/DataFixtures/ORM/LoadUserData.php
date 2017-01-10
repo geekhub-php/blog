@@ -10,11 +10,11 @@ use AppBundle\Entity\Post\Post;
 use AppBundle\Entity\Role\Role;
 use AppBundle\Entity\User\User;
 use AppBundle\Entity\Comment\Comment;
+
 class LoadUserData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
         $category = new Category();
         $category->setName('sport');
         $manager->persist($category);
@@ -44,7 +44,6 @@ class LoadUserData implements FixtureInterface
         $category->setName('politics');
         $manager->persist($category);
         $manager->flush();
-
 
       //add tags
         $tag = new Tag();
@@ -235,9 +234,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('dfdhfbbb nnbnbn nmmvg dvsfddf dddd swwww wwww wrrrsgfgg fhh hh hh hhh');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -246,9 +245,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('djflf  fd  ff f fdfj f ffl fdjf fl fl d ff fjldfgfgg  jgjgj g gjdfdjhj  hj jhh jh hj ');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -257,9 +256,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('jdjljfjfjlf');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -268,9 +267,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('oooooofffgggg');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -279,9 +278,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('fjljp jjfjldf d jf fjldjf f d flfjdfjdlf');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('3');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('3');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -290,9 +289,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('jlldfd fdffj dflfjf jldfjf  fl fjd fldfj  fj f ffjslj f f fsjlf sdl');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -300,9 +299,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('oooooofffgggg');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('1');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -311,9 +310,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('nmnmncnmcxcnxcmxcnmcxncxnmxcnxcncmxcnxxcxncxjcllczzccoed vcvv vvvcvcv vcvcv');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -322,9 +321,9 @@ class LoadUserData implements FixtureInterface
         $comment->setText('fflfjjldfjdvvvvlvjvjlvjlvjlvjlvjvlvjlvjvljvlvjvljvljvlv');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('2');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
@@ -333,15 +332,14 @@ class LoadUserData implements FixtureInterface
         $comment->setText('djfljlfjflfjflfj c v vvjljdflfjfjdfl');
         $comment->setEnabled('true');
         $comment->setDate('2016-12-01');
-        $postId= $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('4');
+        $postId = $manager->getRepository('AppBundle\\Entity\\Post\\Post')->find('4');
         $comment->setPost($postId);
-        $userId= $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
+        $userId = $manager->getRepository('AppBundle\\Entity\\User\\User')->find('1');
         $comment->setUser($userId);
         $manager->persist($comment);
         $manager->flush();
 
 //*/
-
     }
 
     public function getOrder()

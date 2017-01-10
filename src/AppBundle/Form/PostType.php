@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: nima
  * Date: 25.12.16
- * Time: 14:35
+ * Time: 14:35.
  */
 
 namespace AppBundle\Form;
@@ -15,12 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
-
-
 
 class PostType extends AbstractType
 {
@@ -29,20 +25,20 @@ class PostType extends AbstractType
         $builder
             //->add('name')
             //->add('save', SubmitType::class)
-            ->add('name', TextType::class,[
+            ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'name',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'test col-xs-6'],
             ])
-            ->add('description', TextType::class,[
+            ->add('description', TextType::class, [
                 'required' => false,
                 'label' => 'description',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'test col-xs-6'],
             ])
-          ->add('body', TextType::class,[
+          ->add('body', TextType::class, [
             'required' => false,
             'label' => 'body',
-            'attr' => ['class' => 'test col-xs-3']
+            'attr' => ['class' => 'test col-xs-3'],
         ])
             ->add('tags', EntityType::class, array(
                 'class' => 'AppBundle\\Entity\\Tag\\Tag',
@@ -63,27 +59,26 @@ class PostType extends AbstractType
                        'choice_label' => 'name',
                     ))
 
-          ->add('rating', TextType::class,[
+          ->add('rating', TextType::class, [
            'required' => false,
            'label' => 'rating',
-           'attr' => ['class' => 'test col-xs-6']
+           'attr' => ['class' => 'test col-xs-6'],
            ])
-         ->add('dataCreate', TextType::class,[
+         ->add('dataCreate', TextType::class, [
         'required' => false,
         'label' => 'dataCreate',
-        'attr' => ['class' => 'test col-xs-6']
+        'attr' => ['class' => 'test col-xs-6'],
     ])
 
-
-        ->add('enabled', TextType::class,[
+        ->add('enabled', TextType::class, [
         'required' => false,
         'label' => 'enabled',
-        'attr' => ['class' => 'test col-xs-6']
+        'attr' => ['class' => 'test col-xs-6'],
     ])
-        ->add('dataEdit', TextType::class,[
+        ->add('dataEdit', TextType::class, [
             'required' => false,
             'label' => 'dataEdit',
-            'attr' => ['class' => 'test col-xs-6']
+            'attr' => ['class' => 'test col-xs-6'],
         ])
     ;
     }
@@ -95,7 +90,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Post\Post',
-            'em' => null
+            'em' => null,
         ));
         $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
@@ -107,7 +102,4 @@ class PostType extends AbstractType
     {
         return 'appbundle_post';
     }
-
-
-
 }

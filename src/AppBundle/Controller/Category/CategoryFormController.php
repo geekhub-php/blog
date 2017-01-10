@@ -2,15 +2,12 @@
 
 namespace AppBundle\Controller\Category;
 
-use AppBundle\Form\AuthorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
-use Symfony\Component\VarDumper\Cloner\Data;
 use AppBundle\Form\CategoryType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class CategoryFormController extends Controller
@@ -25,18 +22,18 @@ class CategoryFormController extends Controller
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
         $category = new Category\Category();
-        $form = $this->createForm(CategoryType::class, $category    , [
-            'em' => $this->getDoctrine()->getManager()
+        $form = $this->createForm(CategoryType::class, $category, [
+            'em' => $this->getDoctrine()->getManager(),
         ]);
 
         $form->handleRequest($request);
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush($category);
-            return $this->redirectToRoute("welcome");
+
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('default/crud_form.html.twig', array(
@@ -52,14 +49,9 @@ class CategoryFormController extends Controller
      */
     public function newAction(Request $request)
     {
-
-
-
-
-
         $category = new Category\Category();
-        $form = $this->createForm(CategoryType::class, $category    , [
-            'em' => $this->getDoctrine()->getManager()
+        $form = $this->createForm(CategoryType::class, $category, [
+            'em' => $this->getDoctrine()->getManager(),
         ]);
         $form->handleRequest($request);
 
@@ -67,6 +59,7 @@ class CategoryFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush($category);
+
             return $this->redirectToRoute('category_form_show',
                 array('id' => $category->getId()));
         }
@@ -75,21 +68,19 @@ class CategoryFormController extends Controller
             'category' => $category,
             'form' => $form->createView(),
         ));
-
     }
-    /**
-* @Route("/category_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="category_edit")
-* @Method({"GET", "POST"})
-*/
+/**
+ * @Route("/category_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="category_edit")
+ * @Method({"GET", "POST"})
+ */
 public function editAction(Request $request, Category\Category $category, $id)
 {
-
     $deleteForm = $this->createDeleteForm($category);
-    $editForm = $this->createForm(CategoryType::class, $category    , [
-        'em' => $this->getDoctrine()->getManager()
+    $editForm = $this->createForm(CategoryType::class, $category, [
+        'em' => $this->getDoctrine()->getManager(),
     ]);
     $editForm->handleRequest($request);
-   if ($editForm->isValid()) {
+    if ($editForm->isValid()) {
         $this->getDoctrine()->getManager()->flush();
 
         return $this->redirectToRoute('show_all_forms_category', array('id' => $category->getId()));
@@ -101,7 +92,6 @@ public function editAction(Request $request, Category\Category $category, $id)
             'edit_form' => $editForm->createView(),
         'delete_form' => $deleteForm->createView(),
     ));
-
 }
     /**
      * Deletes a category entity.
@@ -111,7 +101,6 @@ public function editAction(Request $request, Category\Category $category, $id)
      */
     public function deleteAction(Request $request, Category\Category $category)
     {
-
         $form = $this->createDeleteForm($category);
         $form->handleRequest($request);
 
@@ -122,7 +111,6 @@ public function editAction(Request $request, Category\Category $category, $id)
         }
 
         return $this->redirectToRoute('show_all_forms_category');
-
     }
 
     /**
@@ -140,5 +128,4 @@ public function editAction(Request $request, Category\Category $category, $id)
             ->getForm()
             ;
     }
-
 }

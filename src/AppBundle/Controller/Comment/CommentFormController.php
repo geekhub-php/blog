@@ -3,11 +3,11 @@
  * Created by PhpStorm.
  * User: nima
  * Date: 26.12.16
- * Time: 13:02
+ * Time: 13:02.
  */
 
 namespace AppBundle\Controller\Comment;
-use AppBundle\Form\AuthorType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -15,23 +15,17 @@ use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use Symfony\Component\VarDumper\Cloner\Data;
-use AppBundle\Form\CategoryType;
-use AppBundle\Form\PostType;
 use AppBundle\Form\CommentType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 class CommentFormController extends Controller
 {
-
-
     /**
      *@Route("/post/{id}/add_comment", name="add_comment")
      * @Method({"GET", "POST"})
      */
-    public function addCommnetTestAction(Request $request, $id )
+    public function addCommnetTestAction(Request $request, $id)
     {
-
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -46,17 +40,17 @@ class CommentFormController extends Controller
             ->find($id);
         if (!$post) {
             throw $this->createNotFoundException(
-                'No posts' . $id
+                'No posts'.$id
             );
         }
         $comments = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Comment\\Comment')
-            ->findBy(array('post'=>$post->getId()));
+            ->findBy(array('post' => $post->getId()));
         if (!$comments) {
             /*throw $this->createNotFoundException(
                 'No comment'
             ); */
-            $comments=0;
+            $comments = 0;
         }
         $tags = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Tag\\Tag')
@@ -72,12 +66,11 @@ class CommentFormController extends Controller
         $count = $countCategores->getCountCategories($categories);
         $comment = new Comment\Comment();
         $form = $this->createForm(CommentType::class, $comment, [
-            'em' => $this->getDoctrine()->getManager()
+            'em' => $this->getDoctrine()->getManager(),
         ]);
 
         $form->handleRequest($request);
        // $form->get('post')->setData($post->getId());
-
 
         if ($form->isSubmitted() && $form->isValid()) {
             //$form->get('post')->setData($post->getId());
@@ -87,13 +80,12 @@ class CommentFormController extends Controller
             $em->persist($comment);
             $em->flush($comment);
 
-
-            return $this->redirectToRoute("welcome");
+            return $this->redirectToRoute('welcome');
         }
 
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
-            'form' => $form->createView(), 'id'=>$id, 'tags'=>$tags));
+            'form' => $form->createView(), 'id' => $id, 'tags' => $tags, ));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
@@ -110,7 +102,6 @@ class CommentFormController extends Controller
      */
     public function deleteAction(Request $request, Comment\Comment $comment)
     {
-
         $form = $this->createDeleteForm($comment);
         $form->handleRequest($request);
 
@@ -121,7 +112,6 @@ class CommentFormController extends Controller
         }
 
         return $this->redirectToRoute('add_comment');
-
     }
     private function createDeleteForm(Comment\Comment $comment)
     {
@@ -131,10 +121,4 @@ class CommentFormController extends Controller
             ->getForm()
             ;
     }
-
-
-
-
-
-
 }

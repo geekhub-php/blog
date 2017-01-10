@@ -5,11 +5,8 @@ namespace AppBundle\Controller\Category;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
-
 
 class CategoryController extends Controller
 {
@@ -67,14 +64,15 @@ class CategoryController extends Controller
         $count = $countCategores->getCountCategories($categories);
 
         //test using paginator bundle
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $posts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => $category,
-            'pagination' => $pagination, 'tags'=>$tags));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
 }

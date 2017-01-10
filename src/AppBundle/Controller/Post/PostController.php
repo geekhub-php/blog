@@ -5,12 +5,9 @@ namespace AppBundle\Controller\Post;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Entity;
 use AppBundle\Entity\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
-
 
 class PostController extends Controller
 {
@@ -38,17 +35,17 @@ class PostController extends Controller
             ->find($id);
         if (!$post) {
             throw $this->createNotFoundException(
-                'No posts' . $id
+                'No posts'.$id
             );
         }
         $comments = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Comment\\Comment')
-            ->findBy(array('post'=>$post->getId()));
+            ->findBy(array('post' => $post->getId()));
         if (!$comments) {
             /*throw $this->createNotFoundException(
                 'No comment'
             ); */
-            $comments=0;
+            $comments = 0;
         }
         $tags = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Tag\\Tag')
@@ -72,7 +69,7 @@ class PostController extends Controller
         //echo serialize($post->getAuthors('gfff'));
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments,
-            'id'=>$id, 'tags'=>$tags, ));
+            'id' => $id, 'tags' => $tags, ));
     }
 
     /**
@@ -118,21 +115,21 @@ class PostController extends Controller
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
-
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository('AppBundle\\Entity\\Post\\Post');
-        $contComentsPosts =$posts->getPostsMostCommented();
+        $contComentsPosts = $posts->getPostsMostCommented();
 
         //test paginator bundle
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $contComentsPosts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
         return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
             'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '),
-            'pagination' => $pagination,'tags'=>$tags));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
     /**
      *@Route("/top_rated", name="topRated")
@@ -161,7 +158,7 @@ class PostController extends Controller
             ->getRepository('AppBundle\\Entity\\Post\\Post')
             //PostRepository  function getPostsDescRating()
              ->getPostsTopRated();
-          dump($posts);
+        dump($posts);
 
         if (!$posts) {
             throw $this->createNotFoundException(
@@ -178,15 +175,15 @@ class PostController extends Controller
             );
         }
         //test paginator bundle
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $posts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'),
-            'pagination' => $pagination,'tags'=>$tags));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
-
 }

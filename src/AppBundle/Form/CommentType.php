@@ -3,20 +3,17 @@
  * Created by PhpStorm.
  * User: nima
  * Date: 25.12.16
- * Time: 14:35
+ * Time: 14:35.
  */
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Category\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
 
@@ -27,10 +24,10 @@ class CommentType extends AbstractType
         $builder
             //->add('name')
             //->add('save', SubmitType::class)
-            ->add('text', TextType::class,[
+            ->add('text', TextType::class, [
                 'required' => false,
                 'label' => 'text',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'test col-xs-6'],
             ])
             /*->add('post', TextType::class,[
                 'required' => false,
@@ -42,15 +39,15 @@ class CommentType extends AbstractType
                 'class' => 'AppBundle\\Entity\\User\\User',
                 'choice_label' => 'lastName',
             ))
-            ->add('date', TextType::class,[
+            ->add('date', TextType::class, [
                 'required' => false,
                 'label' => 'date',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'test col-xs-6'],
             ])
-            ->add('enabled', TextType::class,[
+            ->add('enabled', TextType::class, [
         'required' => false,
         'label' => 'enabled',
-        'attr' => ['class' => 'test col-xs-6']
+        'attr' => ['class' => 'test col-xs-6'],
     ])
     ;
     }
@@ -62,7 +59,7 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Comment\Comment',
-            'em' => null
+            'em' => null,
         ));
         $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
@@ -74,7 +71,4 @@ class CommentType extends AbstractType
     {
         return 'appbundle_comment';
     }
-
-
-
 }

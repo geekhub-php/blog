@@ -1,9 +1,7 @@
 <?php
 
 namespace AppBundle\Repository;
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Post;
-use AppBundle\Entity\Comment;
+
 /**
  * CommentRepository.
  *
@@ -12,5 +10,4 @@ use AppBundle\Entity\Comment;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
-
 }

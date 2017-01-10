@@ -2,23 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Form\AuthorType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Post\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
-use AppBundle\Form\CategoryType;
-use AppBundle\Form\PostType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Padam87\SearchBundle\Filter\Filter;
-use Elastica\Query\QueryString;
 use Doctrine\ORM\Query;
-use Symfony\Component\HttpFoundation\Session\Session;
-use AppBundle\Services\SavedInputForm;
-
 
 class DefaultController extends Controller
 {
@@ -60,15 +50,11 @@ class DefaultController extends Controller
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
 
-
-
-
-
         //echo gettype($categories);
         //echo serialize($count);
 
 //test using paginator bundle
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $posts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -80,10 +66,8 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'last posts'),
-            'pagination' => $pagination, 'tags'=>$tags,));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
-
-
 
     /**
      *@Route("/contacts", name="contacts")
@@ -144,13 +128,13 @@ class DefaultController extends Controller
         $count = $countCategores->getCountCategories($categories);
         //service saved value search form, for plaginator
         $myService = $this->get('service_saved_input_value');
-        $search=$myService->getValue();
+        $search = $myService->getValue();
         //using serch bundle- FOSElasticaBundle
         $finder = $this->container->get('fos_elastica.finder.search.post');
         $posts = $finder->find($search);
 
 //test using paginator bundle
-       $paginator  = $this->get('knp_paginator');
+       $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
           $posts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
@@ -158,9 +142,9 @@ class DefaultController extends Controller
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
-            'pagination' => $pagination, 'tags'=>$tags,));
+            'pagination' => $pagination, 'tags' => $tags, ));
     }
-    /**
+    /*
      *@Route("/Ajacs", name="ajacs")
      * @Method({"POST"})
      *

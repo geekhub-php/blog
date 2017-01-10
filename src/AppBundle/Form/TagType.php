@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: nima
  * Date: 25.12.16
- * Time: 14:35
+ * Time: 14:35.
  */
 
 namespace AppBundle\Form;
@@ -12,14 +12,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
-
-
 
 class TagType extends AbstractType
 {
@@ -28,10 +23,10 @@ class TagType extends AbstractType
         $builder
             //->add('name')
             //->add('save', SubmitType::class)
-            ->add('name', TextType::class,[
+            ->add('name', TextType::class, [
                 'required' => false,
                 'label' => 'name',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'test col-xs-6'],
             ])
         ;
     }
@@ -43,7 +38,7 @@ class TagType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Tag\Tag',
-            'em' => null
+            'em' => null,
         ));
         $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
@@ -55,7 +50,4 @@ class TagType extends AbstractType
     {
         return 'appbundle_tag';
     }
-
-
-
 }
