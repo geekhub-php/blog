@@ -27,8 +27,12 @@ class GreetingHolidays extends \Twig_Extension
         //$result=(strtotime($today)<strtotime("01.14")); //$result === true
         if ($today<="01.30")
         {
-            return "<span class='label label-danger spanMeny'>HAPPY NEW YEAR</span>";
+            return "<span class='label label-danger spanMeny'>HAPPY NEW YEAR!</span>";
           }
+        if ($today="02.24")
+        {
+            return "<span class='label label-danger spanMeny'>Happy Valentines Day!</span>";
+        }
                 //return $today;
     }
     public function getName()

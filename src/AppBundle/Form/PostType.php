@@ -42,19 +42,22 @@ class PostType extends AbstractType
           ->add('body', TextType::class,[
             'required' => false,
             'label' => 'body',
-            'attr' => ['class' => 'test col-xs-6']
+            'attr' => ['class' => 'test col-xs-3']
         ])
-            ->add('hashtag', TextType::class,[
-                'required' => false,
-                'label' => 'hashtag',
-                'attr' => ['class' => 'test col-xs-6']
-            ])
+            ->add('tags', EntityType::class, array(
+                'class' => 'AppBundle\\Entity\\Tag\\Tag',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+            ))
+
             ->add('authors', EntityType::class, array(
                'class' => 'AppBundle\\Entity\\User\\User',
-                'choice_label' => 'id',
+                'choice_label' => 'lastName',
                 'multiple' => true,
                 'expanded' => true,
                     ))
+
             ->add('category', EntityType::class, array(
                        'class' => 'AppBundle\\Entity\\Category\\Category',
                        'choice_label' => 'name',

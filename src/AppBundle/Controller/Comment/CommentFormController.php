@@ -58,16 +58,18 @@ class CommentFormController extends Controller
             ); */
             $comments=0;
         }
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
 
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
         $em = $this->getDoctrine()->getManager();
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
-
-
-
-
-
-
         $comment = new Comment\Comment();
         $form = $this->createForm(CommentType::class, $comment, [
             'em' => $this->getDoctrine()->getManager()
@@ -91,7 +93,7 @@ class CommentFormController extends Controller
 
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
-            'form' => $form->createView(), 'id'=>$id));
+            'form' => $form->createView(), 'id'=>$id, 'tags'=>$tags));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,

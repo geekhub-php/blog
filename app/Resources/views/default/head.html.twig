@@ -10,7 +10,7 @@
 <body>
 <div class="row" >
 
-    <div id="headImg" background-image="" align="right">
+    <div id="headImg" background-image="" align="right" >
         {{ greeting()|raw}}
         </div>
     <div class="col-md-12">
@@ -23,7 +23,7 @@
             <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud post form</a></li>
 
 
-      <form action="{{ path('search')}}" method="POST">
+      <form action="{{ path('search')}}" method="POST" >
    <input type="text" name="go">
       <button type="submit" name="submit">search</button>
 </form>

@@ -50,7 +50,15 @@ class PostController extends Controller
             ); */
             $comments=0;
         }
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
 
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
         $em = $this->getDoctrine()->getManager();
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
@@ -63,7 +71,8 @@ class PostController extends Controller
         //}
         //echo serialize($post->getAuthors('gfff'));
         return $this->render('default/showPost.html.twig', array('data' => $post,
-            'categories' => $count, 'comments' => $comments,'id'=>$id ));
+            'categories' => $count, 'comments' => $comments,
+            'id'=>$id, 'tags'=>$tags, ));
     }
 
     /**
@@ -95,6 +104,15 @@ class PostController extends Controller
                 'No posts'
             );
         }*/
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
+
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
         $em = $this->getDoctrine()->getManager();
 
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
@@ -113,7 +131,8 @@ class PostController extends Controller
             3/*limit per page*/
         );
         return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
-            'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '), 'pagination' => $pagination,));
+            'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '),
+            'pagination' => $pagination,'tags'=>$tags));
     }
     /**
      *@Route("/top_rated", name="topRated")
@@ -149,7 +168,15 @@ class PostController extends Controller
                 'No posts'
             );
         }
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
 
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
         //test paginator bundle
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -159,7 +186,7 @@ class PostController extends Controller
         );
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'),
-            'pagination' => $pagination,));
+            'pagination' => $pagination,'tags'=>$tags));
     }
 
 }

@@ -4,7 +4,9 @@
             {% for key in categories %}
 
 
-                <a href="{{ path('categories',{'id':key.id})}}">{{ key.name }}.....{{ key.count }}{# {{ key["countPosts"] }}#}</a>
+
+                <a href="{{ path('categories',{'id':key.id})}}">{{ key.name }}
+                    <span class="badge">{{ key.count }}</span>{# {{ key["countPosts"] }}#}</a>
                 <br>
 
             {% endfor %}

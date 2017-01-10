@@ -160,4 +160,20 @@ class DefaultController extends Controller
             'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
             'pagination' => $pagination, 'tags'=>$tags,));
     }
+    /**
+     *@Route("/Ajacs", name="ajacs")
+     * @Method({"POST"})
+     *
+     *
+     *
+     * @return object
+     */
+   /* public function updataAjaxAction(){
+        //$request = $this->container->get('request');
+        //$data1 = $request->query->get('data1');
+        //$data2 = $request->query->get('data2');
+        $response = array("code" => "hello world");
+        return new Response(json_encode($response));
+    }
+   */
 }

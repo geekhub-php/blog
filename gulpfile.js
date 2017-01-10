@@ -12,6 +12,12 @@ gulp.task('images', function () {
     ])
         .pipe(gulp.dest('web/images/'))
 });
+gulp.task('js', function () {
+    return gulp.src([
+        'web-src/js/*'
+    ])
+        .pipe(gulp.dest('web/js/'))
+});
 gulp.task('fonts', function () {
     return gulp.src(['bower_components/bootstrap/fonts/*'])
         .pipe(gulp.dest('web/fonts/'))
@@ -21,7 +27,7 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 gulp.task('default', ['clean'], function () {
-    var tasks = ['images', 'fonts', 'less'];
+    var tasks = ['images','js', 'fonts', 'less'];
     tasks.forEach(function (val) {
         gulp.start(val);
     });

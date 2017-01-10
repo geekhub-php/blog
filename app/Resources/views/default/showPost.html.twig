@@ -17,11 +17,13 @@
 
                 <br>
                 {{ data.body }}<br>
-                data: {{ data.dataCreate }}
-
-
-               <br>
-
+                data: {{ data.dataCreate }}<br>
+                tags:
+                {% for key in data.tags %}
+                <a href="{{ path('tags',{'id':key.id})}}"><span class='label label-primary'>
+                        {{ key.name}}</span></a>
+                {% endfor %}
+                <br>
                 <a href="{{ path('add_comment', {'id': id })}}">test add comment</a>
                 <br>
                 {% if app.request.attributes.get('_route') == "add_comment" %}

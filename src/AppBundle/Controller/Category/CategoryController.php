@@ -52,6 +52,15 @@ class CategoryController extends Controller
                 'No posts'
             );
         }
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
+
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
         $em = $this->getDoctrine()->getManager();
 
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
@@ -65,6 +74,7 @@ class CategoryController extends Controller
             3/*limit per page*/
         );
         return $this->render('default/index.html.twig', array('data' => $posts,
-            'categories' => $count, 'nameCategories' => $category,  'pagination' => $pagination, ));
+            'categories' => $count, 'nameCategories' => $category,
+            'pagination' => $pagination, 'tags'=>$tags));
     }
 }
