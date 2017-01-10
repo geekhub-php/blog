@@ -79,9 +79,7 @@ class PostController extends Controller
         $categoryRepository = $em->getRepository('AppBundle:Category');
         $userRepository = $em->getRepository('AppBundle:User');
 
-        $form = $this->createForm(PostType::class, $post, [
-            'em' => $this->getDoctrine()->getManager(),
-        ]);
+        $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
         if (!$categoryRepository->findAll() || !$userRepository->findAll()) {
@@ -180,42 +178,23 @@ class PostController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('text', SearchType::class, [
-                'required' => false,
-                'label' => 'Search',
-                'attr' => ['class' => 'test col-xs-6'],
-                'constraints' => array(
-                    new NotBlank(),
-                    new Length(array(
-                        'min' => 3,
-                    )),
-                ),
-            ])
-            ->setMethod('POST')
-            ->getForm();
-
-        $form->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
+        $result = $this->get('app.form_manager')
+            ->createSearchPostForm($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $result = $em->getRepository('AppBundle:Post')
-                ->search($data['text']);
+        if ($result['valid'] == true) {
             return $this->render('AppBundle:Post:search.html.twig', array(
-                'posts' => $result,
+                'posts' => $result['posts'],
                 'categories' => $categoryRepository->findAll(),
-                'form' => $form->createView(),
+                'form' => $result['form']->createView(),
             ));
         }
 
         return $this->render('AppBundle:Post:search.html.twig', array(
                 'categories' => $categoryRepository->findAll(),
-                'form' => $form->createView(),
+                'form' => $result['form']->createView(),
                 'posts' => null,
             )
         );

@@ -27,7 +27,7 @@ class PostType extends AbstractType
             ->add('title', TextType::class, [
                 'required' => false,
                 'label' => 'Title',
-                'attr' => ['class' => 'test col-xs-6']
+                'attr' => ['class' => 'form-control']
             ])
             ->add('text', TextareaType::class, [
                 'required' => false,
@@ -51,9 +51,8 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Post',
-            'em' => null
+            'em' => ObjectManager::class,
         ));
-        $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
 
     /**

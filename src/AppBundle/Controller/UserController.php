@@ -5,18 +5,16 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
+use AppBundle\Form\Search\SearchUserType;
 use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\Debug\Exception\ClassNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\Common\Collections\Criteria;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
@@ -181,42 +179,23 @@ class UserController extends Controller
      */
     public function searchAction(Request $request)
     {
-        $defaultData = array('message' => 'Type your message here');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('text', SearchType::class, [
-                'required' => false,
-                'label' => 'Search',
-                'attr' => ['class' => 'test col-xs-6'],
-                'constraints' => array(
-                    new NotBlank(),
-                    new Length(array(
-                        'min' => 3,
-                    )),
-                ),
-            ])
-            ->setMethod('POST')
-            ->getForm();
-
-        $form->handleRequest($request);
-
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
+        $result = $this->get('app.form_manager')
+            ->createSearchUserForm($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $result = $em->getRepository('AppBundle:User')
-                ->search($data['text']);
+        if ($result['valid'] == true) {
             return $this->render('AppBundle:User:search.html.twig', array(
-                'users' => $result,
+                'users' => $result['users'],
                 'categories' => $categoryRepository->findAll(),
-                'form' => $form->createView(),
+                'form' => $result['form']->createView(),
             ));
         }
 
         return $this->render('AppBundle:User:search.html.twig', array(
                 'categories' => $categoryRepository->findAll(),
-                'form' => $form->createView(),
+                'form' => $result['form']->createView(),
                 'users' => null,
             )
         );
