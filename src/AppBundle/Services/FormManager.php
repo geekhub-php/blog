@@ -2,7 +2,6 @@
 
 namespace AppBundle\Services;
 
-
 use AppBundle\Form\Search\SearchType;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -10,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class FormManager
 {
-
     private $doctrine;
 
     private $formFactory;

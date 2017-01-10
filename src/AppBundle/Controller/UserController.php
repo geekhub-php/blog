@@ -199,6 +199,5 @@ class UserController extends Controller
                 'users' => null,
             )
         );
-
     }
 }

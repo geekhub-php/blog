@@ -198,6 +198,5 @@ class PostController extends Controller
                 'posts' => null,
             )
         );
-
     }
 }
