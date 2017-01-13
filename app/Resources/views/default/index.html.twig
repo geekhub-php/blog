@@ -24,20 +24,22 @@
                 <a href="{{ path('postPage', {'id': key.id})}}">show this post detals</a>
           </div>
         {% endfor %}
-        {#
+
         <script>
             function demo_css(){
-                    $.post('{{path('ajacs')}}', {}, function(response){
+                $.post('{{path('ajacs')}}', {data:'ok'}, function(response){
 
-                      alert(response.code);
-                        }, 'json');
-                }
+                        alert(response.data);
+
+
+
+                }, 'json');
+            }
 
 
         </script>
         <input type="button" value="тест" onclick="demo_css();">
 
-#}
         {#paginator bundle#}
 
         {# display navigation #}

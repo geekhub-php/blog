@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Post\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\Query;
 
 class DefaultController extends Controller
@@ -144,20 +145,20 @@ class DefaultController extends Controller
             'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
             'pagination' => $pagination, 'tags' => $tags, ));
     }
-    /*
+    /**
      *@Route("/Ajacs", name="ajacs")
      * @Method({"POST"})
-     *
-     *
-     *
-     * @return object
+     * @return array
      */
-   /* public function updataAjaxAction(){
-        //$request = $this->container->get('request');
-        //$data1 = $request->query->get('data1');
-        //$data2 = $request->query->get('data2');
-        $response = array("code" => "hello world");
-        return new Response(json_encode($response));
-    }
-   */
+   public function updataAjaxAction(Request $request){
+       /*if ($request->isXMLHttpRequest()) {
+           return new JsonResponse(array('data' => 'this is a json response'));
+       }
+      return new Response('This is not ajax!', 400);
+    */
+       //dump($_SERVER['PATH_INFO']);
+
+       return new JsonResponse(array('data' => 'this is a json response'));
+   }
+
 }
