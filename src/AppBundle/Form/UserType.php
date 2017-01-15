@@ -25,6 +25,13 @@ class UserType extends AbstractType
         $builder
             //->add('name')
             //->add('save', SubmitType::class)
+
+            ->add('login', TextType::class, [
+                'required' => false,
+                'label' => 'login',
+                'attr' => ['class' => 'test col-xs-3'],
+            ])
+
             ->add('firstName', TextType::class, [
                 'required' => false,
                 'label' => 'firstName',
@@ -35,12 +42,7 @@ class UserType extends AbstractType
                 'label' => 'lastName',
                 'attr' => ['class' => 'test col-xs-6'],
             ])
-          ->add('login', TextType::class, [
-            'required' => false,
-            'label' => 'body',
-            'attr' => ['class' => 'test col-xs-3'],
-        ])
-            ->add('email',TextType::class, [
+                      ->add('email',TextType::class, [
                     'required' => false,
                     'label' => 'email',
                     'attr' => ['class' => 'test col-xs-3'],
@@ -62,12 +64,10 @@ class UserType extends AbstractType
         'label' => 'enabled',
         'attr' => ['class' => 'test col-xs-6'],
     ])
-            ->add('role', EntityType::class, array(
-                'class' => 'AppBundle\\Entity\\Role\\Role',
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-            ))
+    ->add('role', EntityType::class, array(
+       'class' => 'AppBundle\\Entity\\Role\\Role',
+       'choice_label' => 'name',
+      ))
         ->add('dataCreate', TextType::class, [
              'required' => false,
              'label' => 'dataCreate',

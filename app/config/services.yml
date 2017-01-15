@@ -10,6 +10,10 @@ services:
     service_saved_input_value:
         class: AppBundle\Services\SavedInputForm
 
+    service_inspection_id_route:
+            class: AppBundle\Services\InspectionIdRoute
+
+
     twig.extension.greeting:
               class: AppBundle\Twig\GreetingHolidays
               public: true

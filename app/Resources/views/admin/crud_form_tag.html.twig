@@ -6,7 +6,7 @@
         <span class="label label-default spanMeny">forms show:</span>
 
             <div class="contentOneMenu">
-                <h1>post edit </h1>
+                <h1>tag edit </h1>
 
                             <table border="1px solid grey">
                             <thead>
@@ -18,24 +18,18 @@
                             </tr>
                             </thead>
                             <tbody>
-                          {% for key in posts %}
-                          {% if userAcl.role.name=="ROLE_ADMIN" %}
+                            {% for key in tags %}
+
                                 <tr>
                                     <td>{{ key.id }}</td>
                                     <td>{{ key.name }}</td>
-                                    <td> <a href="{{ path('post_edit', { 'id': key.id }) }}">Edit or Delete</a></td>
-                          {% endif %}
-                           {% if userAcl.role.name=="ROLE_AUTHOR" %}
-                                    {% for key1 in key.authors %}
-                                        {% if key1.id==userAcl.id %}
-                                            <tr>
-                                            <td>{{ key.id }}</td>
-                                            <td>{{ key.name }}</td>
-                                            <td> <a href="{{ path('post_edit', { 'id': key.id }) }}">Edit or Delete</a></td>
-                                        {% endif %}
-                                     {% endfor %}
 
-                           {% endif %}
+                            {% if userAcl.role.name =="ROLE_ADMIN"%}
+
+                               <td> <a href="{{ path('tag_edit', { 'id': key.id }) }}">  Edit or Delete</a></td>
+                             {% endif %}
+
+
                                 </tr>
                             {% endfor %}
                             </tbody>

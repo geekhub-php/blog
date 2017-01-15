@@ -57,6 +57,8 @@ class PostFormController extends Controller
      */
     public function editPostAction(Request $request, Post\Post $post, $id)
     {
+
+
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm(PostType::class, $post, [
             'em' => $this->getDoctrine()->getManager(),
@@ -70,6 +72,15 @@ class PostFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
+        //$authors=array('author' => $post->getAuthors());
+        $authors=$post->getAuthors();
+        $inspection = $this->get('service_inspection_id_route');
+       $inspection->setValue("null", $authors, $user);
+        $resultInspection=$inspection->getValue();
+        //foreach ($authors as $key => $value){
+        //dump($resultInspection);
+        //}
         return $this->render('admin/edit_form_post.html.twig', array(
             'post' => $post,
             // 'id' =>$id,

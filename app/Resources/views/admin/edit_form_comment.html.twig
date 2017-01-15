@@ -1,12 +1,13 @@
 {% extends 'admin/index_admin.html.twig' %}
 {% block startMainDiv %}
     <div class="row"  id="idMainDiv">
-        <div class="col-md-4 last-post-block" >
         <div class="contentOneMenu">
         <span class="label label-default spanMeny">forms show:</span>
 
             <div class="contentOneMenu">
-                <h1>post edit </h1>
+                {#{% if userAcl.role.name =="ROLE_ADMIN" or userAcl.id== %}#}
+
+                <h1>comment edit </h1>
                 {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
 
@@ -16,7 +17,7 @@
                 <button type="submit">Delete</button>
                 {{ form_end(delete_form) }}
             </div>
-   </div>
+
     </div>
     </div>
 {%endblock%}

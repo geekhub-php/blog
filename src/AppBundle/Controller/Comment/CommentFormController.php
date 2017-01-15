@@ -115,6 +115,8 @@ class CommentFormController extends Controller
         */
     }
 
+
+
     /**
      * @Route("/comment_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="comment_edit")
      * @Method({"GET", "POST"})
@@ -195,6 +197,73 @@ class CommentFormController extends Controller
         ));
         */
     }
+
+    /**
+     *@Route("/admin/show_all_forms_comment", name="show_all_forms_comment")
+     * @Method({"GET", "POST"})
+     */
+    public function showAllCommentFormAction(Request $request)
+    {
+        $comments = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+            ->findAll();
+        /*$comment = new Comment\Comment();
+        $form = $this->createForm(CommentType::class, $comment, [
+            'em' => $this->getDoctrine()->getManager(),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
+            $em->flush($comment);
+
+            return $this->redirectToRoute('show_all_forms_comment');
+        }
+*/
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        return $this->render('admin/crud_form_comment.html.twig', array(
+            'comments' => $comments,
+            'userAcl'=>$user,
+        ));
+    }
+    /**
+     * @Route("/admin/comment_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="comment_edit_admin")
+     * @Method({"GET", "POST"})
+     */
+    public function editCommentAdminPaanelAction(Request $request, Comment\Comment $comment, $id)
+    {
+        $deleteForm = $this->createDeleteFormComment($comment);
+        $editForm = $this->createForm(CommentType::class, $comment, [
+            'em' => $this->getDoctrine()->getManager(),
+        ]);
+        $editForm->handleRequest($request);
+        if ($editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('show_all_forms_comment', array('id' => $comment->getId()));
+        }
+
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        $author=$comment->getUser();
+
+        $inspection = $this->get('service_inspection_id_route');
+        $inspection->setValue($author,"null", $user);
+        $resultInspection=$inspection->getValue();
+        //dump($resultInspection);
+        return $this->render('admin/edit_form_comment.html.twig', array(
+            'comment' => $comment,
+            // 'id' =>$id,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'userAcl'=>$user,
+        ));
+    }
+
+
 
     /**
      * Deletes a comment entity.

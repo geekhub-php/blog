@@ -1,12 +1,12 @@
 {% extends 'admin/index_admin.html.twig' %}
 {% block startMainDiv %}
     <div class="row"  id="idMainDiv">
-        <div class="col-md-4 last-post-block" >
+        <div class="col-md-9 last-post-block" >
         <div class="contentOneMenu">
         <span class="label label-default spanMeny">forms show:</span>
 
             <div class="contentOneMenu">
-                <h1>user edit </h1>
+                <h1>commeent edit </h1>
 
                             <table border="1px solid grey">
                             <thead>
@@ -18,30 +18,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                 {% for key in users %}
+                            {% for key in comments %}
 
-                    <tr>
-                    {% if userAcl.role.name=="ROLE_AUTHOR" or userAcl.role.name=="ROLE_USER"%}
-                        {% if userAcl.id==key.id%}
-                            <td>{{ key.id }}</td>
-                            <td>{{ key.login }}</td>
-                            <td> <a href="{{ path('user_edit', { 'id': key.id }) }}">Edit</a></td>
-                        {% endif %}
-                    {% else %}
-                        <td>{{ key.id }}</td>
-                        <td>{{ key.login }}</td>
-                        <td> <a href="{{ path('user_edit', { 'id': key.id }) }}">Edit or delete</a></td>
-                    {% endif %}
+                                <tr>
+                             {% if userAcl.role.name =="ROLE_ADMIN" or userAcl.id==key.user.id %}
+
+                                    <td>{{ key.id }}</td>
+                                    <td>{{ key.text }}</td>
+                                    <td> <a href="{{ path('comment_edit_admin', { 'id': key.id }) }}">Edit or Delete</a></td>
+                                 {%endif %}
+
+
                                 </tr>
                             {% endfor %}
                             </tbody>
                         </table>
-                {% if userAcl.role.name=="ROLE_ADMIN" %}
-                   {{ form_start(form) }}
-                   {{ form_widget(form) }}
-                   <button type="submit">create</button>
-                   {{ form_end(form) }}
-                 {% endif %}
+
+
               {#  {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
 
