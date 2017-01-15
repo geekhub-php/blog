@@ -32,7 +32,7 @@
                     </div>
                 {% endfor %}
 
-                {% include 'AppBundle:default:_pagination.html.twig' %}
+                {{ app_pagination_render(pagination) }}
             </div>
 
         </div>
