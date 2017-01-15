@@ -51,9 +51,6 @@ class PostController extends Controller
      */
     public function showAction(Request $request, Post $post)
     {
-        $tags = $post->getTags();
-        $comments = $post->getComments();
-
         $author = $this->getDoctrine()
             ->getRepository('AppBundle:Author')
             ->find(rand(1, 10));
@@ -78,8 +75,6 @@ class PostController extends Controller
 
         return $this->render('AppBundle:post:show.html.twig', array(
             'post'             => $post,
-            'tags'             => $tags,
-            'comments'         => $comments,
             'commentForm'      => $commentForm->createView()
         ));
     }
