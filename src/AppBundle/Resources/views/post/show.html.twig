@@ -1,6 +1,6 @@
 {% extends 'AppBundle::base.html.twig' %}
 
-{% block bodyClass %}post post-id-{{ post.id }}{% endblock %}
+{% block bodyClass %}{{ parent() }}-id-{{ post.id }}{% endblock %}
 
 {% block main %}
     <div class="container">
@@ -14,9 +14,9 @@
                         <p>Date: {{ post.dateCreated|date("d.m.Y") }}</p>
                         <p>Category: <a href="#">{{ post.category.name }}</a></p>
                         <p>
-                            <a class="btn btn-primary" href="{{ path('post_new') }}">Add new post</a>
-                            <a class="btn btn-default" href="{{ path('post_edit', {'id': post.id}) }}">Edit</a>
-                            <a class="btn btn-danger" href="{{ path('post_delete', {'id': post.id}) }}">Delete</a>
+                            <a class="btn btn-primary" href="{{ path('admin_post_new') }}">Add new post</a>
+                            <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
                         </p>
                     </header>
 

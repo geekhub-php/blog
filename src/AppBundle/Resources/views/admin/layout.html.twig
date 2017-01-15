@@ -1,0 +1,14 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block bodyMainClass 'admin-body' %}
+{% block mainClass 'admin-main' %}
+
+{% block header %}
+    {% include 'AppBundle:admin/layout:_header.html.twig' %}
+{% endblock %}
+
+{% block footer %}
+    {% embed 'AppBundle:base:_footer.html.twig' %}
+        {% block footerClass 'admin-footer' %}
+    {% endembed %}
+{% endblock %}

@@ -27,7 +27,7 @@ class Paginator
         $thisPage = $page;
 
         return array(
-            'objects'   => $paginator,
+            'items'     => $paginator,
             'maxPages'  => $maxPages,
             'thisPage'  => $thisPage
         );

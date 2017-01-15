@@ -24,31 +24,27 @@ class CommentController extends Controller
      *
      * @param Request $request
      * @param int     $postId
-     * @param int     $id
+     * @param Comment $comment
      *
      * @return Response
      */
-    public function editAction(Request $request, $postId, $id)
+    public function editAction(Request $request, $postId, Comment $comment)
     {
-        $comment = $this->getDoctrine()
-            ->getRepository('AppBundle:Comment')
-            ->find($id);
-
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment = $form->getData();
+            $commentData = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
+            $em->persist($commentData);
             $em->flush();
 
             return $this->redirectToRoute('post_show', ['id' => $postId]);
         }
 
-        return $this->render('AppBundle:base:form.html.twig', array(
+        return $this->render('AppBundle:default:form.html.twig', array(
             'formTitle' => 'Form: Edit comment',
             'form'      => $form->createView()
         ));
@@ -61,15 +57,14 @@ class CommentController extends Controller
      * )
      * @Method({"GET", "POST"})
      *
-     * @param int $postId
-     * @param int $id
+     * @param int     $postId
+     * @param Comment $comment
      *
      * @return Response
      */
-    public function deleteAction($postId, $id)
+    public function deleteAction($postId, Comment $comment)
     {
         $em = $this->getDoctrine()->getManager();
-        $comment = $em->getRepository('AppBundle:Comment')->find($id);
 
         $comment->setContent('Comment deleted.');
 

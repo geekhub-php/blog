@@ -1,0 +1,13 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>{{ formTitle }}</h1>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

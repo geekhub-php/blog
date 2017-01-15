@@ -19,8 +19,8 @@ use Symfony\Component\HttpFoundation\Response;
 class PostController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
-     * @Route("/{page}", requirements={"id": "\d+"}, name="post_index")
+     * @Route("/{page}", requirements={"page": "\d+"}, name="homepage")
+     * @Route("/{page}", requirements={"page": "\d+"}, name="post_index")
      * @Method("GET")
      *
      * @param int $page
@@ -45,16 +45,12 @@ class PostController extends Controller
      * @Method({"GET", "POST"})
      *
      * @param Request $request
-     * @param int     $id
+     * @param Post    $post
      *
      * @return Response
      */
-    public function showAction(Request $request, $id)
+    public function showAction(Request $request, Post $post)
     {
-        $post = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
-            ->find($id);
-
         $tags = $post->getTags();
         $comments = $post->getComments();
 
@@ -71,13 +67,13 @@ class PostController extends Controller
         $commentForm->handleRequest($request);
 
         if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-            $comment = $commentForm->getData();
+            $commentData = $commentForm->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($comment);
+            $em->persist($commentData);
             $em->flush();
 
-            return $this->redirectToRoute('post_show', ['id' => $id]);
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
         }
 
         return $this->render('AppBundle:post:show.html.twig', array(
@@ -89,7 +85,29 @@ class PostController extends Controller
     }
 
     /**
-     * @Route("/posts/new", name="post_new")
+     * @Route("/admin/{page}", requirements={"page": "\d+"}, name="admin_homepage")
+     * @Route("/admin/posts/{page}", requirements={"page": "\d+"}, name="admin_post_index")
+     * @Method("GET")
+     *
+     * @param int $page
+     *
+     * @return Response
+     */
+    public function adminIndexAction($page = 1)
+    {
+        $posts = $this->getDoctrine()
+            ->getRepository('AppBundle:Post')
+            ->findAllPosts();
+
+        $pagination = $this->get('app.paginator')->paginate($posts, $page);
+
+        return $this->render('AppBundle:admin/post:index.html.twig', array(
+            'pagination' => $pagination
+        ));
+    }
+
+    /**
+     * @Route("/admin/posts/new", name="admin_post_new")
      * @Method({"GET", "POST"})
      *
      * @param Request $request
@@ -105,68 +123,63 @@ class PostController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $form->getData();
+            $postData = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
+            $em->persist($postData);
             $em->flush();
 
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('AppBundle:base:form.html.twig', array(
+        return $this->render('AppBundle:admin/default:form.html.twig', array(
             'formTitle' => 'Form: New post',
             'form'      => $form->createView()
         ));
     }
 
     /**
-     * @Route("/posts/{id}/edit", requirements={"id": "\d+"}, name="post_edit")
+     * @Route("/admin/posts/{id}/edit", requirements={"id": "\d+"}, name="admin_post_edit")
      * @Method({"GET", "POST"})
      *
      * @param Request $request
-     * @param int     $id
+     * @param Post    $post
      *
      * @return Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, Post $post)
     {
-        $post = $this->getDoctrine()
-            ->getRepository('AppBundle:Post')
-            ->find($id);
-
         $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post = $form->getData();
+            $postData = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
-            $em->persist($post);
+            $em->persist($postData);
             $em->flush();
 
-            return $this->redirectToRoute('post_show', ['id' => $id]);
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
         }
 
-        return $this->render('AppBundle:base:form.html.twig', array(
+        return $this->render('AppBundle:admin/default:form.html.twig', array(
             'formTitle' => 'Form: Edit post',
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/posts/{id}/delete", requirements={"id": "\d+"}, name="post_delete")
+     * @Route("/admin/posts/{id}/delete", requirements={"id": "\d+"}, name="admin_post_delete")
      * @Method({"GET", "POST"})
      *
-     * @param int $id
+     * @param Post $post
      *
      * @return Response
      */
-    public function deleteAction($id)
+    public function deleteAction(Post $post)
     {
         $em = $this->getDoctrine()->getManager();
-        $post = $em->getRepository('AppBundle:Post')->find($id);
 
         $em->remove($post);
         $em->flush();

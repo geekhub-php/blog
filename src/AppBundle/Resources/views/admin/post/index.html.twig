@@ -1,0 +1,45 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h2>Posts</h2>
+            <p><a href="{{ path('admin_post_new') }}">Add new post</a></p>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Created</th>
+                                <th>Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for post in pagination.items %}
+                                <tr>
+                                    <td>{{ post.title }}</td>
+                                    <td>{{ post.author.displayName }}</td>
+                                    <td>{{ post.category.name }}</td>
+                                    <td>{{ post.dateCreated|date("d.m.Y") }}</td>
+                                    <td>{{ post.dateUpdated|date("d.m.Y") }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{{ path('post_show', {'id': post.id}) }}">Read more</a>
+                                        <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                                        <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+        </div>
+
+        {% include 'AppBundle:default:_pagination.html.twig' %}
+    </div>
+{% endblock %}

@@ -5,12 +5,12 @@
         <div class="container">
 
             <h2>Posts</h2>
-            <p><a href="{{ path('post_new') }}">Add new post</a></p>
+            <p><a href="{{ path('admin_post_new') }}">Add new post</a></p>
 
             <div class="row">
-                {% for post in pagination.objects %}
+                {% for post in pagination.items %}
                     <div class="col-sm-4">
-                        <article class="post post-id-{{ post.id }}">
+                        <article class="post-{{ post.id }}">
                             <header>
                                 <h3>{{ post.title }}</h3>
                                 <p>Author: <a href="#">{{ post.author.displayName }}</a></p>
@@ -24,36 +24,15 @@
                                 <br>
                                 <p>
                                     <a class="btn btn-primary" href="{{ path('post_show', {'id': post.id}) }}">Read more</a>
-                                    <a class="btn btn-default" href="{{ path('post_edit', {'id': post.id}) }}">Edit</a>
-                                    <a class="btn btn-danger" href="{{ path('post_delete', {'id': post.id}) }}">Delete</a>
+                                    <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                                    <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
                                 </p>
                             </footer>
                         </article>
                     </div>
                 {% endfor %}
 
-                {% if pagination.maxPages > 1 %}
-                    <div class="col-sm-12 text-center">
-                        <ul class="pagination">
-                            {# `«` arrow  #}
-                            <li {{ pagination.thisPage == 1 ? 'class="disabled"' }}>
-                                <a href="{{ path('post_index', {page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
-                            </li>
-
-                            {# Render each page number #}
-                            {% for i in 1..pagination.maxPages %}
-                                <li {{ pagination.thisPage == i ? 'class="active"' }}>
-                                    <a href="{{ path('post_index', {page: i}) }}">{{ i }}</a>
-                                </li>
-                            {% endfor %}
-
-                            {# `»` arrow #}
-                            <li {{ pagination.thisPage == pagination.maxPages ? 'class="disabled"' }}>
-                                <a href="{{ path('post_index', {page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
-                            </li>
-                        </ul>
-                    </div>
-                {% endif %}
+                {% include 'AppBundle:default:_pagination.html.twig' %}
             </div>
 
         </div>

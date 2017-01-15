@@ -1,0 +1,23 @@
+{% if pagination.maxPages > 1 %}
+    {% set route = app.request.attributes.get('_route') %}
+    <div class="col-sm-12 text-center">
+        <ul class="pagination">
+            {# `«` arrow  #}
+            <li {{ pagination.thisPage == 1 ? 'class="disabled"' }}>
+                <a href="{{ path(route, {page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
+            </li>
+
+            {# Render each page number #}
+            {% for i in 1..pagination.maxPages %}
+                <li {{ pagination.thisPage == i ? 'class="active"' }}>
+                    <a href="{{ path(route, {page: i}) }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+
+            {# `»` arrow #}
+            <li {{ pagination.thisPage == pagination.maxPages ? 'class="disabled"' }}>
+                <a href="{{ path(route, {page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
+            </li>
+        </ul>
+    </div>
+{% endif %}
