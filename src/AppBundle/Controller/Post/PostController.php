@@ -59,17 +59,16 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
-        //foreach ($post->getAuthors() as $key=>$value) {
-          //foreach ($value as $key1 => $value1) {
-          //  echo '<br>';
-            //echo $value->getId();
-            //}
-        //echo $post->getAuthors()->getId();
-        //}
-        //echo serialize($post->getAuthors('gfff'));
+        //using acl
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        /*if ($user==="anon.")
+            dump($user);
+        */
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments,
-            'id' => $id, 'tags' => $tags, ));
+            'id' => $id, 'tags' => $tags,
+            'userAcl'=>$user,  'addOrEdit'=>'add',));
     }
 
     /**

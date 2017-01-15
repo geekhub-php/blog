@@ -9,6 +9,7 @@ use AppBundle\Entity\Post\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query;
 
 class DefaultController extends Controller
@@ -160,5 +161,17 @@ class DefaultController extends Controller
 
        return new JsonResponse(array('data' => 'this is a json response'));
    }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function adminAction()
+    {
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        //return new Response('<html><body>Admin page!</body></html>');
+        return $this->render('admin/index_admin.html.twig', array('userAcl'=>$user,));
+    }
+
 
 }

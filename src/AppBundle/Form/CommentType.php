@@ -34,11 +34,12 @@ class CommentType extends AbstractType
                 'label' => 'post',
                 'attr' => ['class' => 'test col-xs-6']
             ])
-            */
+
             ->add('user', EntityType::class, array(
                 'class' => 'AppBundle\\Entity\\User\\User',
                 'choice_label' => 'lastName',
             ))
+            */
             ->add('date', TextType::class, [
                 'required' => false,
                 'label' => 'date',

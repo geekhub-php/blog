@@ -31,7 +31,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post\Post", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post\Post")
      */
     private $post;
 

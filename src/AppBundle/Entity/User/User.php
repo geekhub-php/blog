@@ -3,6 +3,8 @@
 namespace AppBundle\Entity\User;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 
 /**
  * User.
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var int
@@ -383,7 +385,7 @@ class User
     /**
      * Add post.
      *
-     * @param \AppBundle\Entity\Post $post
+     * @param \AppBundle\Entity\Post\Post $post
      *
      * @return User
      */
@@ -397,7 +399,7 @@ class User
     /**
      * Remove post.
      *
-     * @param \AppBundle\Entity\Post $post
+     * @param \AppBundle\Entity\Post\$post
      */
     public function removePost(\AppBundle\Entity\Post\Post $post)
     {
@@ -413,4 +415,36 @@ class User
     {
         return $this->posts;
     }
+
+
+
+    public function getUsername()
+    {
+        return $this->login;
+    }
+
+    public function set($login)
+    {
+        $this->login = $login;
+
+        return $this;
+    }
+
+    public function getRoles()
+    {
+        return array($this->role->getName());
+       // return array('ROLE_ADMIN');
+    }
+
+    /*public function getPassword()
+    {
+    }
+    */
+    public function getSalt()
+    {
+    }
+    public function eraseCredentials()
+    {
+    }
+
 }

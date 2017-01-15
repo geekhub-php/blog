@@ -10,11 +10,54 @@ use AppBundle\Entity\Post\Post;
 use AppBundle\Entity\Role\Role;
 use AppBundle\Entity\User\User;
 use AppBundle\Entity\Comment\Comment;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-class LoadUserData implements FixtureInterface
+
+class LoadUserData implements FixtureInterface, ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
+
     public function load(ObjectManager $manager)
     {
+        $role1 = new Role();
+        $role1->setName('ROLE_AUTHOR');
+        $manager->persist($role1);
+        $manager->flush();
+
+        $user = new User();
+        $user->setFirstName('gg');
+        $user->setLastName('pet');
+        $user->setLogin('user');
+
+        //$user->setSalt(md5(uniqid()));
+        $test_password = 'user';
+        $encoder = $this->container->get('security.password_encoder');
+        $password = $encoder->encodePassword($user, $test_password);
+        $user->setPassword($password);
+
+
+        $user->setCity('cherkassy');
+        $user->setAddress('bulvar 53');
+        $user->setEmail('mail@fdd');
+        $user->setEnabled('true');
+        $roleId = $manager->getRepository('AppBundle\\Entity\\Role\\Role')->find('2');
+        $user->setRole($roleId);
+        $user->setRating('10');
+        $user->setDataCreate('2016-11-11');
+        $manager->persist($user);
+        $manager->flush();
+
+        /*
         $category = new Category();
         $category->setName('sport');
         $manager->persist($category);
@@ -88,8 +131,11 @@ class LoadUserData implements FixtureInterface
              $user = new User();
         $user->setFirstName('kola');
         $user->setLastName('kolakov');
-        $user->setLogin('loginloginlgin');
-        $user->setPassword('dsddd');
+        $user->setLogin('admin');
+        $test_password = 'admin';
+        $encoder = $this->container->get('security.password_encoder');
+        $password = $encoder->encodePassword($user, $test_password);
+        $user->setPassword($password);
         $user->setCity('cherkassy');
         $user->setAddress('bulvar 53');
         $user->setEmail('mail@fdd');
@@ -339,7 +385,7 @@ class LoadUserData implements FixtureInterface
         $manager->persist($comment);
         $manager->flush();
 
-//*/
+*/
     }
 
     public function getOrder()

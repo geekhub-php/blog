@@ -5,8 +5,16 @@
         {% include 'default/left_menu.html.twig'%}
 
         <div class="col-md-9 last-post-block" >
-            <span class="label label-default spanMeny">post name: {{ data.name }}</span>
+            <span class="label label-default spanMeny">
+     {% if  addOrEdit=="add" %}
+                post name: {{ data.name }}
+     {% else %}
+         post name: {{ data }}
+     {% endif %}
+            </span>
             <div class="lastPost-mini-block">
+     {% if  addOrEdit=="add" %}
+
 
                 author:
                 {% for key in data.authors %}
@@ -44,9 +52,32 @@
                 {% for key in comments %}
                     <br>
                     {{ key.text }}
+
+                   {% if  userAcl!="anon." %}
+                        {% if  userAcl.id==key.user.id %}
+                            <a href="{{ path('comment_edit', {'id': key.id })}}"> edit comment</a>
+                        {% endif %}
+                   {% endif %}
+
+                    <br>
+
                     <br>
                 {% endfor %}
          {% endif %}
+
+
+     {% else %}
+
+         {{ form_start(edit_form) }}
+         {{ form_widget(edit_form) }}
+
+         <button type="submit">Edit</button>
+         {{ form_end(edit_form) }}
+         {{ form_start(delete_form_comment) }}
+         {{ form_widget(delete_form_comment) }}
+         <button type="submit">Delete</button>
+         {{ form_end(delete_form_comment) }}
+     {% endif %}
             </div>
 
         </div>

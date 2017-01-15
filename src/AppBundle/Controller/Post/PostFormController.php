@@ -14,11 +14,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
 class PostFormController extends Controller
 {
     /**
-     *@Route("/show_all_forms_post", name="show_all_forms_post")
+     *@Route("/admin/show_all_forms_post", name="show_all_forms_post")
      * @Method({"GET", "POST"})
      */
     public function showAllPostFormAction(Request $request)
@@ -41,14 +42,17 @@ class PostFormController extends Controller
             return $this->redirectToRoute('welcome');
         }
 
-        return $this->render('default/crud_form_post.html.twig', array(
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        return $this->render('admin/crud_form_post.html.twig', array(
             'posts' => $posts,
             'post' => $post,
             'form' => $form->createView(),
+            'userAcl'=>$user,
         ));
     }
     /**
-     * @Route("/post_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="post_edit")
+     * @Route("/admin/post_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="post_edit")
      * @Method({"GET", "POST"})
      */
     public function editPostAction(Request $request, Post\Post $post, $id)
@@ -64,17 +68,20 @@ class PostFormController extends Controller
             return $this->redirectToRoute('show_all_forms_post', array('id' => $post->getId()));
         }
 
-        return $this->render('default/edit_form_post.html.twig', array(
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        return $this->render('admin/edit_form_post.html.twig', array(
             'post' => $post,
             // 'id' =>$id,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'userAcl'=>$user,
         ));
     }
     /**
      * Deletes a post entity.
      *
-     * @Route("post_delete/{id}", name="post_delete")
+     * @Route("/admin/post_delete/{id}", name="post_delete")
      * @Method("Delete")
      */
     public function deletePostAction(Request $request, Post\Post $post)
@@ -99,4 +106,5 @@ class PostFormController extends Controller
             ->getForm()
             ;
     }
+
 }

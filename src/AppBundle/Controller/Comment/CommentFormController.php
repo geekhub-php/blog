@@ -17,6 +17,11 @@ use AppBundle\Entity\Comment;
 use Symfony\Component\VarDumper\Cloner\Data;
 use AppBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+
 
 class CommentFormController extends Controller
 {
@@ -26,6 +31,7 @@ class CommentFormController extends Controller
      */
     public function addCommnetTestAction(Request $request, $id)
     {
+
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -77,15 +83,30 @@ class CommentFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $comment->setPost($post);
             //$em->setPost($post->getId());
+            $tokenStorage = $this->get('security.token_storage');
+            $user = $tokenStorage->getToken()->getUser();
+            $comment->setUser($user);
             $em->persist($comment);
             $em->flush($comment);
 
+          //using acl securety token_storege
+            $aclProvider = $this->get('security.acl.provider');
+            $objectIdentity = ObjectIdentity::fromDomainObject($comment);
+            $acl = $aclProvider->createAcl($objectIdentity);
+            $securityIdentity = UserSecurityIdentity::fromAccount($user);
+            // grant owner access
+            $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
+            $aclProvider->updateAcl($acl);
+
+
             return $this->redirectToRoute('welcome');
         }
-
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
-            'form' => $form->createView(), 'id' => $id, 'tags' => $tags, ));
+            'form' => $form->createView(), 'id' => $id,
+            'tags' => $tags, 'userAcl'=>$user , 'addOrEdit'=>'add',));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
@@ -95,14 +116,95 @@ class CommentFormController extends Controller
     }
 
     /**
-     * Deletes a category entity.
+     * @Route("/comment_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="comment_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editCommentAction(Request $request, Comment\Comment $commentParam, $id)
+    {
+
+        $categories = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Category\\Category')
+            ->findAll();
+
+        if (!$categories) {
+            throw $this->createNotFoundException(
+                'No catefories'
+            );
+        }
+        /*$post = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Post\\Post')
+            ->find($id);
+        if (!$post) {
+            throw $this->createNotFoundException(
+                'No posts'.$id
+            );
+        }
+        */
+
+        /*
+
+         $comments = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+            ->findBy(array('post' => $post->getId()));
+        if (!$comments) {
+            throw $this->createNotFoundException(
+                'No comment'
+            );
+            $comments = 0;
+        }
+        */
+        $tags = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Tag\\Tag')
+            ->findAll();
+
+        if (!$tags) {
+            throw $this->createNotFoundException(
+                'No tags'
+            );
+        }
+        $em = $this->getDoctrine()->getManager();
+        $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
+        $count = $countCategores->getCountCategories($categories);
+
+        $em = $this->getDoctrine()->getManager();
+        $comment = $em->getRepository('AppBundle\\Entity\\Comment\\Comment')
+            ->find($id);
+        $deleteForm = $this->createDeleteFormComment($comment);
+        $editForm = $this->createForm(CommentType::class, $comment, [
+            'em' => $this->getDoctrine()->getManager(),
+        ]);
+        $editForm->handleRequest($request);
+        if ($editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('welcome');
+        }
+
+
+        return $this->render('default/showPost.html.twig', array('data' => 'comment edit',
+            'categories' => $count, /*'comments' => $comments, */ 'comment' => $comment,
+            'edit_form' => $editForm->createView(),
+            'delete_form_comment' => $deleteForm->createView(),
+            'id' => $id, 'tags' => $tags, 'addOrEdit'=>'edit', ));
+
+        /*return $this->render('default/edit_form_post.html.twig', array(
+            'post' => $post,
+            // 'id' =>$id,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+        */
+    }
+
+    /**
+     * Deletes a comment entity.
      *
-     * @Route("/{id}", name="comment_delete")
+     * @Route("/comment_delete{id}", name="comment_delete")
      * @Method("Delete")
      */
-    public function deleteAction(Request $request, Comment\Comment $comment)
+    public function deleteCommentAction(Request $request, Comment\Comment $comment)
     {
-        $form = $this->createDeleteForm($comment);
+        $form = $this->createDeleteFormComment($comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -111,9 +213,9 @@ class CommentFormController extends Controller
             $em->flush($comment);
         }
 
-        return $this->redirectToRoute('add_comment');
+        return $this->redirectToRoute('welcome');
     }
-    private function createDeleteForm(Comment\Comment $comment)
+    private function createDeleteFormComment(Comment\Comment $comment)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('comment_delete', array('id' => $comment->getId())))

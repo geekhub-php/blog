@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+
+    <!-- Optional theme -->
+
+
+</head>
+<body>
+<div class="row" >
+
+    <div id="headImg" background-image="" align="right" >
+        {{ greeting()|raw}}
+        </div>
+    <div class="col-md-12">
+        <ul class="nav nav-pills navbar-fixed-top" id="idMenuLu">
+            <li role="presentation" class="active MenuLi"><a href="{{ path('logout')}}">Logout</a></li>
+
+            {% if userAcl.role.name=="ROLE_ADMIN" %}
+               <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">crud category form</a></li>
+               <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud all posts</a></li>
+               <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_user')}}">crud all users</a></li>
+               <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud all comments</a></li>
+               <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">crud all tags</a></li>
+            {% endif %}
+            {% if userAcl.role.name=="ROLE_AUTHOR" %}
+                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">Personal settings</a></li>
+                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">Add category</a></li>
+                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">my posts</a></li>
+                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">my comments</a></li>
+                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">add tags</a></li>
+            {% endif %}
+            {% if userAcl.role.name=="ROLE_USER" %}
+            <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_post')}}">Personal settings</a></li>
+            <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">my comments</a></li>
+            {% endif %}
+
+        </ul>
+
+
+    </div>
+
+</div>

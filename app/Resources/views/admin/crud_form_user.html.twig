@@ -1,4 +1,4 @@
-{% extends 'default/mostRead.html.twig' %}
+{% extends 'admin/index_admin.html.twig' %}
 {% block startMainDiv %}
     <div class="row"  id="idMainDiv">
         <div class="col-md-4 last-post-block" >
@@ -6,7 +6,7 @@
         <span class="label label-default spanMeny">forms show:</span>
 
             <div class="contentOneMenu">
-                <h1>post edit </h1>
+                <h1>user edit </h1>
 
                             <table border="1px solid grey">
                             <thead>
@@ -18,11 +18,11 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for key in posts %}
+                            {% for key in users %}
 
                                 <tr>
                                     <td>{{ key.id }}</td>
-                                    <td>{{ key.name }}</td>
+                                    <td>{{ key.login }}</td>
                                     <td> <a href="{{ path('post_edit', { 'id': key.id }) }}">Edit or Delete</a></td>
 
 

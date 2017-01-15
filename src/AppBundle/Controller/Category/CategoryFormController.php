@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 class CategoryFormController extends Controller
 {
     /**
-     *@Route("/show_all_forms_category", name="show_all_forms_category")
+     *@Route("/admin/show_all_forms_category", name="show_all_forms_category")
      * @Method({"GET", "POST"})
      */
     public function showAllCategoryFormAction(Request $request)
@@ -35,19 +35,22 @@ class CategoryFormController extends Controller
 
             return $this->redirectToRoute('welcome');
         }
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
 
-        return $this->render('default/crud_form.html.twig', array(
+        return $this->render('admin/crud_form.html.twig', array(
             'categories' => $categories,
             'category' => $category,
         'form' => $form->createView(),
+        'userAcl'=>$user,
         ));
     }
 
     /**
-     *@Route("/add_forms_category", name="new_forms_categoru")
+     *@Route("/admin/add_forms_category", name="new_forms_categoru")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newCatrgoryAction(Request $request)
     {
         $category = new Category\Category();
         $form = $this->createForm(CategoryType::class, $category, [
@@ -64,13 +67,13 @@ class CategoryFormController extends Controller
                 array('id' => $category->getId()));
         }
 
-        return $this->render('default/new_form.html.twig', array(
+        return $this->render('admin/new_form.html.twig', array(
             'category' => $category,
             'form' => $form->createView(),
         ));
     }
 /**
- * @Route("/category_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="category_edit")
+ * @Route("/admin/category_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="category_edit")
  * @Method({"GET", "POST"})
  */
 public function editAction(Request $request, Category\Category $category, $id)
@@ -85,12 +88,15 @@ public function editAction(Request $request, Category\Category $category, $id)
 
         return $this->redirectToRoute('show_all_forms_category', array('id' => $category->getId()));
     }
+    $tokenStorage = $this->get('security.token_storage');
+    $user = $tokenStorage->getToken()->getUser();
 
-    return $this->render('default/edit_form.html.twig', array(
+    return $this->render('admin/edit_form.html.twig', array(
         'category' => $category,
            // 'id' =>$id,
             'edit_form' => $editForm->createView(),
         'delete_form' => $deleteForm->createView(),
+        'userAcl'=>$user,
     ));
 }
     /**
