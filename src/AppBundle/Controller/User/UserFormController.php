@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\User;
 use AppBundle\Entity\User;
+use AppBundle\Form\UserRegitType;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -14,11 +15,53 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 class UserFormController extends Controller
 {
 
+
+
+    /**
+     * @Route("/regist/#openModal", name="regist")
+     * @Method({"GET", "POST"})
+     */
+    public function registrationAction(Request $request)
+    {
+        $users = $this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\User\\User')
+            ->findAll();
+        $user = new User\User();
+        $form = $this->createForm(UserRegitType::class, $user, [
+            'em' => $this->getDoctrine()->getManager(),
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $password = $this->get('security.password_encoder')
+            ->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $user->setEnabled('true');
+            $role= $this->getDoctrine()
+                ->getRepository('AppBundle\\Entity\\Role\\Role')->find('2');
+            $user->setRole($role);
+            $user->setRating('0');
+            $user->setDataCreate('2016-11-11');
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush($user);
+
+            return $this->redirectToRoute('welcome');
+        }
+
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+        return $this->render('default/form_registration.html.twig', array(
+            'form' => $form->createView(),
+                    ));
+    }
     /**
      *@Route("/admin/show_all_forms_user", name="show_all_forms_user")
      * @Method({"GET", "POST"})
      */
-    public function showAllPostFormAction(Request $request)
+    public function showAllUserFormAction(Request $request)
     {
         $users = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\User\\User')

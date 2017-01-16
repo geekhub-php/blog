@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query;
+use AppBundle\Form\UserRegitType;
+use AppBundle\Entity\User;
+
 
 class DefaultController extends Controller
 {
@@ -62,13 +65,20 @@ class DefaultController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+
+
 //dump($pagination);
         // parameters to template
         //return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'last posts'),
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl'=>$user,
+             ));
     }
 
     /**
@@ -141,10 +151,12 @@ class DefaultController extends Controller
           $posts, /* query NOT result */
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/);
-
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl'=>$user, ));
     }
     /**
      *@Route("/Ajacs", name="ajacs")

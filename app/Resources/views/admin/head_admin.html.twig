@@ -15,7 +15,7 @@
         </div>
     <div class="col-md-12">
         <ul class="nav nav-pills navbar-fixed-top" id="idMenuLu">
-            <li role="presentation" class="active MenuLi"><a href="{{ path('logout')}}">Logout</a></li>
+            <li role="presentation" class="active MenuLi"><a href="{{ path('logout')}}">HOME</a></li>
 
             {% if userAcl.role.name=="ROLE_ADMIN" %}
                <li role="presentation" class="MenuLi" ><a href="{{ path('show_all_forms_category')}}">crud category form</a></li>

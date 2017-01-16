@@ -70,9 +70,11 @@ class CategoryController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
-
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => $category,
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl'=>$user,));
     }
 }

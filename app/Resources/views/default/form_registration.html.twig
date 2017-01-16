@@ -1,0 +1,45 @@
+{% extends 'default/mostRead.html.twig' %}
+{% block startMainDiv %}
+    <div class="row"  id="idMainDiv">
+        <div class="col-md-4 last-post-block" >
+        <div class="contentOneMenu">
+
+            <span class="label label-default spanMeny">contacts:</span>
+
+
+            <div class="contentOneMenu">
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit">create</button>
+                {{ form_end(form) }}
+                {#<a href="#openModal">registration</a>#}
+
+                {#modal window registration#}
+                <div id="openModal" class="modalDialog">
+
+                    <div>
+
+                        <a href="#close" title="Закрыть" class="close">X</a>
+
+                        <h2>Модальное окно</h2>
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+            </div>
+    </div>
+    </div>
+{%endblock%}
+{% block left %}
+{% endblock%}
+{% block right%}
+{% endblock %}

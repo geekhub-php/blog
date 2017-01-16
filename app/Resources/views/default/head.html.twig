@@ -19,7 +19,13 @@
             <li role="presentation" class="MenuLi"><a href="{{ path('topRated')}}">top-rated</a></li>
             <li role="presentation" class="MenuLi" ><a href="{{ path('most_commented')}}">most commented</a></li>
             <li role="presentation" class="MenuLi" ><a href="{{ path('contacts')}}">contacts</a></li>
+
+            {% if userAcl =="anon." %}
             <li role="presentation" class="MenuLi" ><a href="{{ path('admin')}}">login</a></li>
+            <li role="presentation" class="MenuLi" ><a href="{{ path('regist')}}">registration</a></li>
+            {% else %}
+                <li role="presentation" class="MenuLi" ><a href="{{ path('admin')}}">my setting</a></li>
+            {% endif %}
 
 
       <form action="{{ path('search')}}" method="POST" >
@@ -32,3 +38,8 @@
     </div>
 
 </div>
+
+
+
+
+
