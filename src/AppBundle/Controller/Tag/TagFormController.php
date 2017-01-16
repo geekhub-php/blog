@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Tag;
 use AppBundle\Form\TagType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
 class TagFormController extends Controller
 {
@@ -44,11 +43,12 @@ class TagFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('admin/crud_form_tag.html.twig', array(
             'tags' => $tags,
             'tag' => $tag,
             'form' => $form->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -70,12 +70,13 @@ class TagFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('admin/edit_form_tag.html.twig', array(
             'tag' => $tag,
             // 'id' =>$id,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -106,5 +107,4 @@ class TagFormController extends Controller
             ->getForm()
             ;
     }
-
 }

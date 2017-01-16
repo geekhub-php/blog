@@ -5,7 +5,6 @@ namespace AppBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-
 /**
  * User.
  *
@@ -416,8 +415,6 @@ class User implements UserInterface
         return $this->posts;
     }
 
-
-
     public function getUsername()
     {
         return $this->login;
@@ -446,5 +443,4 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
-
 }

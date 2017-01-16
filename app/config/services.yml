@@ -26,6 +26,8 @@ services:
     #            - { name: kernel.event_listener, event: kernel.exception }
 
     app.request_listener:
-                class: AppBundle\EventListener\AjacsRequestListener
+                class: AppBundle\EventListener\RouteRequestListener
+                arguments: ["@security.token_storage"]
                 tags:
                    - { name: kernel.event_listener, event: kernel.request }
+

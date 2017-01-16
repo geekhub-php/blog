@@ -13,7 +13,6 @@ use AppBundle\Entity\Comment\Comment;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-
 class LoadUserData implements FixtureInterface, ContainerAwareInterface
 {
     /**
@@ -25,7 +24,6 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
     {
         $this->container = $container;
     }
-
 
     public function load(ObjectManager $manager)
     {
@@ -44,7 +42,6 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
         $encoder = $this->container->get('security.password_encoder');
         $password = $encoder->encodePassword($user, $test_password);
         $user->setPassword($password);
-
 
         $user->setCity('cherkassy');
         $user->setAddress('bulvar 53');

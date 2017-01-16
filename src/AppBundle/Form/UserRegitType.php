@@ -8,12 +8,10 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Role\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
@@ -42,7 +40,7 @@ class UserRegitType extends AbstractType
                 'label' => 'lastName',
                 'attr' => ['class' => 'test col-xs-6'],
             ])
-                      ->add('email',TextType::class, [
+                      ->add('email', TextType::class, [
                     'required' => false,
                     'label' => 'email',
                     'attr' => ['class' => 'test col-xs-3'],

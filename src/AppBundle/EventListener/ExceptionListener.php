@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: nima
  * Date: 13.01.17
- * Time: 5:54
+ * Time: 5:54.
  */
 
 namespace AppBundle\EventListener;
@@ -40,5 +40,4 @@ class ExceptionListener
         // Send the modified response object to the event
         $event->setResponse($response);
     }
-
 }

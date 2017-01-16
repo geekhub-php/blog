@@ -33,7 +33,6 @@ class GreetingHolidays extends \Twig_Extension
         if ($today = '02.24') {
             return "<span class='label label-danger spanMeny'>Happy Valentines Day!</span>";
         }
-
     }
     public function getName()
     {

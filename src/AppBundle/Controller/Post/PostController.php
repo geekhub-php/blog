@@ -68,7 +68,7 @@ class PostController extends Controller
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments,
             'id' => $id, 'tags' => $tags,
-            'userAcl'=>$user,  'addOrEdit'=>'add',));
+            'userAcl' => $user,  'addOrEdit' => 'add', ));
     }
 
     /**
@@ -125,10 +125,13 @@ class PostController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
 
         return $this->render('default/index.html.twig', array('data' => $contComentsPosts,
             'categories' => $count, 'nameCategories' => array('name' => 'most commented posts '),
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl' => $user, ));
     }
     /**
      *@Route("/top_rated", name="topRated")
@@ -180,9 +183,12 @@ class PostController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'top-rated post'),
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl' => $user, ));
     }
 }

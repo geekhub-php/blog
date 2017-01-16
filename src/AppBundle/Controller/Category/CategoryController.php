@@ -72,9 +72,10 @@ class CategoryController extends Controller
         );
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => $category,
             'pagination' => $pagination, 'tags' => $tags,
-            'userAcl'=>$user,));
+            'userAcl' => $user, ));
     }
 }

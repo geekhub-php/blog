@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\Query;
-use AppBundle\Form\UserRegitType;
-use AppBundle\Entity\User;
-
 
 class DefaultController extends Controller
 {
@@ -69,15 +66,14 @@ class DefaultController extends Controller
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
 
-
-//dump($pagination);
+//dump($tokenStorage->getToken());
         // parameters to template
         //return $this->render('AcmeMainBundle:Article:list.html.twig', array('pagination' => $pagination));
 
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'last posts'),
             'pagination' => $pagination, 'tags' => $tags,
-            'userAcl'=>$user,
+            'userAcl' => $user,
              ));
     }
 
@@ -91,7 +87,10 @@ class DefaultController extends Controller
      */
     public function showContactsAction()
     {
-        return $this->render('default/contacts.html.twig');
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
+
+        return $this->render('default/contacts.html.twig', array('userAcl' => $user));
     }
 
     /**
@@ -153,17 +152,20 @@ class DefaultController extends Controller
             3/*limit per page*/);
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('default/index.html.twig', array('data' => $posts,
             'categories' => $count, 'nameCategories' => array('name' => 'Result search posts:'),
             'pagination' => $pagination, 'tags' => $tags,
-            'userAcl'=>$user, ));
+            'userAcl' => $user, ));
     }
-    /**
-     *@Route("/Ajacs", name="ajacs")
-     * @Method({"POST"})
-     * @return array
-     */
-   public function updataAjaxAction(Request $request){
+   /**
+    *@Route("/Ajacs", name="ajacs")
+    * @Method({"POST"})
+    *
+    * @return array
+    */
+   public function updataAjaxAction(Request $request)
+   {
        /*if ($request->isXMLHttpRequest()) {
            return new JsonResponse(array('data' => 'this is a json response'));
        }
@@ -182,8 +184,6 @@ class DefaultController extends Controller
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
         //return new Response('<html><body>Admin page!</body></html>');
-        return $this->render('admin/index_admin.html.twig', array('userAcl'=>$user,));
+        return $this->render('admin/index_admin.html.twig', array('userAcl' => $user));
     }
-
-
 }

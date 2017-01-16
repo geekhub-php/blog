@@ -72,9 +72,12 @@ class TagController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+        $tokenStorage = $this->get('security.token_storage');
+        $user = $tokenStorage->getToken()->getUser();
 
         return $this->render('default/index.html.twig', array('data' => $tag->getPosts(),
             'categories' => $count, 'nameCategories' => $tag,
-            'pagination' => $pagination, 'tags' => $tags, ));
+            'pagination' => $pagination, 'tags' => $tags,
+            'userAcl' => $user, ));
     }
 }

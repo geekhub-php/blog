@@ -2,10 +2,7 @@
 
 namespace AppBundle\Services;
 
-
-
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
 
 class InspectionIdRoute
 {
@@ -16,30 +13,24 @@ class InspectionIdRoute
      */
     public function setValue($author, $authors, $user)
     {
-
-
-        $result="no";
-        if($user->getRole()->getName() == "ROLE_ADMIN") {
-            $result="ok";
-        }
-        elseif($author=="null"){
-        foreach ($authors as $key => $value) {
-
-            if ($value->getId()== $user->getId()) {
-                $result = "ok";
+        $result = 'no';
+        if ($user->getRole()->getName() == 'ROLE_ADMIN') {
+            $result = 'ok';
+        } elseif ($author == 'null') {
+            foreach ($authors as $key => $value) {
+                if ($value->getId() == $user->getId()) {
+                    $result = 'ok';
+                }
             }
+        } elseif ($authors == 'null' && $author->getId() == $user->getId()) {
+            $result = 'ok';
         }
-        }
-        elseif($authors=="null" && $author->getId()== $user->getId()){
-            $result = "ok";
-            }
 
-        return $this->result=$result;
+        return $this->result = $result;
     }
-        public function getValue()
+    public function getValue()
     {
-
-        if ($this->result=="no") {
+        if ($this->result == 'no') {
             throw new NotFoundHttpException('InspectionId: sorry, this is not your post. ');
         }
     }

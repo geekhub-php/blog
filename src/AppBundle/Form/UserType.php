@@ -42,7 +42,7 @@ class UserType extends AbstractType
                 'label' => 'lastName',
                 'attr' => ['class' => 'test col-xs-6'],
             ])
-                      ->add('email',TextType::class, [
+                      ->add('email', TextType::class, [
                     'required' => false,
                     'label' => 'email',
                     'attr' => ['class' => 'test col-xs-3'],

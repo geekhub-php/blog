@@ -42,7 +42,7 @@ class CategoryFormController extends Controller
             'categories' => $categories,
             'category' => $category,
         'form' => $form->createView(),
-        'userAcl'=>$user,
+        'userAcl' => $user,
         ));
     }
 
@@ -96,7 +96,7 @@ public function editAction(Request $request, Category\Category $category, $id)
            // 'id' =>$id,
             'edit_form' => $editForm->createView(),
         'delete_form' => $deleteForm->createView(),
-        'userAcl'=>$user,
+        'userAcl' => $user,
     ));
 }
     /**

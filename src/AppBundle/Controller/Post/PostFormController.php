@@ -14,7 +14,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 
 class PostFormController extends Controller
 {
@@ -44,11 +43,12 @@ class PostFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('admin/crud_form_post.html.twig', array(
             'posts' => $posts,
             'post' => $post,
             'form' => $form->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -57,8 +57,6 @@ class PostFormController extends Controller
      */
     public function editPostAction(Request $request, Post\Post $post, $id)
     {
-
-
         $deleteForm = $this->createDeleteForm($post);
         $editForm = $this->createForm(PostType::class, $post, [
             'em' => $this->getDoctrine()->getManager(),
@@ -74,10 +72,10 @@ class PostFormController extends Controller
         $user = $tokenStorage->getToken()->getUser();
 
         //$authors=array('author' => $post->getAuthors());
-        $authors=$post->getAuthors();
+        $authors = $post->getAuthors();
         $inspection = $this->get('service_inspection_id_route');
-       $inspection->setValue("null", $authors, $user);
-        $resultInspection=$inspection->getValue();
+        $inspection->setValue('null', $authors, $user);
+        $resultInspection = $inspection->getValue();
         //foreach ($authors as $key => $value){
         //dump($resultInspection);
         //}
@@ -86,7 +84,7 @@ class PostFormController extends Controller
             // 'id' =>$id,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -117,5 +115,4 @@ class PostFormController extends Controller
             ->getForm()
             ;
     }
-
 }

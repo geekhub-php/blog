@@ -11,17 +11,14 @@ namespace AppBundle\Controller\Comment;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\Comment;
 use Symfony\Component\VarDumper\Cloner\Data;
 use AppBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Permission\MaskBuilder;
-
 
 class CommentFormController extends Controller
 {
@@ -31,7 +28,6 @@ class CommentFormController extends Controller
      */
     public function addCommnetTestAction(Request $request, $id)
     {
-
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -98,15 +94,15 @@ class CommentFormController extends Controller
             $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_OWNER);
             $aclProvider->updateAcl($acl);
 
-
             return $this->redirectToRoute('welcome');
         }
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
             'form' => $form->createView(), 'id' => $id,
-            'tags' => $tags, 'userAcl'=>$user , 'addOrEdit'=>'add',));
+            'tags' => $tags, 'userAcl' => $user, 'addOrEdit' => 'add', ));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
@@ -115,15 +111,12 @@ class CommentFormController extends Controller
         */
     }
 
-
-
     /**
      * @Route("/comment_edit/{id}", requirements={"id" = "\d+"}, defaults={"id" =1}, name="comment_edit")
      * @Method({"GET", "POST"})
      */
     public function editCommentAction(Request $request, Comment\Comment $commentParam, $id)
     {
-
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -182,12 +175,11 @@ class CommentFormController extends Controller
             return $this->redirectToRoute('welcome');
         }
 
-
         return $this->render('default/showPost.html.twig', array('data' => 'comment edit',
             'categories' => $count, /*'comments' => $comments, */ 'comment' => $comment,
             'edit_form' => $editForm->createView(),
             'delete_form_comment' => $deleteForm->createView(),
-            'id' => $id, 'tags' => $tags, 'addOrEdit'=>'edit', ));
+            'id' => $id, 'tags' => $tags, 'addOrEdit' => 'edit', ));
 
         /*return $this->render('default/edit_form_post.html.twig', array(
             'post' => $post,
@@ -224,9 +216,10 @@ class CommentFormController extends Controller
 */
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('admin/crud_form_comment.html.twig', array(
             'comments' => $comments,
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -248,22 +241,20 @@ class CommentFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
-        $author=$comment->getUser();
+        $author = $comment->getUser();
 
         $inspection = $this->get('service_inspection_id_route');
-        $inspection->setValue($author,"null", $user);
-        $resultInspection=$inspection->getValue();
+        $inspection->setValue($author, 'null', $user);
+        $resultInspection = $inspection->getValue();
         //dump($resultInspection);
         return $this->render('admin/edit_form_comment.html.twig', array(
             'comment' => $comment,
             // 'id' =>$id,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
-
-
 
     /**
      * Deletes a comment entity.

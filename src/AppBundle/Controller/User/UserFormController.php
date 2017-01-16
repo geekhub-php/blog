@@ -1,22 +1,17 @@
 <?php
 
 namespace AppBundle\Controller\User;
+
 use AppBundle\Entity\User;
 use AppBundle\Form\UserRegitType;
 use AppBundle\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 class UserFormController extends Controller
 {
-
-
-
     /**
      * @Route("/regist/#openModal", name="regist")
      * @Method({"GET", "POST"})
@@ -34,12 +29,11 @@ class UserFormController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $password = $this->get('security.password_encoder')
             ->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
             $user->setEnabled('true');
-            $role= $this->getDoctrine()
+            $role = $this->getDoctrine()
                 ->getRepository('AppBundle\\Entity\\Role\\Role')->find('2');
             $user->setRole($role);
             $user->setRating('0');
@@ -53,6 +47,7 @@ class UserFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('default/form_registration.html.twig', array(
             'form' => $form->createView(),
                     ));
@@ -74,7 +69,6 @@ class UserFormController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $test_password = '1';
             $encoder = $this->container->get('security.password_encoder');
             $password = $encoder->encodePassword($user, $test_password);
@@ -89,11 +83,12 @@ class UserFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
         return $this->render('admin/crud_form_user.html.twig', array(
             'users' => $users,
             'user' => $user,
             'form' => $form->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -112,20 +107,20 @@ class UserFormController extends Controller
 
             return $this->redirectToRoute('show_all_forms_user', array('id' => $user->getId()));
         }
-        $userEdits=$user;
+        $userEdits = $user;
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
 
-
         $inspection = $this->get('service_inspection_id_route');
-        $inspection->setValue($userEdits,"null", $user);
-        $resultInspection=$inspection->getValue();
+        $inspection->setValue($userEdits, 'null', $user);
+        $resultInspection = $inspection->getValue();
+
         return $this->render('admin/edit_form_user.html.twig', array(
             'post' => $user,
             // 'id' =>$id,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'userAcl'=>$user,
+            'userAcl' => $user,
         ));
     }
     /**
@@ -156,6 +151,4 @@ class UserFormController extends Controller
             ->getForm()
             ;
     }
-
-
 }
