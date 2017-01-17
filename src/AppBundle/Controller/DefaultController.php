@@ -75,6 +75,7 @@ class DefaultController extends Controller
             'pagination' => $pagination, 'tags' => $tags,
             'userAcl' => $user,
              ));
+
     }
 
     /**
@@ -173,7 +174,18 @@ class DefaultController extends Controller
     */
        //dump($_SERVER['PATH_INFO']);
 
-       return new JsonResponse(array('data' => 'this is a json response'));
+       $posts = $this->getDoctrine()
+           ->getRepository('AppBundle\\Entity\\Post\\Post')
+           ->findAll();
+       $paginator = $this->get('knp_paginator');
+       $pagination = $paginator->paginate(
+           $posts, /* query NOT result */
+           $request->query->getInt('page', 1)/*page number*/,
+           3/*limit per page*/
+       );
+
+         return new JsonResponse(array('data1'=>$pagination ));
+
    }
 
     /**

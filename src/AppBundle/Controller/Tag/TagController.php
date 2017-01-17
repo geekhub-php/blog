@@ -20,6 +20,7 @@ class TagController extends Controller
      */
     public function showSelectedTagAction($id, Request $request)
     {
+
         $tag = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Tag\\Tag')
             ->find($id);
@@ -72,6 +73,7 @@ class TagController extends Controller
             $request->query->getInt('page', 1)/*page number*/,
             3/*limit per page*/
         );
+
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
 

@@ -160,7 +160,7 @@ class PostController extends Controller
             ->getRepository('AppBundle\\Entity\\Post\\Post')
             //PostRepository  function getPostsDescRating()
              ->getPostsTopRated();
-        dump($posts);
+
 
         if (!$posts) {
             throw $this->createNotFoundException(

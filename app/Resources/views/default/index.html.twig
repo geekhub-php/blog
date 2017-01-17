@@ -11,8 +11,8 @@
 
 {% block right %}
 
-    <div class="col-md-9 last-post-block" >
-        <span class="label label-default spanMeny"> {{ nameCategories.name }}:</span>
+    <div id="MenyRender" class="col-md-9 last-post-block" >
+        <span  class="label label-default spanMeny"> {{ nameCategories.name }}:</span>
         {% for key in pagination %}
             <div class="lastPost-mini-block">
                 {{ key.id }}
@@ -26,31 +26,21 @@
           </div>
         {% endfor %}
 
-        <script>
-            function demo_css(){
-                $.post('{{path('ajacs')}}', {data:'ok'}, function(response){
-
-                        alert(response.data);
 
 
-
-                }, 'json');
-            }
-
-
-        </script>
-        <input type="button" value="тест" onclick="demo_css();">
 
         {#paginator bundle#}
 
         {# display navigation #}
+
         <div class="navigation">
             {{ knp_pagination_render(pagination) }}
         </div>
-
    </div>
+
     </div>
-    {% endblock %}
+
+     {% endblock %}
 {% block footer %}
     {% include 'default/footer.html.twig'%}
 {% endblock%}

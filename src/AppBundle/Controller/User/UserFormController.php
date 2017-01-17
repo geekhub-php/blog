@@ -49,7 +49,7 @@ class UserFormController extends Controller
         $user = $tokenStorage->getToken()->getUser();
 
         return $this->render('default/form_registration.html.twig', array(
-            'form' => $form->createView(),
+            'form' => $form->createView(), 'userAcl'=>$user,
                     ));
     }
     /**

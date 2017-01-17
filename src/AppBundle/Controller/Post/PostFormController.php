@@ -100,6 +100,18 @@ class PostFormController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            $comments = $this->getDoctrine()
+                ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+                ->findBy(array('post' => $post->getId()));
+            //delete comments dependen post
+            if ($comments) {
+                foreach ($comments as $comment) {
+                    $em->remove($comment);
+                    $em->flush($comment);
+                }
+            }
+
             $em->remove($post);
             $em->flush($post);
         }

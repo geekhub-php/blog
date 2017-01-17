@@ -23,12 +23,13 @@ class RouteRequestListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
+        /*$request = $event->getRequest();
         $user = $this->token_storage->getToken();
 
         if ($user->getUser() == 'anon.' && $_SERVER['PATH_INFO'] == '/admin') {
             $response = new Response('Forbidden', 401);
             $event->setResponse($response);
         }
+        */
     }
 }

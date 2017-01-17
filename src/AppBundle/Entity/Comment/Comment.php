@@ -32,6 +32,7 @@ class Comment
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Post\Post")
+     *
      */
     private $post;
 
