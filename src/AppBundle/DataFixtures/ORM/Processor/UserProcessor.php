@@ -7,13 +7,23 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class UserProcessor implements ProcessorInterface
 {
+    /**
+     * @var UserPasswordEncoder
+     */
     protected $encoder;
 
+    /**
+     * UserProcessor constructor.
+     * @param UserPasswordEncoder $encoder
+     */
     public function __construct(UserPasswordEncoder $encoder)
     {
         $this->encoder = $encoder;
     }
 
+    /**
+     * @param object $object
+     */
     public function preProcess($object)
     {
         if (!$object instanceof User) {
@@ -24,8 +34,10 @@ class UserProcessor implements ProcessorInterface
         $object->setPassword($password);
     }
 
+    /**
+     * @param object $object
+     */
     public function postProcess($object)
     {
-
     }
 }

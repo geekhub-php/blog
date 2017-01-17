@@ -16,3 +16,9 @@ services:
             public: false
             tags:
                 - { name: twig.extension }
+
+    app.password_listener:
+            class: AppBundle\EventListener\PasswordListener
+            arguments: ["@security.encoder_factory"]
+            tags:
+                - { name: doctrine.event_listener, event: prePersist }
