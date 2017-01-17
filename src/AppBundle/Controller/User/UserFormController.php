@@ -135,10 +135,26 @@ class UserFormController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $comments = $this->getDoctrine()
+                ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+                ->findBy(array('user' => $user->getId()));
             $em = $this->getDoctrine()->getManager();
+            //delete comments dependen user
+            if ($comments) {
+                foreach ($comments as $comment) {
+                    $em->remove($comment);
+                    $em->flush($comment);
+                }
+            }
+
             $em->remove($user);
             $em->flush($user);
         }
+
+
+
+
 
         return $this->redirectToRoute('show_all_forms_user');
     }
