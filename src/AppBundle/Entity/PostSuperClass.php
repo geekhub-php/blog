@@ -107,7 +107,7 @@ abstract class PostSuperClass
      *
      * @param string $content
      *
-     * @return Post
+     * @return PostSuperClass
      */
     public function setContent($content)
     {

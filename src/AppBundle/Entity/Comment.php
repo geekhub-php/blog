@@ -42,6 +42,16 @@ class Comment
     private $dateCreated;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     * @Gedmo\Timestampable(on="update")
+     *
+     * @Assert\DateTime()
+     */
+    private $dateUpdated;
+
+    /**
      * @var Post
      *
      * @ORM\ManyToOne(targetEntity="Post", inversedBy="comments")
@@ -49,11 +59,11 @@ class Comment
     private $post;
 
     /**
-     * @var Author
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Author", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="comments")
      */
-    private $author;
+    private $user;
 
     /**
      * Get id
@@ -114,27 +124,27 @@ class Comment
     }
 
     /**
-     * Set author
+     * Set user
      *
-     * @param \AppBundle\Entity\Author $author
+     * @param \AppBundle\Entity\User $user
      *
      * @return Comment
      */
-    public function setAuthor(\AppBundle\Entity\Author $author = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get user
      *
-     * @return \AppBundle\Entity\Author
+     * @return \AppBundle\Entity\User
      */
-    public function getAuthor()
+    public function getUser()
     {
-        return $this->author;
+        return $this->user;
     }
 
     /**
@@ -159,5 +169,29 @@ class Comment
     public function getDateCreated()
     {
         return $this->dateCreated;
+    }
+
+    /**
+     * Set dateUpdated
+     *
+     * @param \DateTime $dateUpdated
+     *
+     * @return Comment
+     */
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->dateUpdated = $dateUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdated
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdated()
+    {
+        return $this->dateUpdated;
     }
 }

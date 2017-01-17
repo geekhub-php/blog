@@ -1,11 +1,31 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/security.html
 security:
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+
+        AppBundle\Entity\User:
+            algorithm: bcrypt
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    admin_in_memory:
+                        password: admin_in_memory
+                        roles: 'ROLE_ADMIN'
+                    user_in_memory:
+                        password: user_in_memory
+                        roles: 'ROLE_USER'
+                    author_in_memory:
+                        password: author_in_memory
+                        roles: 'ROLE_AUTHOR'
+
+        app_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -22,3 +42,18 @@ security:
 
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path:   /logout
+                target: /login
+            provider: app_db_provider
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_AUTHOR]
+
+    access_control:
+        - { path: ^/admin/posts, roles: ROLE_AUTHOR }
+        - { path: ^/admin, roles: ROLE_ADMIN }

@@ -13,7 +13,7 @@
                         <article class="post-{{ post.id }}">
                             <header>
                                 <h3>{{ post.title }}</h3>
-                                <p>Author: <a href="#">{{ post.author.displayName }}</a></p>
+                                <p>Author: <a href="#">{{ post.user.userProfile.displayName}}</a></p>
                                 <p>Date: {{ post.dateCreated|date("d.m.Y") }}</p>
                                 <p>Category: <a href="#">{{ post.category.name }}</a></p>
                             </header>

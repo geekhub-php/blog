@@ -51,13 +51,13 @@ class PostController extends Controller
      */
     public function showAction(Request $request, Post $post)
     {
-        $author = $this->getDoctrine()
-            ->getRepository('AppBundle:Author')
+        $user = $this->getDoctrine()
+            ->getRepository('AppBundle:User')
             ->find(rand(1, 10));
 
         $comment = new Comment();
         $comment->setPost($post);
-        $comment->setAuthor($author);
+        $comment->setUser($user);
 
         $commentForm = $this->createForm(CommentType::class, $comment);
 

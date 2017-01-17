@@ -31,9 +31,10 @@ class PostType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ))
-            ->add('author', EntityType::class, array(
-                'class' => 'AppBundle:Author',
-                'choice_label' => 'displayName',
+            ->add('user', EntityType::class, array(
+                'class' => 'AppBundle:User',
+                'choice_label' => 'userProfile.displayName',
+                'label' => 'Author',
             ))
             ->add('save', SubmitType::class);
     }

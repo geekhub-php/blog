@@ -14,33 +14,33 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Page extends PostSuperClass
 {
     /**
-     * @var Author
+     * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Author", inversedBy="pages")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="pages")
      */
-    private $author;
+    private $user;
 
     /**
-     * Set author
+     * Set user
      *
-     * @param \AppBundle\Entity\Author $author
+     * @param \AppBundle\Entity\User $user
      *
      * @return Page
      */
-    public function setAuthor(\AppBundle\Entity\Author $author = null)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get author
+     * Get user
      *
-     * @return \AppBundle\Entity\Author
+     * @return \AppBundle\Entity\User
      */
-    public function getAuthor()
+    public function getUser()
     {
-        return $this->author;
+        return $this->user;
     }
 }

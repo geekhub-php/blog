@@ -23,7 +23,7 @@
                             {% for post in pagination.items %}
                                 <tr>
                                     <td>{{ post.title }}</td>
-                                    <td>{{ post.author.displayName }}</td>
+                                    <td>{{ post.user.userProfile.displayName }}</td>
                                     <td>{{ post.category.name }}</td>
                                     <td>{{ post.dateCreated|date("d.m.Y") }}</td>
                                     <td>{{ post.dateUpdated|date("d.m.Y") }}</td>
