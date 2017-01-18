@@ -16,7 +16,7 @@
      {% if  addOrEdit=="add" %}
 
 
-                author:
+                <span class="id" id="{{ data.id }}">author<span>:
                 {% for key in data.authors %}
 
                     {{ key.firstName}} {{ key.LastName}}
@@ -25,16 +25,41 @@
 
                 <br>
                 {{ data.body }}<br>
-                data: {{ data.dataCreate }}<br>
+                {#data: {{ data.dataCreate }}<br> #}
                 tags:
                 {% for key in data.tags %}
                 <a href="{{ path('tags',{'id':key.id})}}"><span class='label label-primary'>
                         {{ key.name}}</span></a>
                 {% endfor %}
                 <br>
+
+
+         <script>
+             function demo_css(){
+
+                     $.post('{{path('ajacs')}}', {data:'ok'}, function(response){
+                         //alert(response.data);
+
+                    var param=1+response.data;
+                         var idPost=$('.id').attr('id');
+                         $('#like').html(idPost);
+
+                     }, 'json');
+                 }
+
+
+
+         </script>
+         <span class="badge" onclick="demo_css();" id="like" >like {{data.rating}}</span>
+
+
+
+
+                <br>
                 <a href="{{ path('add_comment', {'id': id })}}">test add comment</a>
                 <br>
                 {% if app.request.attributes.get('_route') == "add_comment" %}
+
                     <h1>comment test </h1>
 
 
@@ -81,6 +106,7 @@
             </div>
 
         </div>
+
     </div>
 
 {% include 'default/footer.html.twig'%}

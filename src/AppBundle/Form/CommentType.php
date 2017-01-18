@@ -40,16 +40,7 @@ class CommentType extends AbstractType
                 'choice_label' => 'lastName',
             ))
             */
-            ->add('date', TextType::class, [
-                'required' => false,
-                'label' => 'date',
-                'attr' => ['class' => 'test col-xs-6'],
-            ])
-            ->add('enabled', TextType::class, [
-        'required' => false,
-        'label' => 'enabled',
-        'attr' => ['class' => 'test col-xs-6'],
-    ])
+
     ;
     }
 

@@ -78,14 +78,17 @@ class CommentFormController extends Controller
             //$form->get('post')->setData($post->getId());
             $em = $this->getDoctrine()->getManager();
             $comment->setPost($post);
-            //$em->setPost($post->getId());
-            $tokenStorage = $this->get('security.token_storage');
-            $user = $tokenStorage->getToken()->getUser();
-            $comment->setUser($user);
+            $comment->setDate(new \DateTime("now"));
+            $comment->setEnabled('true');
+            $comment->setUser($this->getUser());
             $em->persist($comment);
             $em->flush($comment);
 
           //using acl securety token_storege
+            $tokenStorage = $this->get('security.token_storage');
+
+            $user = $tokenStorage->getToken()->getUser();
+
             $aclProvider = $this->get('security.acl.provider');
             $objectIdentity = ObjectIdentity::fromDomainObject($comment);
             $acl = $aclProvider->createAcl($objectIdentity);
@@ -102,7 +105,7 @@ class CommentFormController extends Controller
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
             'form' => $form->createView(), 'id' => $id,
-            'tags' => $tags, 'userAcl' => $user, 'addOrEdit' => 'add', ));
+            'tags' => $tags, 'userAcl' =>$user, 'addOrEdit' => 'add', ));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
@@ -170,16 +173,20 @@ class CommentFormController extends Controller
         ]);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $comment->setDate(new \DateTime("now"));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('welcome');
         }
 
+        $tokenStorage = $this->get('security.token_storage');
+
+        $user = $tokenStorage->getToken()->getUser();
         return $this->render('default/showPost.html.twig', array('data' => 'comment edit',
             'categories' => $count, /*'comments' => $comments, */ 'comment' => $comment,
             'edit_form' => $editForm->createView(),
             'delete_form_comment' => $deleteForm->createView(),
-            'id' => $id, 'tags' => $tags, 'addOrEdit' => 'edit', ));
+            'id' => $id, 'tags' => $tags, 'addOrEdit' => 'edit', 'userAcl' =>$user));
 
         /*return $this->render('default/edit_form_post.html.twig', array(
             'post' => $post,
@@ -234,6 +241,7 @@ class CommentFormController extends Controller
         ]);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $comment->setDate(new \DateTime("now"));
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('show_all_forms_comment', array('id' => $comment->getId()));

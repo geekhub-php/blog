@@ -163,28 +163,25 @@ class DefaultController extends Controller
     *@Route("/Ajacs", name="ajacs")
     * @Method({"POST"})
     *
-    * @return array
+    * @return param json
     */
    public function updataAjaxAction(Request $request)
    {
-       /*if ($request->isXMLHttpRequest()) {
-           return new JsonResponse(array('data' => 'this is a json response'));
-       }
-      return new Response('This is not ajax!', 400);
-    */
-       //dump($_SERVER['PATH_INFO']);
 
-       $posts = $this->getDoctrine()
+
+       /*$post = $this->getDoctrine()
            ->getRepository('AppBundle\\Entity\\Post\\Post')
            ->findAll();
-       $paginator = $this->get('knp_paginator');
-       $pagination = $paginator->paginate(
-           $posts, /* query NOT result */
-           $request->query->getInt('page', 1)/*page number*/,
-           3/*limit per page*/
-       );
+*/
+       $data = $request->get('data');
+       $data=json_decode($data);
+      // $data = $request->request->get('data');
+       //dump($data);
+       //die;
 
-         return new JsonResponse(array('data1'=>$pagination ));
+
+       // dump($isAjax);
+       return new JsonResponse(array('data'=>1 ));
 
    }
 
@@ -198,4 +195,12 @@ class DefaultController extends Controller
         //return new Response('<html><body>Admin page!</body></html>');
         return $this->render('admin/index_admin.html.twig', array('userAcl' => $user));
     }
+
+
+
+
+
+
 }
+
+
