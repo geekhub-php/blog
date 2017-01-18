@@ -37,10 +37,6 @@ class PostType extends AbstractType
                 'class' => Category::class,
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'attr' => ['class' => 'form-control']
-            ])
         ;
     }
 

@@ -11,7 +11,7 @@
  {% block content %}
      <div class="container-fluid">
          <div class="row">
-             <div class="col-md-9">
+             <div class="col-md-12">
                  <div class="row">
                      <div class="panel panel-default">
                          <div class="panel-heading panelHeading">
@@ -20,14 +20,19 @@
                          <div class="panel-body">
                              {% form_theme form 'AppBundle::form.html.twig' %}
                              {{ form_start(form) }}
-                             {{ form_widget(form) }}
-                             <button class="btn btn-default" type="submit">Create</button>
+                                 {{ form_row(form.username) }}
+                                 {{ form_row(form.email) }}
+                                 {{ form_row(form.plainPassword.first) }}
+                                 {{ form_row(form.plainPassword.second) }}
+                                 {{ form_row(form.firstName) }}
+                                 {{ form_row(form.lastName) }}
+                                 <button class="btn btn-default" type="submit">Register!</button>
                              {{ form_end(form) }}
+
                          </div>
                      </div>
                  </div>
              </div>
-             {{ include('AppBundle::sidebar.html.twig') }}
          </div>
      </div>
  {% endblock %}

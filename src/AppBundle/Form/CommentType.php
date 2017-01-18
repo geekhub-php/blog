@@ -25,11 +25,6 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'attr' => ['class' => 'form-control'],
-
-            ])
             ->add('text', TextareaType::class, [
                 'required' => false,
                 'label' => 'Text'
@@ -44,9 +39,8 @@ class CommentType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Comment',
-            'em' => null
+            'em' => ObjectManager::class
         ));
-        $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
 
     /**

@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
+use AppBundle\Security\PostVoter;
+use Symfony\Component\Form\Form;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -32,7 +34,7 @@ class PostController extends Controller
 
         $knpPaginator = $this->get('knp_paginator');
 
-        $pagination = $knpPaginator->paginate($postRepository->findAllOrderByDesc(),
+        $pagination = $knpPaginator->paginate($postRepository->findApprovedOrderByDesc(),
             $request->query->getInt('page', $page), 4
         );
 
@@ -75,32 +77,23 @@ class PostController extends Controller
     {
         $post = new Post();
 
+        $this->denyAccessUnlessGranted(PostVoter::CREATE, $post);
+
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
-        $userRepository = $em->getRepository('AppBundle:User');
 
-        $form = $this->createForm(PostType::class, $post);
-        $form->handleRequest($request);
-
-        if (!$categoryRepository->findAll() || !$userRepository->findAll()) {
-            throw new NotFoundHttpException('Create category and user');
+        $form = $this->get('app.form_manager')
+            ->createNewPostForm($request, $user);
+        if ($form instanceof Form)
+            return $this->render('AppBundle:Post:create.html.twig', array(
+                    'categories' => $categoryRepository->findAll(),
+                    'form' => $form->createView(),
+                )
+            );
+        else {
+            return $this->redirect($form);
         }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($post);
-            $em->flush();
-
-            return $this->redirectToRoute('post_show', array('id' => $post->getId(),
-                'status' => 'created',
-            ));
-        }
-
-        return $this->render('AppBundle:Post:create.html.twig', array(
-                'post' => $post,
-                'categories' => $categoryRepository->findAll(),
-                'form' => $form->createView(),
-            )
-        );
     }
 
     /**
@@ -110,29 +103,27 @@ class PostController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
-        $editForm = $this->createForm(PostType::class, $post, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
+        $this->denyAccessUnlessGranted(PostVoter::EDIT, $post);
+
         $deleteForm = $this->createDeleteForm($post);
-        $editForm->handleRequest($request);
+        $editForm = $this->get('app.form_manager')
+            ->createEditForm($request, PostType::class, $post, 'post');
+        $approveForm = $this->createApproveForm($post);
 
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('post_show', array('id' => $post->getId(),
-                'status' => 'edited',
-            ));
+        if ($editForm instanceof Form)
+            return $this->render('AppBundle:Post:edit.html.twig', array(
+                    'categories' => $categoryRepository->findAll(),
+                    'form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
+                    'approve_form' => $approveForm->createView(),
+                )
+            );
+        else {
+            return $this->redirect($editForm);
         }
-
-        return $this->render('AppBundle:Post:edit.html.twig', array(
-            'category' => $post,
-            'form' => $editForm->createView(),
-            'categories' => $categoryRepository->findAll(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
@@ -182,11 +173,11 @@ class PostController extends Controller
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
         $result = $this->get('app.form_manager')
-            ->createSearchPostForm($request);
+            ->createSearchForm($request, 'AppBundle:Post');
 
         if ($result['valid'] == true) {
             return $this->render('AppBundle:Post:search.html.twig', array(
-                'posts' => $result['posts'],
+                'posts' => $result['data'],
                 'categories' => $categoryRepository->findAll(),
                 'form' => $result['form']->createView(),
             ));
@@ -198,5 +189,38 @@ class PostController extends Controller
                 'posts' => null,
             )
         );
+    }
+
+    /**
+     * @Route("/admin/post/{id}/approve", name="approve_post")
+     */
+    public function approveAction(Request $request, Post $post)
+    {
+        $form = $this->createApproveForm($post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $post->setIsApproved(1);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('not_approved_posts');
+    }
+
+    /**
+     * Creates a form to delete a category entity.
+     *
+     * @param Post $post The category entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    protected function createApproveForm(Post $post)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('approve_post', array('id' => $post->getId())))
+            ->setMethod('POST')
+            ->getForm()
+            ;
     }
 }

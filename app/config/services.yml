@@ -6,4 +6,14 @@ parameters:
 services:
   app.form_manager:
         class: AppBundle\Services\FormManager
-        arguments: ["@doctrine", "@form.factory"]
+        arguments: ["@doctrine", "@form.factory", "@router"]
+  app.security.login_form_authenticator:
+        class: AppBundle\Security\LoginFormAuthenticator
+        autowire: true
+  app.post_voter:
+          class: AppBundle\Security\PostVoter
+          arguments: ['@security.access.decision_manager']
+          tags:
+              - { name: security.voter }
+          # small performance boost
+          public: false

@@ -34,9 +34,8 @@ class CategoryType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'AppBundle\Entity\Category',
-            'em' => null
+            'em' => ObjectManager::class
         ));
-        $resolver->addAllowedTypes('em', [ObjectManager::class]);
     }
 
     /**

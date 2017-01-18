@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -12,10 +14,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @UniqueEntity(fields={"username"})
+ * @UniqueEntity(fields="username", message="This username is already taken")
+ * @UniqueEntity(fields="email", message="This email is already taken")
  */
-class User
+class User implements UserInterface, \Serializable
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_USER = 'ROLE_USER';
+
     /**
      * @var int
      *
@@ -33,9 +39,15 @@ class User
     private $username;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(type="string", length=64)
      */
     private $password;
 
@@ -46,6 +58,17 @@ class User
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive = true;
+
+    /**
+     * @var
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
 
     /**
      * @var string
@@ -67,7 +90,6 @@ class User
      * @ORM\OneToMany(targetEntity="Post", mappedBy="user", cascade={"persist", "remove"})
      */
     private $posts;
-
 
     /**
      * @var ArrayCollection
@@ -124,6 +146,23 @@ class User
         return $this->username;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param $password
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    }
+
     /**
      * Set password
      *
@@ -170,6 +209,40 @@ class User
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRoles()
+    {
+        if (!$this->roles) {
+            $this->roles[] = self::ROLE_USER;
+        }
+        return $this->roles;
+    }
+
+    /**
+     * @param $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+
+    /**
+     * @param string $role
+     *
+     * @return $this
+     */
+    public function addRole($role)
+    {
+        array_push($this->roles, $role);
+        $this->roles = array_unique($this->roles);
+        return $this;
     }
 
     /**
@@ -245,6 +318,21 @@ class User
     }
 
     /**
+     * @return null
+     */
+    public function getSalt()
+    {
+        return null;
+    }
+
+    /**
+     *
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
      * Add post
      *
      * @param \AppBundle\Entity\Post $post
@@ -300,5 +388,53 @@ class User
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 }

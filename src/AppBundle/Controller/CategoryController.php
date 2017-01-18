@@ -7,6 +7,7 @@ use AppBundle\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -62,26 +63,18 @@ class CategoryController extends Controller
         $em = $this->getDoctrine()->getManager();
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
-        $form = $this->createForm(CategoryType::class, $category, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
-        $form->handleRequest($request);
+        $form = $this->get('app.form_manager')
+            ->createNewCategoryForm($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($category);
-            $em->flush();
-
-            return $this->redirectToRoute('category_show', array('id' => $category->getId(),
-                'status' => 'created',
-                ));
+        if ($form instanceof Form)
+            return $this->render('AppBundle:Category:create.html.twig', array(
+                    'categories' => $categoryRepository->findAll(),
+                    'form' => $form->createView(),
+                )
+            );
+        else {
+            return $this->redirect($form);
         }
-
-        return $this->render('AppBundle:Category:create.html.twig', array(
-            'category' => $category,
-            'categories' => $categoryRepository->findAll(),
-            'form' => $form->createView(),
-            )
-        );
     }
 
     /**
@@ -92,9 +85,7 @@ class CategoryController extends Controller
      */
     public function editAction(Request $request, Category $category)
     {
-        $editForm = $this->createForm(CategoryType::class, $category, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
+        $editForm = $this->createForm(CategoryType::class, $category);
         $deleteForm = $this->createDeleteForm($category);
         $editForm->handleRequest($request);
 

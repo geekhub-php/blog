@@ -10,10 +10,11 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAllOrderByDesc()
+    public function findApprovedOrderByDesc()
     {
         return $this->createQueryBuilder('post')
-            ->addOrderBy('post.id', 'DESC')
+            ->where('post.isApproved = true')
+            ->orderBy('post.id', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -25,6 +26,17 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->orWhere('post.text LIKE :param')
             ->setParameter(':param', '%'.$param.'%')
             ->getQuery()
-            ->getResult();
+            ->getResult()
+            ;
+    }
+
+    public function findNotApprovedPosts()
+    {
+        return $this->createQueryBuilder('post')
+            ->where('post.isApproved = false')
+            ->orderBy('post.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
     }
 }

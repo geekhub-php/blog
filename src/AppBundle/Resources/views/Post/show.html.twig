@@ -25,6 +25,9 @@
                                  <span><strong>Author: </strong><a href="/user/{{ post.user.id }}">{{ post.user.firstName }} {{ post.user.lastName }}</a></span>
                                  <span style="float: right"><strong>Category: </strong><a href="/category/{{ post.category.id }}">{{ post.category.name }}</a></span><br />
                                  <a href="/post/{{ post.id }}/edit">Edit</a>
+                                 {% if post.isApproved == false %}
+                                     <a href="/admin/post/{{ post.id }}/approve">Approve!</a>
+                                     {% endif %}
                              </div>
                          </div>
                      </div>

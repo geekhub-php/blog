@@ -23,7 +23,6 @@ class CommentController extends Controller
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment, [
-            'em' => $this->getDoctrine()->getManager(),
             'action' => $this->generateUrl('comment_create', [
                 'id' => $request->get('id')
             ]),
@@ -38,6 +37,7 @@ class CommentController extends Controller
 
             $comment = $form->getData();
             $comment->setPost($post);
+            $comment->setUser($this->getUser());
             $post->addComment($comment);
 
             $em->persist($comment);
@@ -61,9 +61,7 @@ class CommentController extends Controller
      */
     public function editAction(Request $request, Comment $comment)
     {
-        $editForm = $this->createForm(CommentType::class, $comment, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
+        $editForm = $this->createForm(CommentType::class, $comment);
         $deleteForm = $this->createDeleteForm($comment);
 
         $editForm->handleRequest($request);

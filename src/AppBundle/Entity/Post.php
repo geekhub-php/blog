@@ -76,6 +76,11 @@ class Post
     private $comments;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean")
+     */
+    private $isApproved = false;
+    /**
      * Constructor
      */
     public function __construct()
@@ -214,6 +219,23 @@ class Post
         return $this->comments;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function getIsApproved()
+    {
+        return $this->isApproved;
+    }
+
+    /**
+     * @param $isApproved
+     * @return mixed
+     */
+    public function setIsApproved($isApproved)
+    {
+        return $this->isApproved = $isApproved;
+    }
     /**
      * Add comment
      *

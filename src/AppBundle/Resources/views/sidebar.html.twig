@@ -10,5 +10,15 @@
                 </div>
             </div>
         </div>
+        {% if  is_granted("ROLE_ADMIN") %}
+        <div class="col-md-11 col-md-offset-1 side">
+            <div class="row">
+                <div class="list-group">
+                    <li class="list-group-item active">Admin panel</li>
+                        <a href="/admin/posts" class="list-group-item">Not approved posts</a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>

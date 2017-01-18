@@ -5,8 +5,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Post;
 use AppBundle\Entity\User;
+use AppBundle\Form\LoginForm;
 use AppBundle\Form\Search\SearchUserType;
 use AppBundle\Form\UserType;
+use AppBundle\Repository\UserRepository;
+use Doctrine\ORM\EntityRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -70,26 +73,71 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
      *
-     * @Route("/user/create", name="user_create")
+     * @Route("/user/login", name="user_login")
+     */
+    public function loginAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $categories = $em->getRepository('AppBundle:Category')->findAll();
+
+        $authenticationUtils = $this->get('security.authentication_utils');
+
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        $form = $this->createForm(LoginForm::class, [
+            '_username' => $lastUsername,
+        ]);
+        return $this->render('AppBundle:User:login.html.twig', array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+            'categories' => $categories,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * @Route("/user/logout", name="user_logout")
+     */
+    public function logoutAction()
+    {
+    }
+
+    /**
+     * Registering a new user
+     *
+     * @Route("/user/registration", name="user_registration")
      * @Method({"GET", "POST"})
      */
-    public function createAction(Request $request)
+    public function registerAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $user = new User();
 
-        $em = $this->getDoctrine()->getManager();
-        $categoryRepository = $em->getRepository('AppBundle:Category');
-
-        $form = $this->createForm(UserType::class, $user, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $password = $this->get('security.password_encoder')
+                ->encodePassword($user, $user->getPlainPassword());
+            $user->setPassword($password);
+            $user->setRoles('ROLE_USER');
             $em->persist($user);
             $em->flush();
 
+            $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('app.security.login_form_authenticator'),
+                    'main');
             return $this->redirectToRoute('user_show', array('id' => $user->getId(),
                 'status' => 'created',
             ));
@@ -97,11 +145,11 @@ class UserController extends Controller
 
         return $this->render('AppBundle:User:create.html.twig', array(
                 'user' => $user,
-                'categories' => $categoryRepository->findAll(),
                 'form' => $form->createView(),
             )
         );
     }
+
 
     /**
      * Editing user
@@ -111,9 +159,7 @@ class UserController extends Controller
      */
     public function editAction(Request $request, User $user)
     {
-        $editForm = $this->createForm(UserType::class, $user, [
-            'em' => $this->getDoctrine()->getManager()
-        ]);
+        $editForm = $this->createForm(UserType::class, $user);
         $deleteForm = $this->createDeleteForm($user);
         $editForm->handleRequest($request);
 
@@ -183,11 +229,11 @@ class UserController extends Controller
         $categoryRepository = $em->getRepository('AppBundle:Category');
 
         $result = $this->get('app.form_manager')
-            ->createSearchUserForm($request);
+            ->createSearchForm($request, 'AppBundle:User');
 
         if ($result['valid'] == true) {
             return $this->render('AppBundle:User:search.html.twig', array(
-                'users' => $result['users'],
+                'users' => $result['data'],
                 'categories' => $categoryRepository->findAll(),
                 'form' => $result['form']->createView(),
             ));

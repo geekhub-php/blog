@@ -1,0 +1,35 @@
+{% extends 'AppBundle::base.html.twig' %}
+
+{% block title %}Welcome to main page!{% endblock %}
+
+ {% block content %}
+     <div class="container-fluid">
+         <div class="row">
+             <div class="col-md-12">
+                 {% if posts|length  == 0  %}
+                     <p>There are no posts!</p>
+                 {% else %}
+                     {% for item in posts %}
+                         <div class="row">
+                             <div class="panel panel-default">
+                                 <div class="panel-heading panelHeading">
+                                     <h3 class="panel-title"><a href="/post/{{ item.id }}">{{ item.title }}</a><span style="float: right">{{ item.createdAt|date('H:i d-m-Y') }}</span></h3>
+                                 </div>
+                                 <div class="panel-body">
+                                     {{ item.text }}
+                                 </div>
+                                 <div class="panel-footer">
+                                     <span><strong>Author: </strong><a href="/user/{{ item.user.id }}">{{ item.user.firstName }} {{ item.user.lastName }}</a></span>
+                                     <span style="float: right"><strong>Category: </strong><a href="/category/{{ item.category.id }}">{{ item.category.name }}</a></span>
+                                 </div>
+                             </div>
+                         </div>
+                     {% endfor %}
+                 {% endif %}
+                 <div class="col-md-offset-4">
+                     {{ knp_pagination_render(posts) }}
+                 </div>
+             </div>
+         </div>
+     </div>
+ {% endblock %}
