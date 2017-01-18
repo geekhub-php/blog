@@ -15,6 +15,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\User\User;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
 
 class UserRegitType extends AbstractType
 {
@@ -57,11 +60,14 @@ class UserRegitType extends AbstractType
         'attr' => ['class' => 'test col-xs-6'],
     ])
 
-          ->add('password', TextType::class, [
-                'required' => false,
-                'label' => 'password',
-                'attr' => ['class' => 'test col-xs-6'],
-            ])
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => array('attr' => array('class' => 'password-field')),
+                'required' => true,
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ));
 
     ;
     }

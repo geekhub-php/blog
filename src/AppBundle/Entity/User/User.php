@@ -100,7 +100,7 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="dataCreate", type="string", length=10)
+     * @ORM\Column(name="dataCreate", type="date")
      */
     private $dataCreate;
 

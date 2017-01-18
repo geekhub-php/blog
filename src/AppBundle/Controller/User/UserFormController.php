@@ -37,7 +37,7 @@ class UserFormController extends Controller
                 ->getRepository('AppBundle\\Entity\\Role\\Role')->find('2');
             $user->setRole($role);
             $user->setRating('0');
-            $user->setDataCreate('2016-11-11');
+            $user->setDataCreate(new \DateTime("now"));
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush($user);
@@ -74,6 +74,7 @@ class UserFormController extends Controller
             $password = $encoder->encodePassword($user, $test_password);
             $user->setPassword($password);
             $user->setRating('0');
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush($user);

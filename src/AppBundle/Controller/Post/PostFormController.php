@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller\Post;
 
+use AppBundle\Form\PostCreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -27,16 +28,23 @@ class PostFormController extends Controller
             ->getRepository('AppBundle\\Entity\\Post\\Post')
             ->findAll();
         $post = new Post\Post();
-        $form = $this->createForm(PostType::class, $post, [
+        $form = $this->createForm(PostCreateType::class, $post, [
             'em' => $this->getDoctrine()->getManager(),
         ]);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setDataCreate(new \DateTime("now"));
+            $post->setDataEdit(new \DateTime("now"));
+            $post->setRating('0');
+            $post->setEnabled('true');
+            $post->addAuthor($this->getUser());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($post);
             $em->flush($post);
+
 
             return $this->redirectToRoute('welcome');
         }
@@ -63,7 +71,11 @@ class PostFormController extends Controller
         ]);
         $editForm->handleRequest($request);
         if ($editForm->isValid()) {
+            $post->setDataEdit(new \DateTime("now"));
+            //$post->setRating('0');
+            //$post->setEnabled('true');
             $this->getDoctrine()->getManager()->flush();
+
 
             return $this->redirectToRoute('show_all_forms_post', array('id' => $post->getId()));
         }

@@ -46,7 +46,7 @@ class Comment
     /**
      * @var string
      *
-     * @ORM\Column(name="date", type="string", length=10)
+     * @ORM\Column(name="date", type="date")
      */
     private $date;
 

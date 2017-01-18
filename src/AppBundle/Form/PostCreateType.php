@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
-class PostType extends AbstractType
+class PostCreateType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -49,37 +49,21 @@ class PostType extends AbstractType
                 'expanded' => true,
             ))
 
-            ->add('authors', EntityType::class, array(
-               'class' => 'AppBundle\\Entity\\User\\User',
-                'choice_label' => 'lastName',
-                'multiple' => true,
-                'expanded' => true,
-                    ))
+
 
             ->add('category', EntityType::class, array(
                        'class' => 'AppBundle\\Entity\\Category\\Category',
                        'choice_label' => 'name',
                     ))
 
-          ->add('rating', TextType::class, [
-           'required' => false,
-           'label' => 'rating',
-           'attr' => ['class' => 'test col-xs-6'],
-
-           ])
 
 
-        ->add('enabled', TextType::class, [
+
+        /*->add('enabled', TextType::class, [
         'required' => false,
         'label' => 'enabled',
         'attr' => ['class' => 'test col-xs-6'],
-
-        ])
-       ->add('dataCreate', DateType::class, array(
-                // render as a single text box
-                'widget' => 'single_text',
-
-            ))
+         ]) */
 
     ;
     }
@@ -101,6 +85,6 @@ class PostType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_post';
+        return 'appbundle_post_create';
     }
 }

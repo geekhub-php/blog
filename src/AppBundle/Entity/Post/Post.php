@@ -72,7 +72,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="dataCreate", type="string", length=10)
+     * @ORM\Column(name="dataCreate", type="date")
      */
     private $dataCreate;
 
@@ -86,7 +86,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="dataEdit", type="string", length=10)
+     * @ORM\Column(name="dataEdit", type="date")
      */
     private $dataEdit;
 

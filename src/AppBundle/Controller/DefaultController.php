@@ -31,7 +31,7 @@ class DefaultController extends Controller
 
         $posts = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Post\\Post')
-            ->findAll();
+            ->findBy(array(), array('dataEdit' => 'DESC'));
 
         if (!$posts) {
             throw $this->createNotFoundException(

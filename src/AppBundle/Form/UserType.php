@@ -68,11 +68,7 @@ class UserType extends AbstractType
        'class' => 'AppBundle\\Entity\\Role\\Role',
        'choice_label' => 'name',
       ))
-        ->add('dataCreate', TextType::class, [
-             'required' => false,
-             'label' => 'dataCreate',
-             'attr' => ['class' => 'test col-xs-6'],
-            ])
+
     ;
     }
 
