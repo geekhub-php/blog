@@ -1,22 +1,37 @@
 {% if pagination.maxPages > 1 %}
     {% set route = app.request.attributes.get('_route') %}
+    {% if app.request.attributes.get('_route_params')['id'] is defined %}
+        {% set id = app.request.attributes.get('_route_params')['id'] %}
+    {% endif %}
     <div class="col-sm-12 text-center">
         <ul class="pagination">
             {# `«` arrow  #}
             <li {{ pagination.thisPage == 1 ? 'class="disabled"' }}>
-                <a href="{{ path(route, {page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
+                {% if id is defined %}
+                    <a href="{{ path(route, {'id': id, page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
+                {% else %}
+                    <a href="{{ path(route, {page: pagination.thisPage-1 < 1 ? 1 : pagination.thisPage-1}) }}">«</a>
+                {% endif %}
             </li>
 
             {# Render each page number #}
             {% for i in 1..pagination.maxPages %}
                 <li {{ pagination.thisPage == i ? 'class="active"' }}>
-                    <a href="{{ path(route, {page: i}) }}">{{ i }}</a>
+                    {% if id is defined %}
+                        <a href="{{ path(route, {page: i, 'id': id}) }}">{{ i }}</a>
+                    {% else %}
+                        <a href="{{ path(route, {page: i}) }}">{{ i }}</a>
+                    {% endif %}
                 </li>
             {% endfor %}
 
             {# `»` arrow #}
             <li {{ pagination.thisPage == pagination.maxPages ? 'class="disabled"' }}>
-                <a href="{{ path(route, {page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
+                {% if id is defined %}
+                    <a href="{{ path(route, {'id': id, page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
+                {% else %}
+                    <a href="{{ path(route, {page: pagination.thisPage+1 <= pagination.maxPages ? pagination.thisPage+1 : pagination.thisPage}) }}">»</a>
+                {% endif %}
             </li>
         </ul>
     </div>

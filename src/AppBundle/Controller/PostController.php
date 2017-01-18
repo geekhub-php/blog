@@ -37,6 +37,7 @@ class PostController extends Controller
         $pagination = $this->get('app.paginator')->paginate($posts, $page);
 
         return $this->render('AppBundle:post:index.html.twig', array(
+            'title'      => 'Posts',
             'pagination' => $pagination
         ));
     }

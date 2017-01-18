@@ -12,8 +12,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 class AppVoter extends Voter
 {
     // these strings are just invented: you can use anything
-    const VIEW = 'view';
-    const EDIT = 'edit';
+    const VIEW        = 'view';
+    const EDIT        = 'edit';
+    const CREATE_POST = 'create_post';
 
     /**
      * @var AccessDecisionManagerInterface
@@ -35,12 +36,12 @@ class AppVoter extends Voter
     protected function supports($attribute, $subject)
     {
         // if the attribute isn't one we support, return false
-        if (!in_array($attribute, array(self::VIEW, self::EDIT))) {
+        if (!in_array($attribute, array(self::VIEW, self::EDIT, self::CREATE_POST))) {
             return false;
         }
 
         // only vote on this objects inside this voter
-        if (!($subject instanceof Post || $subject instanceof Comment)) {
+        if (!($subject instanceof Post || $subject instanceof Comment || $subject instanceof User)) {
             return false;
         }
 
@@ -54,6 +55,7 @@ class AppVoter extends Voter
     {
         $user = $token->getUser();
         $roleAdmin = $this->decisionManager->decide($token, array('ROLE_ADMIN'));
+        $roleAuthor = $this->decisionManager->decide($token, array('ROLE_AUTHOR'));
 
         if (!$user instanceof User) {
             // the user must be logged in; if not, deny access
@@ -70,9 +72,11 @@ class AppVoter extends Voter
                 return $this->canView($subject, $user);
             case self::EDIT:
                 return $this->canEdit($subject, $user);
+            case self::CREATE_POST:
+                if ($roleAuthor) {
+                    return true;
+                }
         }
-
-        throw new \LogicException('This code should not be reached!');
     }
 
     /**

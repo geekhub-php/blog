@@ -14,7 +14,7 @@
                         <p>Date: {{ post.dateCreated|date("d.m.Y") }}</p>
                         <p>Category: <a href="#">{{ post.category.name }}</a></p>
                         <p>
-                            {% if is_granted('ROLE_AUTHOR') %}
+                            {% if is_granted('create_post', app.user) %}
                                 <a class="btn btn-primary" href="{{ path('admin_post_new') }}">Add new post</a>
                             {% endif %}
                             {% if is_granted('edit', post) %}
@@ -31,7 +31,7 @@
                             {% if post.tags is not empty %}
                                 <h4>Tags:</h4>
                                 {% for tag in post.tags %}
-                                    <a href="#">{{ tag.name }}</a>
+                                    <a href="{{ path('tag_show', {'id': tag.id}) }}">{{ tag.name }}</a>
                                 {% endfor %}
                             {% endif %}
                         </div>
@@ -48,11 +48,13 @@
                                 <p>Author: {{ comment.user.userProfile.displayName }}</p>
                                 <p>Date: {{ comment.dateCreated|date("d.m.Y") }}</p>
                                 <div>{{ comment.content }}</div>
-                                <p>
-                                    <br>
-                                    <a class="btn btn-default" href="{{ path('comment_edit', {'postId': post.id, 'id': comment.id}) }}">Edit</a>
-                                    <a class="btn btn-danger" href="{{ path('comment_delete', {'postId': post.id, 'id': comment.id}) }}">Delete</a>
-                                </p>
+                                {% if is_granted('edit', comment) %}
+                                    <p>
+                                        <br>
+                                        <a class="btn btn-default" href="{{ path('comment_edit', {'postId': post.id, 'id': comment.id}) }}">Edit</a>
+                                        <a class="btn btn-danger" href="{{ path('comment_delete', {'postId': post.id, 'id': comment.id}) }}">Delete</a>
+                                    </p>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}

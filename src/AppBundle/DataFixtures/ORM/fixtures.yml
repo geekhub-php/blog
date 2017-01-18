@@ -46,10 +46,10 @@ AppBundle\Entity\Tag:
         posts: ['@post*']
 
 AppBundle\Entity\Post:
-    post{1..10}:
+    post{1..30}:
         user: '@userAuthor*'
         title: '<text(20)>'
-        content: '<text(1000)>'
+        content: '<text(5000)>'
         category: '@category*'
         dateCreated: '<dateTimeBetween("-10 days", "now")>'
         dateUpdated: '<dateTimeBetween("now", "+3 days")>'
@@ -63,7 +63,7 @@ AppBundle\Entity\Page:
         dateUpdated: '<dateTimeBetween("now", "+3 days")>'
 
 AppBundle\Entity\Comment:
-    comment{1..10}:
+    comment{1..50}:
         post: '@post*'
         user: '@user*'
         content: '<realText(100)>'

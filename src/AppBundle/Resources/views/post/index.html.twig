@@ -4,8 +4,8 @@
     <section class="all-posts">
         <div class="container">
 
-            <h2>Posts</h2>
-            {% if is_granted('ROLE_AUTHOR') %}
+            <h2>{{ title }}</h2>
+            {% if is_granted('create_post', app.user) %}
                 <p><a href="{{ path('admin_post_new') }}">Add new post</a></p>
             {% endif %}
 
@@ -17,7 +17,7 @@
                                 <h3>{{ post.title }}</h3>
                                 <p>Author: <a href="#">{{ post.user.userProfile.displayName}}</a></p>
                                 <p>Date: {{ post.dateCreated|date("d.m.Y") }}</p>
-                                <p>Category: <a href="#">{{ post.category.name }}</a></p>
+                                <p>Category: <a href="{{ path('category_show', {'id': post.category.id}) }}">{{ post.category.name }}</a></p>
                             </header>
 
                             <div class="post-excerpt">{{ post.content[:300] ~ '...' }}</div>

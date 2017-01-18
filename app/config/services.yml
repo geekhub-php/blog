@@ -17,11 +17,11 @@ services:
             tags:
                 - { name: twig.extension }
 
-    app.password_listener:
-            class: AppBundle\EventListener\PasswordListener
-            arguments: ["@security.encoder_factory"]
-            tags:
-                - { name: doctrine.event_listener, event: prePersist }
+#    app.password_listener:
+#            class: AppBundle\EventListener\PasswordListener
+#            arguments: ["@security.encoder_factory"]
+#            tags:
+#                - { name: doctrine.event_listener, event: prePersist }
 
     app.app_voter:
             class: AppBundle\Security\AppVoter
