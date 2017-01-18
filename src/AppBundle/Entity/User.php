@@ -336,10 +336,7 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        return $this->roles;
     }
 
     /**

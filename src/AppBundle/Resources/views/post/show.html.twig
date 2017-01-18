@@ -14,9 +14,13 @@
                         <p>Date: {{ post.dateCreated|date("d.m.Y") }}</p>
                         <p>Category: <a href="#">{{ post.category.name }}</a></p>
                         <p>
-                            <a class="btn btn-primary" href="{{ path('admin_post_new') }}">Add new post</a>
-                            <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
-                            <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                            {% if is_granted('ROLE_AUTHOR') %}
+                                <a class="btn btn-primary" href="{{ path('admin_post_new') }}">Add new post</a>
+                            {% endif %}
+                            {% if is_granted('edit', post) %}
+                                <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                                <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                            {% endif %}
                         </p>
                     </header>
 
@@ -60,9 +64,13 @@
             <div class="col-sm-12">
                 <h4>Add a new comment:</h4>
 
-                {{ form_start(commentForm) }}
-                {{ form_widget(commentForm) }}
-                {{ form_end(commentForm) }}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {{ form_start(commentForm) }}
+                    {{ form_widget(commentForm) }}
+                    {{ form_end(commentForm) }}
+                {% else %}
+                    <p>You are not logged in. Please <a class="link" href="{{ path('login') }}">login</a> and leave a comment.</p>
+                {% endif %}
             </div>
 
         </div>

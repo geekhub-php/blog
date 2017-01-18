@@ -29,8 +29,10 @@
                                     <td>{{ post.dateUpdated|date("d.m.Y") }}</td>
                                     <td>
                                         <a class="btn btn-primary" href="{{ path('post_show', {'id': post.id}) }}">Read more</a>
-                                        <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
-                                        <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                                        {% if is_granted('edit', post) %}
+                                            <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                                            <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

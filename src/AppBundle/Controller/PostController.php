@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
+use AppBundle\Entity\User;
 use AppBundle\Form\CommentType;
 use AppBundle\Repository\PostRepository;
 use AppBundle\Form\PostType;
@@ -51,13 +52,9 @@ class PostController extends Controller
      */
     public function showAction(Request $request, Post $post)
     {
-        $user = $this->getDoctrine()
-            ->getRepository('AppBundle:User')
-            ->find(rand(1, 10));
-
         $comment = new Comment();
         $comment->setPost($post);
-        $comment->setUser($user);
+        $comment->setUser($this->getUser());
 
         $commentForm = $this->createForm(CommentType::class, $comment);
 
@@ -112,8 +109,11 @@ class PostController extends Controller
     public function newAction(Request $request)
     {
         $post = new Post();
+        $post->setUser($this->getUser());
 
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class, $post, [
+            'authorizationChecker' => $this->get('security.authorization_checker')
+        ]);
 
         $form->handleRequest($request);
 
@@ -144,7 +144,11 @@ class PostController extends Controller
      */
     public function editAction(Request $request, Post $post)
     {
-        $form = $this->createForm(PostType::class, $post);
+        $this->denyAccessUnlessGranted('edit', $post);
+
+        $form = $this->createForm(PostType::class, $post, [
+            'authorizationChecker' => $this->get('security.authorization_checker')
+        ]);
 
         $form->handleRequest($request);
 
@@ -174,6 +178,8 @@ class PostController extends Controller
      */
     public function deleteAction(Post $post)
     {
+        $this->denyAccessUnlessGranted('edit', $post);
+
         $em = $this->getDoctrine()->getManager();
 
         $em->remove($post);

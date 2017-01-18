@@ -57,3 +57,4 @@ security:
     access_control:
         - { path: ^/admin/posts, roles: ROLE_AUTHOR }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/posts/[0-9]+/comments, roles: [ROLE_USER, ROLE_AUTHOR] }

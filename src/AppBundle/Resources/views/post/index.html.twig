@@ -5,7 +5,9 @@
         <div class="container">
 
             <h2>Posts</h2>
-            <p><a href="{{ path('admin_post_new') }}">Add new post</a></p>
+            {% if is_granted('ROLE_AUTHOR') %}
+                <p><a href="{{ path('admin_post_new') }}">Add new post</a></p>
+            {% endif %}
 
             <div class="row">
                 {% for post in pagination.items %}
@@ -24,8 +26,10 @@
                                 <br>
                                 <p>
                                     <a class="btn btn-primary" href="{{ path('post_show', {'id': post.id}) }}">Read more</a>
-                                    <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
-                                    <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                                    {% if is_granted('edit', post) %}
+                                        <a class="btn btn-default" href="{{ path('admin_post_edit', {'id': post.id}) }}">Edit</a>
+                                        <a class="btn btn-danger" href="{{ path('admin_post_delete', {'id': post.id}) }}">Delete</a>
+                                    {% endif %}
                                 </p>
                             </footer>
                         </article>

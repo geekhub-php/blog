@@ -22,3 +22,10 @@ services:
             arguments: ["@security.encoder_factory"]
             tags:
                 - { name: doctrine.event_listener, event: prePersist }
+
+    app.app_voter:
+            class: AppBundle\Security\AppVoter
+            arguments: ['@security.access.decision_manager']
+            public: false
+            tags:
+                - { name: security.voter }

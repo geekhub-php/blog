@@ -30,6 +30,8 @@ class CommentController extends Controller
      */
     public function editAction(Request $request, $postId, Comment $comment)
     {
+        $this->denyAccessUnlessGranted('edit', $comment);
+
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
@@ -64,6 +66,8 @@ class CommentController extends Controller
      */
     public function deleteAction($postId, Comment $comment)
     {
+        $this->denyAccessUnlessGranted('edit', $comment);
+
         $em = $this->getDoctrine()->getManager();
 
         $comment->setContent('Comment deleted.');

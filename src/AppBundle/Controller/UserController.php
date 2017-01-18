@@ -17,12 +17,12 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller
 {
     /**
-     * @Route("/registration", name="registration")
+     * @Route("/signup", name="signup")
      * @Method({"GET", "POST"})
      *
      * @return Response
      */
-    public function registrationAction(Request $request)
+    public function newAction(Request $request)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -39,9 +39,10 @@ class UserController extends Controller
             return $this->redirectToRoute('homepage');
         }
 
-        return $this->render('AppBundle:default:form.html.twig', array(
+        return $this->render('AppBundle:user:form.html.twig', array(
             'formTitle' => 'Registration',
-            'form'      => $form->createView()
+            'form'      => $form->createView(),
+            'error'     => null
         ));
     }
 
@@ -65,7 +66,7 @@ class UserController extends Controller
             '_username' => $lastUsername
         ));
 
-        return $this->render('AppBundle:user:login.html.twig', array(
+        return $this->render('AppBundle:user:form.html.twig', array(
             'formTitle' => 'Login',
             'form'      => $form->createView(),
             'error'     => $error
