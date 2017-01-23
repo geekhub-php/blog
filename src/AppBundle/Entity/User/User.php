@@ -91,11 +91,11 @@ class User implements UserInterface
      */
     private $posts;
     /**
-     * @var int
+     * @var array
      *
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Like\Like", mappedBy="user")
      */
-    private $rating;
+    private $likes;
 
     /**
      * @var string
@@ -107,6 +107,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->posts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -333,29 +334,7 @@ class User implements UserInterface
         return $this->role;
     }
 
-    /**
-     * Set rating.
-     *
-     * @param int $rating
-     *
-     * @return User
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
 
-        return $this;
-    }
-
-    /**
-     * Get rating.
-     *
-     * @return int
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
 
     /**
      * Set dataCreate.
@@ -415,6 +394,47 @@ class User implements UserInterface
         return $this->posts;
     }
 
+
+
+    /**
+     * Add like
+     *
+     * @param \AppBundle\Entity\Like\Like $like
+     *
+     * @return User
+     */
+    public function addLike(\AppBundle\Entity\Like\Like $like)
+    {
+        $this->likes[] = $like;
+
+        return $this;
+    }
+
+    /**
+     * Remove like
+     *
+     * @param \AppBundle\Entity\Like\Like $like
+     */
+    public function removeLike(\AppBundle\Entity\Like\Like $like)
+    {
+        $this->likes->removeElement($like);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+
+
+
+
+
     public function getUsername()
     {
         return $this->login;
@@ -443,4 +463,6 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
+
+
 }

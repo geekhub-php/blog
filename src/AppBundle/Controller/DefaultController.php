@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Post\Post;
+use AppBundle\Entity\Like\Like;
+
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -167,21 +169,50 @@ class DefaultController extends Controller
     */
    public function updataAjaxAction(Request $request)
    {
+       $tokenStorage = $this->get('security.token_storage');
+       $user = $tokenStorage->getToken()->getUser();
 
 
-       /*$post = $this->getDoctrine()
-           ->getRepository('AppBundle\\Entity\\Post\\Post')
-           ->findAll();
-*/
-       $data = $request->get('data');
-       $data=json_decode($data);
-      // $data = $request->request->get('data');
-       //dump($data);
-       //die;
+       if ($user=="anon."){
+           throw new NotFoundHttpException('Sorry. to append likes You must login');
+
+       }
+       $idPost = $request->request->get('data1');
+       $idPost=json_decode($idPost);
+
+       $post = $this->getDoctrine()
+           ->getRepository('AppBundle:Post\Post')
+           ->find($idPost);
+       $em = $this->getDoctrine()->getManager();
+       $likes = $em->getRepository('AppBundle:Like\Like');
+       $testFind = $likes->FindLikePostOnUser($post, $this->getUser());
+
+       if (count($testFind)==0){
+           $like= new like();
+           $like->setPost($post);
+           $like->setUser($this->getUser());
 
 
-       // dump($isAjax);
-       return new JsonResponse(array('data'=>1 ));
+           $em = $this->getDoctrine()->getManager();
+           $em->persist($like);
+           $em->flush();
+       }else {
+           foreach ($testFind as $key){
+               $idLike=$key->getId();
+           }
+           $likeDelete=$likes->find($idLike);
+           $em->remove($likeDelete);
+           $em->flush($likeDelete);
+       }
+
+
+       $countLikes=count($post->getLikes());
+
+
+
+
+
+       return new JsonResponse(array('data'=>$countLikes));
 
    }
 

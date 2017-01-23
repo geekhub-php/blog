@@ -37,12 +37,14 @@
          <script>
              function demo_css(){
 
-                     $.post('{{path('ajacs')}}', {data:'ok'}, function(response){
+                 //var ram=Math.floor((Math.random() * 10) + 1);
+                 var idPost=$('.id').attr('id');
+                 $.post('{{path('ajacs')}}', {data1: idPost}, function(response){
                          //alert(response.data);
 
-                    var param=1+response.data;
-                         var idPost=$('.id').attr('id');
-                         $('#like').html(idPost);
+                    var param=response.data;
+
+                         $('#like').html('like '+response.data);
 
                      }, 'json');
                  }
@@ -50,7 +52,7 @@
 
 
          </script>
-         <span class="badge" onclick="demo_css();" id="like" >like {{data.rating}}</span>
+         <span class="badge" onclick="demo_css();" id="like" >like {{ countLikes }}</span>
 
 
 

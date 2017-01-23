@@ -37,7 +37,7 @@ class PostFormController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setDataCreate(new \DateTime("now"));
             $post->setDataEdit(new \DateTime("now"));
-            $post->setRating('0');
+
             $post->setEnabled('true');
             $post->addAuthor($this->getUser());
 
@@ -51,6 +51,7 @@ class PostFormController extends Controller
 
         $tokenStorage = $this->get('security.token_storage');
         $user = $tokenStorage->getToken()->getUser();
+
 
         return $this->render('admin/crud_form_post.html.twig', array(
             'posts' => $posts,

@@ -65,9 +65,9 @@ class Post
     /**
      * @var int
      *
-     * @ORM\Column(name="rating", type="integer")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Like\Like", mappedBy="post")
      */
-    private $rating;
+    private $likes;
 
     /**
      * @var string
@@ -94,6 +94,7 @@ class Post
     {
         $this->authors = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->likes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id.
@@ -250,30 +251,6 @@ class Post
     }
 
     /**
-     * Set rating.
-     *
-     * @param int $rating
-     *
-     * @return Post
-     */
-    public function setRating($rating)
-    {
-        $this->rating = $rating;
-
-        return $this;
-    }
-
-    /**
-     * Get rating.
-     *
-     * @return int
-     */
-    public function getRating()
-    {
-        return $this->rating;
-    }
-
-    /**
      * Set dataCreate.
      *
      * @param string $dataCreate
@@ -391,5 +368,39 @@ class Post
     public function removeAuthor(\AppBundle\Entity\User\User $author)
     {
         $this->authors->removeElement($author);
+    }
+
+    /**
+     * Add like
+     *
+     * @param \AppBundle\Entity\Like\Like $like
+     *
+     * @return Post
+     */
+    public function addLike(\AppBundle\Entity\Like\Like $like)
+    {
+        $this->likes[] = $like;
+
+        return $this;
+    }
+
+    /**
+     * Remove like
+     *
+     * @param \AppBundle\Entity\Like\Like $like
+     */
+    public function removeLike(\AppBundle\Entity\Like\Like $like)
+    {
+        $this->likes->removeElement($like);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

@@ -61,12 +61,7 @@ class PostType extends AbstractType
                        'choice_label' => 'name',
                     ))
 
-          ->add('rating', TextType::class, [
-           'required' => false,
-           'label' => 'rating',
-           'attr' => ['class' => 'test col-xs-6'],
 
-           ])
 
 
         ->add('enabled', TextType::class, [

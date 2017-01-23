@@ -8,6 +8,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Post;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Like\Like;
+use AppBundle\Entity\User\User;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostController extends Controller
 {
@@ -65,10 +68,33 @@ class PostController extends Controller
         /*if ($user==="anon.")
             dump($user);
         */
+        /*$like= new like();
+        $like->setPost($post);
+        $like->setUser($this->getUser());
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($like);
+        $em->flush();
+        */
+
+
+
+
+        $countLikes=count($post->getLikes());
+
+        //$countLikes=count($post->getLikes());
+        /*$em = $this->getDoctrine()->getManager();
+        $FindLikePostOnUser = $em->getRepository('AppBundle:Like\Like');
+        $testFind = $FindLikePostOnUser->FindLikePostOnUser($post, $user);
+
+        dump(count($testFind));
+        */
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments,
             'id' => $id, 'tags' => $tags,
-            'userAcl' => $user,  'addOrEdit' => 'add', ));
+            'userAcl' => $user,  'addOrEdit' => 'add',
+            'countLikes'=>$countLikes ));
     }
 
     /**
