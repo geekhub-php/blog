@@ -14,7 +14,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
     {
         $query = $this->createQueryBuilder('p')
             ->orderBy('p.dateCreated', 'DESC')
-            ->getQuery();
+        ;
 
         return $query;
     }
@@ -25,7 +25,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->where('p.category = :category')
             ->setParameter('category', $categoryId)
             ->orderBy('p.dateCreated', 'DESC')
-            ->getQuery();
+        ;
 
         return $query;
     }
@@ -41,7 +41,7 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             ->innerJoin('p.tags', 't', 'WITH', 't.id = :tagId')
             ->setParameter('tagId', $tagId)
             ->orderBy('p.dateCreated', 'DESC')
-            ->getQuery();
+        ;
 
         return $query;
     }

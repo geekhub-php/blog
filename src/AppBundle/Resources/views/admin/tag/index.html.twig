@@ -1,0 +1,43 @@
+{% extends 'AppBundle:admin:layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-sm-12">
+
+            <h2>Tags</h2>
+            <p><a href="{{ path('admin_tag_new') }}">Add new tag</a></p>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for tag in pagination %}
+                                <tr>
+                                    <td>{{ tag.name }}</td>
+                                    <td>{{ tag.slug }}</td>
+                                    <td>
+                                        <a class="btn btn-primary" href="{{ path('tag_show', {'id': tag.id}) }}">View</a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <a class="btn btn-default" href="{{ path('admin_tag_edit', {'id': tag.id}) }}">Edit</a>
+                                            <a class="btn btn-danger" href="{{ path('admin_tag_delete', {'id': tag.id}) }}">Delete</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+        </div>
+
+        <div class="col-sm-12 text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+{% endblock %}
