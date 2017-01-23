@@ -34,7 +34,9 @@ class PostController extends Controller
             ->getRepository('AppBundle:Post')
             ->findAllPosts();
 
-        $pagination = $this->get('app.paginator')->paginate($posts, $page);
+        $pagination = $this->get('knp_paginator')->paginate(
+            $posts, $page, 5
+        );
 
         return $this->render('AppBundle:post:index.html.twig', array(
             'title'      => 'Posts',
@@ -92,7 +94,9 @@ class PostController extends Controller
             ->getRepository('AppBundle:Post')
             ->findAllPosts();
 
-        $pagination = $this->get('app.paginator')->paginate($posts, $page);
+        $pagination = $this->get('knp_paginator')->paginate(
+            $posts, $page, 5
+        );
 
         return $this->render('AppBundle:admin/post:index.html.twig', array(
             'pagination' => $pagination

@@ -8,21 +8,6 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
-    app.paginator:
-            class: AppBundle\Services\Paginator
-
-    app.twig_extension:
-            class: AppBundle\Twig\AppExtension
-            public: false
-            tags:
-                - { name: twig.extension }
-
-#    app.password_listener:
-#            class: AppBundle\EventListener\PasswordListener
-#            arguments: ["@security.encoder_factory"]
-#            tags:
-#                - { name: doctrine.event_listener, event: prePersist }
-
     app.app_voter:
             class: AppBundle\Security\AppVoter
             arguments: ['@security.access.decision_manager']

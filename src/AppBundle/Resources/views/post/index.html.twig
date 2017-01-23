@@ -10,7 +10,7 @@
             {% endif %}
 
             <div class="row">
-                {% for post in pagination.items %}
+                {% for post in pagination %}
                     <div class="col-sm-4">
                         <article class="post-{{ post.id }}">
                             <header>
@@ -36,7 +36,9 @@
                     </div>
                 {% endfor %}
 
-                {{ app_pagination_render(pagination) }}
+                <div class="col-sm-12 text-center">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
 
         </div>

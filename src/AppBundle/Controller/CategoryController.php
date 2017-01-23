@@ -30,7 +30,9 @@ class CategoryController extends Controller
             ->getRepository('AppBundle:Post')
             ->findAllByCategory($category->getId());
 
-        $pagination = $this->get('app.paginator')->paginate($posts, $page);
+        $pagination = $this->get('knp_paginator')->paginate(
+            $posts, $page, 5
+        );
 
         return $this->render('AppBundle:post:index.html.twig', array(
             'title'      => 'Category: '.$category->getName(),
