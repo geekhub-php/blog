@@ -31,3 +31,9 @@ services:
                 tags:
                    - { name: kernel.event_listener, event: kernel.request }
 
+    app.comment_voter:
+                class: AppBundle\Security\CommentVoter
+                tags:
+                   - { name: security.voter }
+                 # small performance boost
+                public: false

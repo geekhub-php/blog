@@ -47,12 +47,15 @@ security:
             security: false
         main:
             pattern:    ^/
-            http_basic: ~
-            provider: our_db_provider
-            anonymous:  true
             logout:
                 path:   /logout
                 target: /
+            http_basic: ~
+            stateless: true
+            provider: our_db_provider
+            anonymous:  true
+
+
 
     access_control:
         # require ROLE_ADMIN for /admin*

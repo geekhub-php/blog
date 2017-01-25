@@ -28,6 +28,10 @@ class CommentFormController extends Controller
      */
     public function addCommnetTestAction(Request $request, $id)
     {
+
+
+
+
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -63,6 +67,7 @@ class CommentFormController extends Controller
                 'No tags'
             );
         }
+        $countLikes=count($post->getLikes());
         $em = $this->getDoctrine()->getManager();
         $countCategores = $em->getRepository('AppBundle\\Entity\\Post\\Post');
         $count = $countCategores->getCountCategories($categories);
@@ -105,7 +110,8 @@ class CommentFormController extends Controller
         return $this->render('default/showPost.html.twig', array('data' => $post,
             'categories' => $count, 'comments' => $comments, 'comment' => $comment,
             'form' => $form->createView(), 'id' => $id,
-            'tags' => $tags, 'userAcl' =>$user, 'addOrEdit' => 'add', ));
+            'tags' => $tags, 'userAcl' =>$user, 'addOrEdit' => 'add',
+            'countLikes'=>$countLikes));
 
         /*return $this->render('default/showPost.html.twig', array(
                         'comment' => $comment,
@@ -120,6 +126,14 @@ class CommentFormController extends Controller
      */
     public function editCommentAction(Request $request, Comment\Comment $commentParam, $id)
     {
+
+        $comment =$this->getDoctrine()
+            ->getRepository('AppBundle\\Entity\\Comment\\Comment')
+            ->find($id);
+
+
+        $this->denyAccessUnlessGranted('edit', $comment);
+
         $categories = $this->getDoctrine()
             ->getRepository('AppBundle\\Entity\\Category\\Category')
             ->findAll();
@@ -165,8 +179,6 @@ class CommentFormController extends Controller
         $count = $countCategores->getCountCategories($categories);
 
         $em = $this->getDoctrine()->getManager();
-        $comment = $em->getRepository('AppBundle\\Entity\\Comment\\Comment')
-            ->find($id);
         $deleteForm = $this->createDeleteFormComment($comment);
         $editForm = $this->createForm(CommentType::class, $comment, [
             'em' => $this->getDoctrine()->getManager(),

@@ -80,12 +80,13 @@
                     <br>
                     {{ key.text }}
 
-                   {% if  userAcl!="anon." %}
+                   {#{% if  userAcl!="anon." %}
                         {% if  userAcl.id==key.user.id %}
+                    #}
                             <a href="{{ path('comment_edit', {'id': key.id })}}"> edit comment</a>
-                        {% endif %}
+                  {#      {% endif %}
                    {% endif %}
-
+                   #}
                     <br>
 
                     <br>

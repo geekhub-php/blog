@@ -42,7 +42,16 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
      */
     public function getPostsTopRated()
     {
-        return $this->findBy(array(), array('rating' => 'DESC'));
+        //return $this->findBy(array(), array('Rating' => 'DESC'));
+        $qb = $this->createQueryBuilder('p');
+        $qb->Select('p.id, p.name', 'p.description, count(l.post) as countId');
+        $qb->leftJoin('AppBundle:Like\Like', 'l', 'WITH', 'l.post=p.id');
+        //$qb->addSelect('count(c.post) as countId');
+
+        $qb->groupBy('p.id');
+        $qb->orderBy('countId', 'DESC');
+
+        return $qb->getQuery()->getScalarResult();
     }
     /**
      * @return object
